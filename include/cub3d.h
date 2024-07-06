@@ -5,9 +5,9 @@
 
 typedef struct s_map
 {
-	char	**map;
-	int		height;
-	int		width;
+	unsigned int		**map;
+	int					height;
+	int					width;
 }	t_map;
 
 
@@ -32,6 +32,9 @@ typedef struct s_player
 	bool	is_press_a;
 	bool	is_press_s;
 	bool	is_press_d;
+	bool	is_press_n_totation;
+	bool	is_press_p_totation;
+	double	angle;
 }	t_player;
 
 
@@ -40,6 +43,8 @@ typedef struct s_cub3d
 	t_player	player;
 	t_map		map;
 	t_addr		addr;
+	t_vec2		click;
+	bool		is_click;
 	void		*icon;
 	void		*background;
 	void		*mlx;
