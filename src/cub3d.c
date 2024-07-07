@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 00:08:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/08 00:14:01 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ void	draw_map(t_cub3d *game)
 		x = 0;
 		while (game->map.map[y][x])
 		{
-			draw_rectangle(game, x * REC_WIDTH, y * REC_HEIGHT, game->map.map[y][x]);
+			draw_rectangle(game, x * REC_WIDTH, y * REC_HEIGHT, REC_WIDTH, REC_HEIGHT, game->map.map[y][x]);
 			x++;
 		}
 		y++;
