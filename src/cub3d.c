@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 17:53:37 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:55:11 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #elif __APPLE__ || __MACH__
 	#include "../include/minilibx/mlx.h"
 #endif
-	
+
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
@@ -36,7 +36,7 @@ int	game_loop(t_cub3d	*game);
 // tuşa basıldığı anda t_cub3d structda bulunun değerleri true yapıyor. Bu sayede tuşa basılı tuttuğunu anlaşılıyor.
 static int	key_down(int keycode, t_cub3d *game)
 {
-	printf("asd\n");
+	printf("Keycode: %d\n", keycode);
 	if (keycode == KEY_LEFT)
 		game->player.is_press_n_totation = 1;
 	if (keycode == KEY_RIGHT)
@@ -267,6 +267,52 @@ int	game_loop(t_cub3d	*game)
 	return (0);
 } */
 
+void	create_map(t_cub3d *game)
+{
+	int	x;
+	int	y;
+
+	game->map.map = (char **)malloc(sizeof(char *) * (MAP_HEIGHT + 1));
+	y = 0;
+	while (y < MAP_HEIGHT)
+	{
+		x = 0;
+		game->map.map[y] = (char *)malloc(sizeof(char) * (MAP_WIDHT + 1));
+		while (x < MAP_WIDHT)
+		{
+			if ( x == 0 || y == 0  || x == MAP_WIDHT - 1 || y == MAP_HEIGHT -1)
+				game->map.map[y][x] = '1';
+			else
+				game->map.map[y][x] = '0';
+			x++;
+		}
+		game->map.map[y][x] = 0;
+		y++;
+	}
+	game->map.map[y] = 0;
+	game->map.map[4][6] = '1';
+	game->map.map[2][3] = '1';
+	game->map.map[5][6] = '1';
+	game->map.map[5][7] = '1';
+	game->map.map[3][7] = '1';
+	game->map.map[1][3] = '1';
+}
+
+void	set_mlx(t_cub3d *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit(0);
+	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
+	if (!game->win)
+		exit(0);
+	game->background = mlx_new_image(game->mlx,  MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT);
+	game->addr.canvas = mlx_get_data_addr(game->background, &game->addr.bits_per_pixel, &game->addr.line_lenght, &game->addr.endian);
+	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
+	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
+	game->player.angle = (double)23;
+}
+
 // haritayı verilen genişliğe ve uzunluğa göre oluşturur
 // pencere oluşturup oyunu başlatır.
 int	main()
@@ -276,55 +322,17 @@ int	main()
 	int		x;
 
 	ft_memset(&game, 0, sizeof(t_cub3d));
-
-	game.map.map = (char **)malloc(sizeof(char *) * (MAP_HEIGHT + 1));
-	y = 0;
-	while (y < MAP_HEIGHT)
-	{
-		x = 0;
-		game.map.map[y] = (char *)malloc(sizeof(char) * (MAP_WIDHT + 1));
-		while (x < MAP_WIDHT)
-		{
-			if ( x == 0 || y == 0  || x == MAP_WIDHT - 1 || y == MAP_HEIGHT -1)
-				game.map.map[y][x] = '1';
-			else
-				game.map.map[y][x] = '0';
-			x++;
-		}
-		game.map.map[y][x] = 0;
-		y++;
-	}
-	game.map.map[y] = 0;
-	game.map.map[4][6] = '1';
-	game.map.map[2][3] = '1';
-	game.map.map[5][6] = '1';
-	game.map.map[5][7] = '1';
-	game.map.map[3][7] = '1';
-	game.map.map[1][3] = '1';
-
-	game.mlx = mlx_init();
-	if (!game.mlx)
-		exit(0);
-	game.win = mlx_new_window(game.mlx, MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
-	if (!game.win)
-		exit(0);
-	game.background = mlx_new_image(game.mlx,  MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT);
-	game.addr.canvas = mlx_get_data_addr(game.background, &game.addr.bits_per_pixel, &game.addr.line_lenght, &game.addr.endian);
-	game.player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
-	game.player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
-	game.player.angle = (double)23;
+	create_map(&game);
+	set_mlx(&game);
 	draw_map(&game);
-
 	draw_player(&game);
 
-/* 	int is, ys;
-	game.icon = mlx_xpm_file_to_image(game.mlx, "./icon.xpm", &is, &ys);
- */
+	// int is, ys;
+	// game.icon = mlx_xpm_file_to_image(game.mlx, "./icon.xpm", &is, &ys);
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
-/* 	mlx_mouse_hook(game.win, mouse_click, &game); */
+	// mlx_mouse_hook(game.win, mouse_click, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
-
 }
 
