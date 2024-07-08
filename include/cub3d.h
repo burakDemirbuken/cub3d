@@ -97,4 +97,7 @@ int		key_up(int keycode, t_cub3d *game);
 //* game_loop.c
 int		game_loop(t_cub3d	*game);
 
+//*	draw_player.c
+void	draw_player(t_cub3d *game);
+
 #endif
