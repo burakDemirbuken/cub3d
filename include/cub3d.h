@@ -25,6 +25,13 @@
 # define KEY_C 8
 
 #endif
+// ekrandaki bir dikdörtgenin uzunluğu ve genişliği
+#define REC_HEIGHT	100
+#define REC_WIDTH	100
+
+// haritanın uzunluğu ve genişliği
+#define MAP_HEIGHT	10
+#define MAP_WIDHT	10
 
 #include <stdbool.h>
 
@@ -77,5 +84,17 @@ typedef struct s_cub3d
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
+//*	create_map.c
+void	draw_map(t_cub3d *game);
+void	draw_rectangle(t_cub3d *game, int x, int y, int width,
+							int height, bool grid, int color);
+void	create_map(t_cub3d *game);
+
+//*	key_hook.c
+int		key_down(int keycode, t_cub3d *game);
+int		key_up(int keycode, t_cub3d *game);
+
+//* game_loop.c
+int		game_loop(t_cub3d	*game);
 
 #endif
