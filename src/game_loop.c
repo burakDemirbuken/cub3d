@@ -6,11 +6,16 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 22:48:18 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:03:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#ifdef __linux__
+	#include "../include/minilibx_linux/mlx.h"
+#elif __APPLE__ || __MACH__
+	#include "../include/minilibx/mlx.h"
+#endif
 
 int	game_loop(t_cub3d	*game)
 {

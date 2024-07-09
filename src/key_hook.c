@@ -6,12 +6,12 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 23:02:15 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:03:07 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
+#include <stdlib.h>
 int	key_down(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)

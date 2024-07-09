@@ -6,17 +6,19 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 23:11:48 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:02:37 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include "../include/libft/libft.h"
 #ifdef __linux__
 	#include "../include/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
 	#include "../include/minilibx/mlx.h"
 #endif
 #include <stdio.h>
+#include <stdlib.h>
 
 void	set_mlx(t_cub3d *game)
 {

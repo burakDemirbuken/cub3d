@@ -6,11 +6,12 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/08 22:38:24 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:02:53 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdlib.h>
 
 void	draw_map(t_cub3d *game)
 {
