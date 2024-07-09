@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 14:02:53 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:46:02 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	draw_rectangle(t_cub3d *game, int x, int y, int width, int height, bool gri
 		i_w = 0;
 		while (i_w < width)
 		{
-			if (grid && !(i_w == width - 1 || i_w == 0
+			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
 				*(unsigned int*)(game->addr.canvas
 				+ (int)((y + i_h) * game->addr.line_lenght
-				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = 0;
+				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = 0x00303030;
 			else
 				*(unsigned int*)(game->addr.canvas
 				+ (int)((y + i_h) * game->addr.line_lenght
@@ -85,9 +85,11 @@ void	create_map(t_cub3d *game)
 	}
 	game->map.map[y] = 0;
 	game->map.map[4][6] = '1';
-	game->map.map[2][3] = '1';
+	game->map.map[2][7] = '1';
 	game->map.map[5][6] = '1';
-	game->map.map[5][7] = '1';
+	game->map.map[5][4] = '1';
+	game->map.map[1][7] = '1';
+	game->map.map[5][8] = '1';
 	game->map.map[3][7] = '1';
 	game->map.map[1][3] = '1';
 }

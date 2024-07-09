@@ -99,5 +99,6 @@ int		game_loop(t_cub3d	*game);
 
 //*	draw_player.c
 void	draw_player(t_cub3d *game);
+void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color);
 
 #endif
