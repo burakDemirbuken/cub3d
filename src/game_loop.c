@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/10 21:04:21 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/10 22:52:25 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	horizontal_ray_throw(t_cub3d *game)
 	while (game->map.map[((int)game->player.pos.y) / REC_HEIGHT]
 		[(int)(game->player.pos.x + (i * REC_WIDTH))/ REC_WIDTH] != '1')
 		i++;
-	bresenham_line(game, (int)game->player.pos.x, (int)game->player.pos.y,
+	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y,
 		(int)game->player.pos.x + a + ((i - 1) * REC_WIDTH), (int)game->player.pos.y, 0x00FFFF00);
 }
 
@@ -62,7 +62,7 @@ int	game_loop(t_cub3d	*game)
 	draw_map(game);
 	draw_player(game);
 	horizontal_ray_throw(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->images.background->image, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
 

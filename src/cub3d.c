@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/10 21:59:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/10 22:51:41 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_image	create_image(void *mlx, int *bpp, int *endian)
+t_image	create_image(void *mlx)
 {
 	t_image	img;
 
 	img.image = mlx_new_image(mlx, REC_WIDTH, REC_HEIGHT);
-	img.data = mlx_get_data_addr(img.image, bpp, &img.line_lenght, endian);
+	img.data = mlx_get_data_addr(img.image, &img.bits_per_pixel,
+			&img.line_lenght, &img.endian);
 	return (img);
 }
 
@@ -37,9 +38,9 @@ void	set_mlx(t_cub3d *game)
 	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
 	if (!game->win)
 		exit(0);
-	*game->images.background = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
-	*game->images.floor = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
-	*game->images.wall = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
+	game->images.background = create_image(game->mlx);
+	game->images.floor = create_image(game->mlx);
+	game->images.wall = create_image(game->mlx);
 	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
 	game->player.angle = 45;
@@ -56,11 +57,9 @@ int	main()
 	set_mlx(&game);
 	draw_map(&game);
 	draw_player(&game);
-
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
 	// mlx_mouse_hook(game.win, mouse_click, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 }
-

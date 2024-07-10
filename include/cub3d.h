@@ -53,16 +53,16 @@ typedef struct s_image
 {
 	char	*data;
 	void	*image;
+	int		endian;
 	int		line_lenght;
+	int		bits_per_pixel;
 }	t_image;
 
 typedef struct s_images
 {
-	int		endian;
-	int		bits_per_pixel;
-	t_image	*background;
-	t_image	*floor;
-	t_image *wall;
+	t_image	background;
+	t_image	floor;
+	t_image	wall;
 } t_images;
 
 
@@ -93,7 +93,7 @@ typedef struct s_cub3d
 
 //*	create_map.c
 void	draw_map(t_cub3d *game);
-void	draw_rectangle(t_cub3d *game, int x, int y, int width,
+void	draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void	create_map(t_cub3d *game);
 
@@ -106,6 +106,6 @@ int		game_loop(t_cub3d	*game);
 
 //*	draw_player.c
 void	draw_player(t_cub3d *game);
-void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color);
+void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 #endif
