@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/10 22:52:25 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:08:25 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	horizontal_ray_throw(t_cub3d *game)
 
 void	update_player_status(t_cub3d *game)
 {
-	if (game->player.is_press_w && game->player.pos.y > 1)
+	if (game->player.is_press_w && game->player.pos.y > 3.0f)
 		game->player.pos.y -= 3.0f;
-	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 1)
+	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
 		game->player.pos.y += 3.0f;
-	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 1)
+	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
 		game->player.pos.x += 3.0f;
-	if (game->player.is_press_a && game->player.pos.x > 1)
+	if (game->player.is_press_a && game->player.pos.x > 3.0f)
 		game->player.pos.x -= 3.0f;
 	if (game->player.is_press_p_totation)
 	{
