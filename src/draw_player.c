@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 17:39:41 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:54:07 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 		p = 2 * dy - dx;
 		while (x != x1)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)((y * game->addr.line_lenght) + (x * game->addr.bits_per_pixel / 8))) = color;
+			*(unsigned int*)(game->images.background->data
+			+ (int)((y * game->images.background->line_lenght)
+			+ (x * game->images.bits_per_pixel / 8))) = color;
 			x += sx;
 			if (p > 0)
 			{
@@ -46,7 +48,9 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 		p = 2 * dx - dy;
 		while (y != y1)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)(y * game->addr.line_lenght + x * (game->addr.bits_per_pixel / 8))) = color;
+			*(unsigned int*)(game->images.background->data
+			+ (int)(y * game->images.background->line_lenght
+			+ x * (game->images.bits_per_pixel / 8))) = color;
 			y += sy;
 			if (p > 0)
 			{
@@ -80,5 +84,4 @@ void	draw_player(t_cub3d *game)
 	draw_rectangle(game, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
 	cor = rotate_around_point((t_vec2){game->player.pos.x + 100, game->player.pos.y}, game->player.pos, 360 - game->player.angle);
 	bresenham_line(game, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x0000FF00);
-
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 14:02:37 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:59:07 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+t_image	create_image(void *mlx, int *bpp, int *endian)
+{
+	t_image	img;
+
+	img.image = mlx_new_image(mlx, REC_WIDTH, REC_HEIGHT);
+	img.data = mlx_get_data_addr(img.image, bpp, &img.line_lenght, endian);
+	return (img);
+}
+
 void	set_mlx(t_cub3d *game)
 {
 	game->mlx = mlx_init();
@@ -28,8 +37,9 @@ void	set_mlx(t_cub3d *game)
 	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
 	if (!game->win)
 		exit(0);
-	game->background = mlx_new_image(game->mlx,  MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT);
-	game->addr.canvas = mlx_get_data_addr(game->background, &game->addr.bits_per_pixel, &game->addr.line_lenght, &game->addr.endian);
+	*game->images.background = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
+	*game->images.floor = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
+	*game->images.wall = create_image(game->mlx, game->images.bits_per_pixel, game->images.endian);
 	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
 	game->player.angle = 45;

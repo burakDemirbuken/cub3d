@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 16:46:02 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:56:14 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	draw_rectangle(t_cub3d *game, int x, int y, int width, int height, bool gri
 		{
 			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
-				*(unsigned int*)(game->addr.canvas
-				+ (int)((y + i_h) * game->addr.line_lenght
-				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = 0x00303030;
+				*(unsigned int*)(game->images.background->data
+				+ (int)((y + i_h) * game->images.background->line_lenght
+				+		(x + i_w) * (game->images.bits_per_pixel / 8))) = 0x00303030;
 			else
-				*(unsigned int*)(game->addr.canvas
-				+ (int)((y + i_h) * game->addr.line_lenght
-				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = color;
+				*(unsigned int*)(game->images.background->data
+				+ (int)((y + i_h) * game->images.background->line_lenght
+				+		(x + i_w) * (game->images.bits_per_pixel / 8))) = color;
 			i_w++;
 		}
 		i_h++;

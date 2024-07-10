@@ -49,13 +49,22 @@ typedef struct s_vec2
 	double	y;
 }	t_vec2;
 
-typedef struct s_addr
+typedef struct s_image
 {
-	char	*canvas;
+	char	*data;
+	void	*image;
+	int		line_lenght;
+}	t_image;
+
+typedef struct s_images
+{
 	int		endian;
 	int		bits_per_pixel;
-	int		line_lenght;
-}	t_addr;
+	t_image	*background;
+	t_image	*floor;
+	t_image *wall;
+} t_images;
+
 
 typedef struct s_player
 {
@@ -74,11 +83,9 @@ typedef struct s_cub3d
 {
 	t_player	player;
 	t_map		map;
-	t_addr		addr;
 	t_vec2		click;
+	t_images	images;
 	bool		is_click;
-	void		*icon;
-	void		*background;
 	void		*mlx;
 	void		*win;
 	//t_player	player2; EĞLENCELİ
