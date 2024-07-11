@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 17:39:41 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:09:56 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,23 @@
 // verilen x0,y0 kordinatından x1 y1 kordinatına doğru bir çizgi çeker.
 void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 {
-	int	dx, dy, p, x, y;
+	int	dx, dy, p;
 
 	dx = abs(x1 - x0);
 	dy = abs(y1 - y0);
-	x = x0;
-	y = y0;
 
 	int sx = x0 < x1 ? 1 : -1;
 	int sy = y0 < y1 ? 1 : -1;
 	if (dx > dy)
 	{
 		p = 2 * dy - dx;
-		while (x != x1)
+		while (x0 != x1 && x0 < REC_WIDTH * MAP_WIDHT && x0 > 0)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)((y * game->addr.line_lenght) + (x * game->addr.bits_per_pixel / 8))) = color;
-			x += sx;
+			*(unsigned int*)(game->addr.canvas + (int)((y0 * game->addr.line_lenght) + (x0 * game->addr.bits_per_pixel / 8))) = color;
+			x0 += sx;
 			if (p > 0)
 			{
-				y += sy;
+				y0 += sy;
 				p -= 2 * dx;
 			}
 			p += 2 * dy;
@@ -44,13 +42,13 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 	else
 	{
 		p = 2 * dx - dy;
-		while (y != y1)
+		while (y0 != y1 && y0 < REC_HEIGHT * MAP_HEIGHT && y0 > 0)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)(y * game->addr.line_lenght + x * (game->addr.bits_per_pixel / 8))) = color;
-			y += sy;
+			*(unsigned int*)(game->addr.canvas + (int)(y0 * game->addr.line_lenght + x0 * (game->addr.bits_per_pixel / 8))) = color;
+			y0 += sy;
 			if (p > 0)
 			{
-				x += sx;
+				x0 += sx;
 				p -= 2 * dy;
 			}
 			p += 2 * dx;
@@ -80,5 +78,4 @@ void	draw_player(t_cub3d *game)
 	draw_rectangle(game, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
 	cor = rotate_around_point((t_vec2){game->player.pos.x + 100, game->player.pos.y}, game->player.pos, 360 - game->player.angle);
 	bresenham_line(game, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x0000FF00);
-
 }
