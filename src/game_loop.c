@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/12 21:36:36 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/12 22:27:56 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ray_throw(t_cub3d *game)
 	float	aTan, ra, rx, ry, xo, yo;
 
 
-	aTan = -1/tan(ra);
 	ra = game->player.angle * (M_PI / 180);
+	aTan = -1/tan(ra);
 	if (ra > M_PI) // upper hemisphere
 	{
 		// rounds the player position to the nearest 100's value.
@@ -72,22 +72,22 @@ void	ray_throw(t_cub3d *game)
 void	update_player_status(t_cub3d *game)
 {
 	if (game->player.is_press_w && game->player.pos.y > 3.0f)
-		game->player.pos.y -= 3.0f;
+		game->player.pos.y -= 1.0f;
 	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
-		game->player.pos.y += 3.0f;
+		game->player.pos.y += 1.0f;
 	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
-		game->player.pos.x += 3.0f;
+		game->player.pos.x += 1.0f;
 	if (game->player.is_press_a && game->player.pos.x > 3.0f)
-		game->player.pos.x -= 3.0f;
+		game->player.pos.x -= 1.0f;
 	if (game->player.is_press_p_totation)
 	{
-		game->player.angle += 3.0F;
+		game->player.angle += 1.0F;
 		if (game->player.angle > 360)
 			game->player.angle = 0;
 	}
 	if (game->player.is_press_n_totation)
 	{
-		game->player.angle -= 3.0F;
+		game->player.angle -= 1.0F;
 		if (game->player.angle < 0)
 			game->player.angle = 360;
 	}

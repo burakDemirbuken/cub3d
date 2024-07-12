@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/12 21:29:49 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/12 22:23:50 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	draw_player(t_cub3d *game)
 	t_vec2 cor;
 
 	draw_rectangle(game->images.background, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
-	cor = rotate_around_point((t_vec2){game->player.pos.x + 100, game->player.pos.y}, game->player.pos, 360 - game->player.angle);
+	cor = rotate_around_point((t_vec2){game->player.pos.x + 10, game->player.pos.y}, game->player.pos, game->player.angle);
 	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x0000FF00);
 }
