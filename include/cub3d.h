@@ -29,17 +29,19 @@
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
+#define REC_HEIGHTf	100.0f
+#define REC_WIDTHf	100.0f
 // haritanın uzunluğu ve genişliği
-#define MAP_HEIGHT	10
-#define MAP_WIDHT	10
+#define MAP_HEIGHT	11
+#define MAP_WIDHT	11
 
 #include <stdbool.h>
 
 typedef struct s_map
 {
 	char		**map;
-	int					height;
-	int					width;
+	int			height;
+	int			width;
 }	t_map;
 
 
@@ -49,13 +51,22 @@ typedef struct s_vec2
 	double	y;
 }	t_vec2;
 
-typedef struct s_addr
+typedef struct s_image
 {
-	char	*canvas;
+	char	*data;
+	void	*image;
 	int		endian;
-	int		bits_per_pixel;
 	int		line_lenght;
-}	t_addr;
+	int		bits_per_pixel;
+}	t_image;
+
+typedef struct s_images
+{
+	t_image	background;
+	t_image	floor;
+	t_image	wall;
+} t_images;
+
 
 typedef struct s_player
 {
@@ -69,16 +80,14 @@ typedef struct s_player
 	double	angle;
 }	t_player;
 
-
 typedef struct s_cub3d
 {
 	t_player	player;
 	t_map		map;
-	t_addr		addr;
 	t_vec2		click;
+	t_images	images;
+	t_vec2		y_one_ray;
 	bool		is_click;
-	void		*icon;
-	void		*background;
 	void		*mlx;
 	void		*win;
 	//t_player	player2; EĞLENCELİ
@@ -86,7 +95,7 @@ typedef struct s_cub3d
 
 //*	create_map.c
 void	draw_map(t_cub3d *game);
-void	draw_rectangle(t_cub3d *game, int x, int y, int width,
+void	draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void	create_map(t_cub3d *game);
 
@@ -99,6 +108,8 @@ int		game_loop(t_cub3d	*game);
 
 //*	draw_player.c
 void	draw_player(t_cub3d *game);
-void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color);
+void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
+//*	ray_calculator.c
+t_y_ray	y_ray_calculator(t_cub3d *game);
 #endif

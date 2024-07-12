@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 17:39:41 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:48:36 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 // verilen x0,y0 kordinatından x1 y1 kordinatına doğru bir çizgi çeker.
-void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
+void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 {
 	int	dx, dy, p, x, y;
 
@@ -31,7 +31,9 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 		p = 2 * dy - dx;
 		while (x != x1)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)((y * game->addr.line_lenght) + (x * game->addr.bits_per_pixel / 8))) = color;
+			*(unsigned int*)(img.data
+			+ (int)((y * img.line_lenght)
+			+ (x * img.bits_per_pixel / 8))) = color;
 			x += sx;
 			if (p > 0)
 			{
@@ -46,7 +48,9 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 		p = 2 * dx - dy;
 		while (y != y1)
 		{
-			*(unsigned int*)(game->addr.canvas + (int)(y * game->addr.line_lenght + x * (game->addr.bits_per_pixel / 8))) = color;
+			*(unsigned int*)(img.data
+			+ (int)(y * img.line_lenght
+			+ x * (img.bits_per_pixel / 8))) = color;
 			y += sy;
 			if (p > 0)
 			{
@@ -59,7 +63,8 @@ void	bresenham_line(t_cub3d *game, int x0, int y0, int x1, int y1, int color)
 
 }
 
-t_vec2	rotate_around_point(t_vec2 point, t_vec2 pivot, double angle) {
+t_vec2	rotate_around_point(t_vec2 point, t_vec2 pivot, double angle)
+{
 	t_vec2	new_point;
 
 	double rad = angle * (M_PI / 180.0);
@@ -77,8 +82,7 @@ void	draw_player(t_cub3d *game)
 {
 	t_vec2 cor;
 
-	draw_rectangle(game, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
-	cor = rotate_around_point((t_vec2){game->player.pos.x + 100, game->player.pos.y}, game->player.pos, 360 - game->player.angle);
-	bresenham_line(game, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x0000FF00);
-
+	draw_rectangle(game->images.background, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
+	cor = rotate_around_point((t_vec2){game->player.pos.x + 10, game->player.pos.y}, game->player.pos, game->player.angle);
+	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x0000FF00);
 }

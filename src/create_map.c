@@ -6,12 +6,37 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/09 16:46:02 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:46:32 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdlib.h>
+
+void	draw_rectangle(t_image img, int x, int y, int width, int height,
+							bool grid, int color)
+{
+	int		i_h;
+	int		i_w;
+
+	i_h = 0;
+	while (i_h < height)
+	{
+		i_w = 0;
+		while (i_w < width)
+		{
+			if (grid && (i_w == width - 1 || i_w == 0
+				|| i_h == height - 1 || i_h == 0))
+				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght
+				+ (x + i_w) * (img.bits_per_pixel / 8))) = 0x00303030;
+			else
+				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght
+				+ (x + i_w) * (img.bits_per_pixel / 8))) = color;
+			i_w++;
+		}
+		i_h++;
+	}
+}
 
 void	draw_map(t_cub3d *game)
 {
@@ -25,39 +50,14 @@ void	draw_map(t_cub3d *game)
 		x = 0;
 		while (game->map.map[y][x])
 		{
-			if (game->map.map[y][x] == '1')
-				draw_rectangle(game, x * REC_WIDTH, y * REC_HEIGHT, REC_WIDTH, REC_HEIGHT, true, 0x00808080);
+			if (game->map.map[y][x] != '1')
+				color = 0x00080808;
 			else
-				draw_rectangle(game, x * REC_WIDTH, y * REC_HEIGHT, REC_WIDTH, REC_HEIGHT, true, 0x00080808);
+				color = 0x00808080;
+			draw_rectangle(game->images.background, x * REC_WIDTH, y * REC_HEIGHT, REC_WIDTH, REC_HEIGHT, true, color);
 			x++;
 		}
 		y++;
-	}
-}
-
-void	draw_rectangle(t_cub3d *game, int x, int y, int width, int height, bool grid, int color)
-{
-	int		i_h;
-	int		i_w;
-
-	i_h = 0;
-	while (i_h < height)
-	{
-		i_w = 0;
-		while (i_w < width)
-		{
-			if (grid && (i_w == width - 1 || i_w == 0
-				|| i_h == height - 1 || i_h == 0))
-				*(unsigned int*)(game->addr.canvas
-				+ (int)((y + i_h) * game->addr.line_lenght
-				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = 0x00303030;
-			else
-				*(unsigned int*)(game->addr.canvas
-				+ (int)((y + i_h) * game->addr.line_lenght
-				+		(x + i_w) * (game->addr.bits_per_pixel / 8))) = color;
-			i_w++;
-		}
-		i_h++;
 	}
 }
 
