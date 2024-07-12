@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/10 22:52:25 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/12 21:32:15 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
 				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght
-				+ (x + i_w) * (img.bits_per_pixel / 8))) = 0x00303030;
+					+ (x + i_w) * (img.bits_per_pixel / 8))) = 0x00303030;
 			else
 				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght
-				+ (x + i_w) * (img.bits_per_pixel / 8))) = color;
+					+ (x + i_w) * (img.bits_per_pixel / 8))) = color;
 			i_w++;
 		}
 		i_h++;
