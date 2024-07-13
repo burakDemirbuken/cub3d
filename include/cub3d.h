@@ -36,6 +36,7 @@
 #define MAP_WIDHT	11
 
 #include <stdbool.h>
+#include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
 
 typedef struct s_map
 {
@@ -111,5 +112,5 @@ void	draw_player(t_cub3d *game);
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 //*	ray_calculator.c
-t_y_ray	y_ray_calculator(t_cub3d *game);
+t_vec2	y_ray_calculator(t_cub3d *game);
 #endif

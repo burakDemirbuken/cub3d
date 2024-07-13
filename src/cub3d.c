@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/12 20:27:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:49:55 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ int	main()
 	ft_memset(&game, 0, sizeof(t_cub3d));
 	create_map(&game);
 	set_mlx(&game);
-	game.y = y_ray_calculator(&game);
 	draw_map(&game);
 	draw_player(&game);
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
+	game.y_one_ray = y_ray_calculator(&game);
+
 	// mlx_mouse_hook(game.win, mouse_click, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/12 20:19:00 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:19:38 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ void	update_player_status(t_cub3d *game)
 		game->player.angle += 3.0F;
 		if (game->player.angle > 359)
 			game->player.angle = 0;
-		game->tan = tan(game->player.angle * (M_PI / 180.0));
 	}
 	if (game->player.is_press_n_totation)
 	{
 		game->player.angle -= 3.0F;
 		if (game->player.angle < 0)
 			game->player.angle = 359;
-		game->tan = tan(game->player.angle * (M_PI / 180.0));
 	}
 }
 
@@ -50,7 +48,10 @@ int	game_loop(t_cub3d	*game)
 	update_player_status(game);
 	draw_map(game);
 	draw_player(game);
-	y_one_ray_throw(game);
+	game->y_one_ray = y_ray_calculator(game);
+	if ((int)game->y_one_ray.x < (MAP_WIDHT * REC_WIDTH) - 1 && (int)game->y_one_ray.x > 1)
+    	bresenham_line(game->images.background, (int)game->player.pos.x,
+                       (int)game->player.pos.y, (int)game->y_one_ray.x, (int)game->y_one_ray.y, 0x00FFFF23);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }

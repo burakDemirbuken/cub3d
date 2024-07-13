@@ -20,6 +20,7 @@ SRC =	src/cub3d.c \
 		src/key_hook.c \
 		src/game_loop.c \
 		src/draw_player.c \
+		src/ray_calculator.c \
 
 OBJ = $(SRC:.c=.o)
 
