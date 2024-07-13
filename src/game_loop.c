@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/12 22:27:56 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/13 18:00:12 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@
 #include <math.h>
 #include <stdio.h>
 
-void	ray_throw(t_cub3d *game)
+void	y_ray_throw(t_cub3d *game)
 {
-	int		dof, mx, my, mp;
+	int		dof = 0, mx, my, mp;
 	float	aTan, ra, rx, ry, xo, yo;
-
 
 	ra = game->player.angle * (M_PI / 180);
 	aTan = -1/tan(ra);
 	if (ra > M_PI) // upper hemisphere
 	{
 		// rounds the player position to the nearest 100's value.
-		ry = (((int)game->player.pos.y / REC_HEIGHT) * REC_HEIGHT) - 0,0001;
+		ry = (((int)game->player.pos.y / REC_HEIGHT) * REC_HEIGHT) - 0.0001;
 		// takes the difference of y's, finds the x position, offsets it by the player coordinate.
 		rx = (game->player.pos.y - ry) * aTan + game->player.pos.x;
 		// this gets you the first horizontal line hit with 100's as y value and x value still floatin'.
@@ -39,11 +38,8 @@ void	ray_throw(t_cub3d *game)
 	}
 	else if (ra < M_PI) // lower hemisphere
 	{
-		// rounds the player position to the nearest 100's value.
 		ry = (((int)game->player.pos.y / REC_HEIGHT) * REC_HEIGHT) + REC_HEIGHT;
-		// takes the difference of y's, finds the x position, offsets it by the player coordinate.
 		rx = (game->player.pos.y - ry) * aTan + game->player.pos.x;
-		// this gets you the first horizontal line hit with 100's as y value and x value still floatin'.
 		yo = 100;
 		xo = -yo * aTan;
 	}
@@ -55,9 +51,56 @@ void	ray_throw(t_cub3d *game)
 	}
 	while (dof < MAP_HEIGHT)
 	{
-		mx = rx / 100;
-		my = ry / 100;
-		if (mx * my < MAP_HEIGHT * MAP_WIDHT && game->map.map[my][mx] == 1) // hit a wall?
+		mx = rx / REC_WIDTH;
+		my = ry / REC_HEIGHT;
+		printf("rx: %f, ry: %f\nmx: %d, my: %d\n", rx, ry ,mx, my);
+		if (my < MAP_HEIGHT && my >= 0 && mx < MAP_WIDHT && mx >= 0
+			&& game->map.map[my][mx] == '1') // hit a wall?
+			dof = MAP_HEIGHT;
+		else	// next line
+		{
+			rx += xo;
+			ry += yo;
+			dof += 1;
+		}
+	}
+	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, rx, ry, 0x0000FF00);
+}
+
+void	x_ray_throw(t_cub3d *game)
+{
+	int		dof = 0, mx, my, mp;
+	float	nTan, ra, rx, ry, xo, yo;
+
+	ra = game->player.angle * (M_PI / 180);
+	nTan = -tan(ra);
+	if (ra > M_PI_2 && ra < M_PI + M_PI_2) // left hemisphere
+	{
+		rx = (((int)game->player.pos.x / REC_HEIGHT) * REC_HEIGHT) - 0.0001;
+		ry = (game->player.pos.x - rx) * nTan + game->player.pos.y;
+		xo = -100;
+		yo = -xo * nTan;
+	}
+	else if (ra < M_PI_2 || ra > M_PI + M_PI_2) // right hemisphere
+	{
+		rx = (((int)game->player.pos.x / REC_HEIGHT) * REC_HEIGHT) + REC_HEIGHT;
+		ry = (game->player.pos.x - rx) * nTan + game->player.pos.y;
+		xo = 100;
+		yo = -xo * nTan;
+	}
+	else if (ra == 0 || ra == M_PI) // looking straight
+	{
+		ry = game->player.pos.y;
+		rx = game->player.pos.x;
+		dof = MAP_HEIGHT;
+	}
+	while (dof < MAP_HEIGHT)
+	{
+		mx = rx / REC_WIDTH;
+		my = ry / REC_HEIGHT;
+		printf("rx: %f, ry: %f\nmx: %d, my: %d\n", rx, ry ,mx, my);
+		if (my < MAP_HEIGHT && my >= 0 && mx < MAP_WIDHT && mx >= 0
+			&& game->map.map[my][mx] == '1') // hit a wall?
 			dof = MAP_HEIGHT;
 		else	// next line
 		{
@@ -72,22 +115,22 @@ void	ray_throw(t_cub3d *game)
 void	update_player_status(t_cub3d *game)
 {
 	if (game->player.is_press_w && game->player.pos.y > 3.0f)
-		game->player.pos.y -= 1.0f;
+		game->player.pos.y -= 2.0f;
 	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
-		game->player.pos.y += 1.0f;
+		game->player.pos.y += 2.0f;
 	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
-		game->player.pos.x += 1.0f;
+		game->player.pos.x += 2.0f;
 	if (game->player.is_press_a && game->player.pos.x > 3.0f)
-		game->player.pos.x -= 1.0f;
+		game->player.pos.x -= 2.0f;
 	if (game->player.is_press_p_totation)
 	{
-		game->player.angle += 1.0F;
+		game->player.angle += 2.0F;
 		if (game->player.angle > 360)
 			game->player.angle = 0;
 	}
 	if (game->player.is_press_n_totation)
 	{
-		game->player.angle -= 1.0F;
+		game->player.angle -= 2.0F;
 		if (game->player.angle < 0)
 			game->player.angle = 360;
 	}
@@ -106,7 +149,8 @@ int	game_loop(t_cub3d	*game)
 		draw_rectangle(game, (x / REC_WIDTH) * REC_WIDTH, (y / REC_HEIGHT) * REC_HEIGHT, REC_HEIGHT, REC_HEIGHT, true, 0x00808080); */
 	draw_map(game);
 	draw_player(game);
-	ray_throw(game);
+	//y_ray_throw(game);
+	x_ray_throw(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
