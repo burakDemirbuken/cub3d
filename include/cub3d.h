@@ -73,8 +73,8 @@ typedef struct s_player
 	bool	is_press_a;
 	bool	is_press_s;
 	bool	is_press_d;
-	bool	is_press_n_totation;
-	bool	is_press_p_totation;
+	bool	is_press_r_totation;
+	bool	is_press_l_totation;
 	double	angle;
 }	t_player;
 

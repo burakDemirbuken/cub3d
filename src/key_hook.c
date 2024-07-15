@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/13 14:13:36 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:18:05 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	key_down(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
-		game->player.is_press_n_totation = 1;
+		game->player.is_press_l_totation = 1;
 	if (keycode == KEY_RIGHT)
-		game->player.is_press_p_totation = 1;
+		game->player.is_press_r_totation = 1;
 	if (keycode == KEY_W)
 		game->player.is_press_w = 1;
 	if (keycode == KEY_A)
@@ -35,9 +35,9 @@ int	key_down(int keycode, t_cub3d *game)
 int	key_up(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
-		game->player.is_press_n_totation = 0;
+		game->player.is_press_l_totation = 0;
 	if (keycode == KEY_RIGHT)
-		game->player.is_press_p_totation = 0;
+		game->player.is_press_r_totation = 0;
 	if (keycode == KEY_W)
 		game->player.is_press_w = 0;
 	if (keycode == KEY_A)
