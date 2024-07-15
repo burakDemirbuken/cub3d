@@ -88,6 +88,7 @@ typedef struct s_cub3d
 	t_vec2		click;
 	t_images	images;
 	t_vec2		y_one_ray;
+	t_vec2		x_one_ray;
 	bool		is_click;
 	void		*mlx;
 	void		*win;
@@ -112,5 +113,8 @@ void	draw_player(t_cub3d *game);
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 //*	ray_calculator.c
-t_vec2	y_ray_calculator(t_cub3d *game);
+t_vec2	y_ray_calculator(t_cub3d *game, float angle);
+t_vec2	x_ray_calculator(t_cub3d *game, float angle);
+float	distance(t_vec2 point1,t_vec2  point2);
+
 #endif

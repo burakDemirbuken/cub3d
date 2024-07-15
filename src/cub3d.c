@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/13 18:49:55 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:09:27 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	set_mlx(t_cub3d *game)
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
 	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
-	game->player.angle = 270;
+	game->player.angle = 45;
 }
 
 int	main()
@@ -60,7 +60,6 @@ int	main()
 	draw_player(&game);
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
-	game.y_one_ray = y_ray_calculator(&game);
 
 	// mlx_mouse_hook(game.win, mouse_click, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
