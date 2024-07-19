@@ -1,7 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-
 #ifdef __linux__
 
 # define KEY_W 119
@@ -25,6 +24,11 @@
 # define KEY_C 8
 
 #endif
+
+#include <math.h>
+// One degree in Radians
+#define RADIANS	M_PI / 180
+
 // ekrandaki bir dikdörtgenin uzunluğu ve genişliği
 #define REC_HEIGHT	100
 #define REC_WIDTH	100

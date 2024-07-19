@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 18:14:02 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/19 14:09:37 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	set_mlx(t_cub3d *game)
 	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT);
 	game->images.floor = create_image(game->mlx, REC_WIDTH, REC_HEIGHT);
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
-	game->player.pos.x = 40; //MAP_WIDHT * REC_WIDTH / 2;
-	game->player.pos.y = 60; //MAP_HEIGHT * REC_HEIGHT / 2;
-	game->player.angle = 90;
+	game->player.pos.x = 600; //MAP_WIDHT * REC_WIDTH / 2;
+	game->player.pos.y = 300; //MAP_HEIGHT * REC_HEIGHT / 2;
+	game->player.angle = 45;
 }
 
 int	main(void)
