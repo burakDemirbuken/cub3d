@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 15:37:32 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:59:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	update_player_status(t_cub3d *game)
 		game->player.pos.x -= 3.0f;
 	if (game->player.is_press_p_totation)
 	{
-		game->player.angle += 2.5F;
-		if (game->player.angle > 359)
+		game->player.angle += 1.0F;
+		if (game->player.angle > 360)
 			game->player.angle = 0;
 	}
 	if (game->player.is_press_n_totation)
 	{
-		game->player.angle -= 2.5F;
+		game->player.angle -= 1.0F;
 		if (game->player.angle < 0)
-			game->player.angle = 359;
+			game->player.angle = 359.9999999f;
 	}
 }
 
@@ -47,33 +47,43 @@ int	game_loop(t_cub3d	*game)
 {
 	float	horizontal_ray_distance;
 	float	vertical_ray_distance;
+	float	i;
+	float	angle;
+	float	dis;
 	t_vec2	ray_point;
 
 	update_player_status(game);
 	draw_map(game);
-	draw_player(game);
-	printf("%f\n", game->player.angle);
-	for (float i = 0; i <360; i += 0.1f)
-	{
 
-		float angle = game->player.angle + i - 30;
+	i = 0;
+	while (i < PERSPECTIVE)
+	{
+		angle = game->player.angle + i - (PERSPECTIVE / 2.0f);
 		if (angle < 0)
 			angle += 360;
 		if (angle > 360)
 			angle -= 360;
-		game->y_one_ray = y_ray_calculator(game, angle);
-		game->x_one_ray = x_ray_calculator(game, angle);
-		printf("angle: %f\nh_x:%f - h_y: %f \n", angle, game->y_one_ray.x, game->y_one_ray.y);
-		printf("x_x:%f - x_y: %f \n", game->x_one_ray.x, game->x_one_ray.y);
-		printf("\n");
-		horizontal_ray_distance = distance(game->player.pos, game->y_one_ray);
-		vertical_ray_distance = distance(game->player.pos, game->x_one_ray);
+		if (angle == 45.0f)
+			angle += 0.000042f;
+		game->horizontal_one_ray = horizontal_ray_calculator(game, angle);
+		game->vertical_one_ray = vertical_ray_calculator(game, angle);
+		horizontal_ray_distance = distance(game->player.pos, game->horizontal_one_ray);
+		vertical_ray_distance = distance(game->player.pos, game->vertical_one_ray);
 		if (horizontal_ray_distance > vertical_ray_distance)
-			ray_point = game->x_one_ray;
+		{
+			ray_point = game->vertical_one_ray;
+			dis = horizontal_ray_distance;
+		}
 		else
-			ray_point = game->y_one_ray;
+		{
+			ray_point = game->horizontal_one_ray;
+			dis = vertical_ray_distance;
+		}
 		bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)ray_point.x, (int)ray_point.y, 0x00FFFF23);
+		//display(game, ray_point);
+		i += PERSPECTIVE / RAY_COUNT;
 	}
+	draw_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }

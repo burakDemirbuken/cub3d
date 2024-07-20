@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 14:01:46 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/20 11:10:02 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 #include <unistd.h>
 
 
-t_vec2 x_ray_calculator(t_cub3d *game, float angle);
-t_vec2 y_ray_calculator(t_cub3d *game, float angle);
+t_vec2 vertical_ray_calculator(t_cub3d *game, float angle);
+t_vec2 horizontal_ray_calculator(t_cub3d *game, float angle);
 /*
-void	y_one_ray_throw(t_cub3d *game)
+void	horizontal_one_ray_throw(t_cub3d *game)
 {
 	t_vec2  new_point;
 	float   x;
@@ -162,7 +162,7 @@ t_vec2  ret_add(t_vec2 ret,t_vec2 add, float rad)
 	return (ret);
 } */
 
-t_vec2 x_ray_calculator(t_cub3d *game, float angle)
+t_vec2 vertical_ray_calculator(t_cub3d *game, float angle)
 {
 	t_vec2	ray_x;
 	t_vec2	ret;
@@ -171,7 +171,13 @@ t_vec2 x_ray_calculator(t_cub3d *game, float angle)
 
 	ret = game->player.pos;
 	if ((angle) == 90 || (angle) == 270)
-		return (y_ray_calculator(game, angle));
+	{
+		if (angle == 90)
+			ret.y = -1 * __FLT_MAX__;
+		else if (angle == 270)
+			ret.y = __FLT_MAX__;
+		return (ret);
+	}
 	rad = (angle) * (M_PI / 180.0);
 	tan_a = tan(rad);
 	if (rad > M_PI_2 && rad < 3 * M_PI_2)
@@ -193,14 +199,14 @@ t_vec2 x_ray_calculator(t_cub3d *game, float angle)
 			ret.y -= ray_x.y;
 		if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1 || (int)ret.x < 1 || ret.y < 1 || ret.y > (MAP_HEIGHT * REC_HEIGHT) - 1)
         {
-            if ((int)ret.x > MAP_WIDHT * REC_WIDTH)
-                ret.x = MAP_WIDHT * REC_WIDTH;
+            if ((int)ret.x > MAP_WIDHT * REC_WIDTH - 1)
+                ret.x = MAP_WIDHT * REC_WIDTH - 1;
             if ((int)ret.x < 0)
                 ret.x = 0;
             if (ret.y < 0)
                 ret.y = 0;
-            if (ret.y > MAP_HEIGHT * REC_HEIGHT)
-                ret.y = MAP_HEIGHT * REC_HEIGHT;
+            if (ret.y > MAP_HEIGHT * REC_HEIGHT - 1)
+                ret.y = MAP_HEIGHT * REC_HEIGHT - 1;
 			return (ret);
         }
 		if (M_PI_2 < rad && rad < 3 * M_PI_2)
@@ -218,7 +224,7 @@ t_vec2 x_ray_calculator(t_cub3d *game, float angle)
 	return (ret);
 }
 
-t_vec2 y_ray_calculator(t_cub3d *game, float angle)
+t_vec2 horizontal_ray_calculator(t_cub3d *game, float angle)
 {
 	t_vec2	ray_y;
 	t_vec2	ret;
@@ -226,8 +232,14 @@ t_vec2 y_ray_calculator(t_cub3d *game, float angle)
 	float	tan_a;
 
 	ret = game->player.pos;
-	if (angle == 0 || angle == 180)
-		return (x_ray_calculator (game, angle));
+	if ((angle >= 0.0f && angle <= 0.0000006f)|| angle == 180.0f)
+	{
+		if (angle == 180)
+			ret.x = __FLT_MAX__;
+		else
+			ret.x = -1 * __FLT_MAX__;
+		return (ret);
+	}
 	rad = angle * (M_PI / 180.0);
 	tan_a = tan(rad);
 	if (0.0 < rad && rad < M_PI)

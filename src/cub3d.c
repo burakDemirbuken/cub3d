@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 14:09:27 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:08:15 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_mlx(t_cub3d *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit(0);
-	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
+	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH * 2, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
 	if (!game->win)
 		exit(0);
 	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT);
@@ -44,14 +44,12 @@ void	set_mlx(t_cub3d *game)
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
 	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
-	game->player.angle = 45;
+	game->player.angle = 5.0f;
 }
 
 int	main()
 {
 	t_cub3d	game;
-	int		y;
-	int		x;
 
 	ft_memset(&game, 0, sizeof(t_cub3d));
 	create_map(&game);
