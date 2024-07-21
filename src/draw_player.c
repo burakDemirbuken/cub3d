@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 18:15:18 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/21 14:26:25 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 	if (dx > dy)
 	{
 		p = 2 * dy - dx;
-		while (x0 != x1 && x0 < REC_WIDTH * MAP_WIDHT && x0 > 0)
+		while (x0 != x1 && x0 <= REC_WIDTH * MAP_WIDHT * 2 && x0 >= 0)
 		{
 			*(unsigned int*)(img.data + (int)((y0 * img.line_lenght)
 				+ (x0 * img.bits_per_pixel / 8))) = color;
@@ -42,7 +42,7 @@ void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 	else
 	{
 		p = 2 * dx - dy;
-		while (y0 != y1 && y0 < REC_HEIGHT * MAP_HEIGHT && y0 > 0)
+		while (y0 != y1 && y0 <= REC_HEIGHT * MAP_HEIGHT && y0 >= 0)
 		{
 			*(unsigned int*)(img.data + (int)(y0 * img.line_lenght + x0
 				* (img.bits_per_pixel / 8))) = color;

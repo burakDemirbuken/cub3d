@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/19 16:30:24 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/21 14:25:07 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,22 @@ void	update_player_status(t_cub3d *game)
 float	dist(float px, float py, float rx, float ry, float ang)
 {
 	return(sqrt(((rx - px) * (rx - px)) + ((ry - py) * (ry - py))));
+}
+
+void	draw_wall_line(t_cub3d *game, int x0, int lineH, int lineW)
+{
+	x0 += ((REC_WIDTH * MAP_WIDHT) + REC_WIDTH);
+	int y0 = ((REC_HEIGHT * MAP_HEIGHT) - lineH) / 2;
+	int	y1 = y0 + lineH;
+	int	x1 = x0 + lineW;
+
+	printf("x0: %d, lineH: %d, linew: %d\n", x0, lineH, lineW);
+	draw_rectangle(game->images.background, x0, 0, lineW, MAP_HEIGHT * REC_HEIGHT, false, 0x00080808);
+	while (x0 <= x1)
+	{
+		bresenham_line(game->images.background, x0, y0, x0, y1, 0x0000FF00);
+		x0++;
+	}
 }
 
 void	ray_throw(t_cub3d *game)
@@ -149,24 +165,25 @@ void	ray_throw(t_cub3d *game)
 				dof += 1;
 			}
 		}
-
+		float	distT;
 		if (distV < distH)
 		{
 			rx = vx;
 			ry = vy;
+			distT = distV;
 		}
 		else
 		{
 			rx = hx;
 			ry = hy;
+			distT = distH;
 		}
-		// printf("px: %f py:%f\n", game->player.pos.x, game->player.pos.y);
-		// printf("hx: %f hy:%f\n", hx, hy);
-		// printf("vx: %f vy:%f\n", vx, vy);
-		// printf("vd: %f hd:%f\n", distV, distH);
-		// bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, hx, hy, 0x00FF0000);
-		// bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, vx, vy, 0x0000FF00);
 		bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, rx, ry, 0x000000FF);
+		float	lineH = (MAP_HEIGHT * REC_HEIGHT) / distT;
+		if (lineH > MAP_HEIGHT)
+			lineH = MAP_HEIGHT;
+		lineH *= REC_HEIGHT;
+		draw_wall_line(game, r * 16, (int)lineH, 16);
 		ray_ang += RADIANS;
 		if (ray_ang < 0)
 			ray_ang += (2 * M_PI);
