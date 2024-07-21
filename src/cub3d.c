@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/20 15:08:15 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:53:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_mlx(t_cub3d *game)
 	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH * 2, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
 	if (!game->win)
 		exit(0);
-	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT);
+	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDHT * 2, REC_HEIGHT * MAP_HEIGHT);
 	game->images.floor = create_image(game->mlx, REC_WIDTH, REC_HEIGHT);
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
 	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;

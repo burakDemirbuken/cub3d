@@ -35,8 +35,10 @@
 #define MAP_HEIGHT	11
 #define MAP_WIDHT	11
 
-#define	PERSPECTIVE	135.0f
-#define	RAY_COUNT	200.0f
+#define WALL_HEIGHTf	500.0f
+
+#define	PERSPECTIVE	95.0f
+#define	RAY_COUNT	1100
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -48,12 +50,19 @@ typedef struct s_map
 	int			width;
 }	t_map;
 
-
 typedef struct s_vec2
 {
 	double	x;
 	double	y;
 }	t_vec2;
+
+typedef struct s_ray
+{
+	t_vec2	pos;
+	float	dis;
+	float	angle;
+	char	v_h;
+}	t_ray;
 
 typedef struct s_image
 {
@@ -92,6 +101,7 @@ typedef struct s_cub3d
 	t_images	images;
 	t_vec2		horizontal_one_ray;
 	t_vec2		vertical_one_ray;
+	t_ray		rays[RAY_COUNT];
 	bool		is_click;
 	void		*mlx;
 	void		*win;
