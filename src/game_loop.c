@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/21 14:25:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/21 17:14:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ float	dist(float px, float py, float rx, float ry, float ang)
 
 void	draw_wall_line(t_cub3d *game, int x0, int lineH, int lineW)
 {
-	x0 += ((REC_WIDTH * MAP_WIDHT) + REC_WIDTH);
+	x0 += (REC_WIDTH * MAP_WIDHT);
 	int y0 = ((REC_HEIGHT * MAP_HEIGHT) - lineH) / 2;
 	int	y1 = y0 + lineH;
 	int	x1 = x0 + lineW;
 
-	printf("x0: %d, lineH: %d, linew: %d\n", x0, lineH, lineW);
+	//printf("x0: %d, lineH: %d, linew: %d\n", x0, lineH, lineW);
 	draw_rectangle(game->images.background, x0, 0, lineW, MAP_HEIGHT * REC_HEIGHT, false, 0x00080808);
 	while (x0 <= x1)
 	{
@@ -180,6 +180,7 @@ void	ray_throw(t_cub3d *game)
 		}
 		bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, rx, ry, 0x000000FF);
 		float	lineH = (MAP_HEIGHT * REC_HEIGHT) / distT;
+		printf("%f\n", lineH);
 		if (lineH > MAP_HEIGHT)
 			lineH = MAP_HEIGHT;
 		lineH *= REC_HEIGHT;
