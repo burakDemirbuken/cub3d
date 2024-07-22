@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 12:42:10 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:37:32 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	display(t_cub3d *game)
 			color = 0x00296800;
 		else
 			color = 0x00004531;
-		bresenham_line(game->images.background, REC_WIDTH * MAP_WIDHT + i, wall_top,
-												REC_WIDTH * MAP_WIDHT + i, wall_bottom, color);
+		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDHT + (i * (REC_WIDTH * MAP_WIDHT / RAY_COUNT)),
+								wall_top, (REC_WIDTH * MAP_WIDHT / RAY_COUNT), (int)wall_height, false, color);
+		//bresenham_line(game->images.background, REC_WIDTH * MAP_WIDHT + i, wall_top,
+		//										REC_WIDTH * MAP_WIDHT + i, wall_bottom, color);
 		i++;
 	}
 }
@@ -90,14 +92,14 @@ int	game_loop(t_cub3d	*game)
 
 	i = 0;
 	a = 0;
-	while (i <= PERSPECTIVE)
+	while (i < PERSPECTIVE)
 	{
 		game->rays[a].angle = game->player.angle + i - (PERSPECTIVE / 2.0f);
 		if (game->rays[a].angle < 0)
 			game->rays[a].angle += 360;
 		if (game->rays[a].angle > 360)
 			game->rays[a].angle -= 360;
-		if (game->rays[a].angle == 45.0f)
+		if (game->rays[a].angle == 45.0f || game->rays[a].angle == 135.0f || game->rays[a].angle == 225.0f || game->rays[a].angle == 315.0f)
 			game->rays[a].angle += 0.000042f;
 		game->horizontal_one_ray = horizontal_ray_calculator(game, game->rays[a].angle);
 		game->vertical_one_ray = vertical_ray_calculator(game, game->rays[a].angle);

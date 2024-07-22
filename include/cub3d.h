@@ -37,8 +37,8 @@
 
 #define WALL_HEIGHTf	500.0f
 
-#define	PERSPECTIVE	60.0f
-#define	RAY_COUNT	1100
+#define	PERSPECTIVE	66.0f
+#define	RAY_COUNT	275
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
