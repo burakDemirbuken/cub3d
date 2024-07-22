@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calculator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/20 11:10:02 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:15:21 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,15 +232,15 @@ t_vec2 horizontal_ray_calculator(t_cub3d *game, float angle)
 	float	tan_a;
 
 	ret = game->player.pos;
-	if ((angle >= 0.0f && angle <= 0.0000006f)|| angle == 180.0f)
+	rad = angle * (M_PI / 180.0);
+	if (rad == 0 || rad == M_PI)
 	{
-		if (angle == 180)
+		if (rad == M_PI)
 			ret.x = __FLT_MAX__;
 		else
 			ret.x = -1 * __FLT_MAX__;
 		return (ret);
 	}
-	rad = angle * (M_PI / 180.0);
 	tan_a = tan(rad);
 	if (0.0 < rad && rad < M_PI)
 		ray_y.y = (((int)game->player.pos.y + REC_HEIGHT) / REC_HEIGHT) * REC_HEIGHT - game->player.pos.y;
@@ -259,6 +259,7 @@ t_vec2 horizontal_ray_calculator(t_cub3d *game, float angle)
 			ret.y += ray_y.y;
 		else
 			ret.y -= ray_y.y;
+		// burada yaptığın zaten ilk kesişme noktasına getirmek
 		if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1 || (int)ret.x < 1 || ret.y < 1 || ret.y > (MAP_HEIGHT * REC_HEIGHT) - 1)
         {
             if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1)
