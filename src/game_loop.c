@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/21 17:14:44 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/22 12:46:52 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,13 @@ void	ray_throw(t_cub3d *game)
 			distT = distH;
 		}
 		bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, rx, ry, 0x000000FF);
+
+		float	ca = game->player.angle * RADIANS - ray_ang;
+		if (ca < 0)
+			ca += 2 * M_PI;
+		if (ca > 2 * M_PI)
+			ca -= 2 * M_PI;
+		distT = distT * cos(ca);
 		float	lineH = (MAP_HEIGHT * REC_HEIGHT) / distT;
 		printf("%f\n", lineH);
 		if (lineH > MAP_HEIGHT)
