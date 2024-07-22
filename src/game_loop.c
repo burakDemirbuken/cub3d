@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/21 18:00:47 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:42:10 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ void	display(t_cub3d *game)
 	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, 0, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT, false, 0x00000000);
     while (i < RAY_COUNT)
     {
-		dis = game->rays[i].dis;
+		float temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
+/* 		if(temp>2*M_PI)
+			temp -=2*M_PI;
+		else if( temp <0)
+			temp +=2*M_PI; */
+		dis = cos(temp) * game->rays[i].dis;
         wall_height = (MAP_HEIGHT * REC_HEIGHT / dis);
 		if (wall_height > 10)
 			wall_height = 10;
