@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/21 13:53:34 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:32:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,28 @@ void	set_mlx(t_cub3d *game)
 	game->player.angle = 5.0f;
 }
 
-int	main()
+int	main(int ac, char **av)
 {
 	t_cub3d	game;
+	t_map	tmp_map;
 
-	ft_memset(&game, 0, sizeof(t_cub3d));
-	create_map(&game);
-	set_mlx(&game);
-	draw_map(&game);
-	draw_player(&game);
-	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
-	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
+	if (ac == 2)
+	{
+		tmp_map = get_map(av[1]);
+		(void)tmp_map;
+		ft_memset(&game, 0, sizeof(t_cub3d));
+		create_map(&game);
+		set_mlx(&game);
+		draw_map(&game);
+		draw_player(&game);
+		mlx_hook(game.win, 3, 1L << 0, key_up, &game);
+		mlx_hook(game.win, 2, 1L << 1, key_down, &game);
 
-	// mlx_mouse_hook(game.win, mouse_click, &game);
-	mlx_loop_hook(game.mlx, game_loop, &game);
-	mlx_loop(game.mlx);
+		// mlx_mouse_hook(game.win, mouse_click, &game);
+		mlx_loop_hook(game.mlx, game_loop, &game);
+		mlx_loop(game.mlx);
+	}
+	else
+		perror("Err: One map expected\n");
+	return (1);
 }

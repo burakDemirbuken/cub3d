@@ -1,7 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-
 #ifdef __linux__
 
 # define KEY_W 119
@@ -39,6 +38,8 @@
 
 #define	PERSPECTIVE	66.0f
 #define	RAY_COUNT	275
+
+#define BUFFER_SIZE	13
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -113,6 +114,9 @@ void	draw_map(t_cub3d *game);
 void	draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void	create_map(t_cub3d *game);
+
+// map_checks.c
+t_map	get_map(char *file_name);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);
