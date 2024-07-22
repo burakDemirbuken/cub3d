@@ -37,8 +37,8 @@
 
 #define WALL_HEIGHTf	500.0f
 
-#define	PERSPECTIVE	66.0f
-#define	RAY_COUNT	275
+#define	PERSPECTIVE	60.0f
+#define	RAY_COUNT	1100
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -126,8 +126,11 @@ void	draw_player(t_cub3d *game);
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 //*	ray_calculator.c
-t_vec2	horizontal_ray_calculator(t_cub3d *game, float angle);
-t_vec2	vertical_ray_calculator(t_cub3d *game, float angle);
+t_vec2	vertical_ray_calculator(t_cub3d *game, float rad, float tan_a);
+t_vec2	horizontal_ray_calculator(t_cub3d *game, float rad, float tan_a);
+
+//*	ray_calculator_utils.c
+float	get_offset(t_vec2 p_pos, float rad, char v_h);
 float	distance(t_vec2 point1,t_vec2  point2);
 
 #endif
