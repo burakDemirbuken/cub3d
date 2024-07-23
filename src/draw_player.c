@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 18:38:46 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:56:48 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,7 @@ void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 	}
 }
 
-t_vec2	 rotate_around_point(t_vec2 point, t_vec2 pivot, double angle)
-{
-	t_vec2	new_point;
-
-	double rad = angle * (M_PI / 180.0);
-	double temp_x = point.x - pivot.x;
-	double temp_y = point.y - pivot.y;
-	double rotated_x = temp_x * cos(rad) - temp_y * sin(rad);
-	double rotated_y = temp_x * sin(rad) + temp_y * cos(rad);
-	new_point.x = rotated_x + pivot.x;
-	new_point.y = rotated_y + pivot.y;
-
-	return new_point;
-}
-
 void	draw_player(t_cub3d *game)
 {
-	t_vec2 cor;
-
 	draw_rectangle(game->images.background, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
-	cor = rotate_around_point((t_vec2){game->player.pos.x + 10, game->player.pos.y}, game->player.pos, game->player.angle);
-	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x00FFFFFF);
 }

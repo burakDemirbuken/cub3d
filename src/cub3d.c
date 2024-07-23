@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 20:32:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/23 11:55:03 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	set_mlx(t_cub3d *game)
 	game->player.angle = 5.0f;
 }
 
-int	main(int ac, char **av)
+int	main()//int ac, char **av)
 {
 	t_cub3d	game;
-	t_map	tmp_map;
+	//t_map	tmp_map;
 
-	if (ac == 2)
-	{
-		tmp_map = get_map(av[1]);
-		(void)tmp_map;
+	// if (ac == 2)
+	// {
+		// tmp_map = get_map(av[1]);
+		// (void)tmp_map;
 		ft_memset(&game, 0, sizeof(t_cub3d));
 		create_map(&game);
 		set_mlx(&game);
@@ -67,8 +67,8 @@ int	main(int ac, char **av)
 		// mlx_mouse_hook(game.win, mouse_click, &game);
 		mlx_loop_hook(game.mlx, game_loop, &game);
 		mlx_loop(game.mlx);
-	}
-	else
+	// }
+	// else
 		perror("Err: One map expected\n");
 	return (1);
 }
