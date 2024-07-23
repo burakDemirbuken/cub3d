@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 18:37:32 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:42:09 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,22 @@ void	display(t_cub3d *game)
 void	update_player_status(t_cub3d *game)
 {
 	if (game->player.is_press_w && game->player.pos.y > 3.0f)
-		game->player.pos.y -= 3.0f;
+		game->player.pos.y -= 5.0f;
 	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
-		game->player.pos.y += 3.0f;
+		game->player.pos.y += 5.0f;
 	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
-		game->player.pos.x += 3.0f;
+		game->player.pos.x += 5.0f;
 	if (game->player.is_press_a && game->player.pos.x > 3.0f)
-		game->player.pos.x -= 3.0f;
+		game->player.pos.x -= 5.0f;
 	if (game->player.is_press_p_totation)
 	{
-		game->player.angle += 1.0F;
+		game->player.angle += 2.5F;
 		if (game->player.angle > 360)
 			game->player.angle = 0;
 	}
 	if (game->player.is_press_n_totation)
 	{
-		game->player.angle -= 1.0F;
+		game->player.angle -= 2.5F;
 		if (game->player.angle < 0)
 			game->player.angle = 359.9999999f;
 	}
@@ -86,6 +86,8 @@ int	game_loop(t_cub3d	*game)
 	float	vertical_ray_distance;
 	float	i;
 	int		a;
+	float	rad;
+	float	tan_a;
 
 	update_player_status(game);
 	draw_map(game);
@@ -101,8 +103,10 @@ int	game_loop(t_cub3d	*game)
 			game->rays[a].angle -= 360;
 		if (game->rays[a].angle == 45.0f || game->rays[a].angle == 135.0f || game->rays[a].angle == 225.0f || game->rays[a].angle == 315.0f)
 			game->rays[a].angle += 0.000042f;
-		game->horizontal_one_ray = horizontal_ray_calculator(game, game->rays[a].angle);
-		game->vertical_one_ray = vertical_ray_calculator(game, game->rays[a].angle);
+		rad = game->rays[a].angle * (M_PI / 180.0);
+		tan_a = tan(rad);
+		game->horizontal_one_ray = horizontal_ray_calculator(game, rad, tan_a);
+		game->vertical_one_ray = vertical_ray_calculator(game, rad, tan_a);
 		horizontal_ray_distance = distance(game->player.pos, game->horizontal_one_ray);
 		vertical_ray_distance = distance(game->player.pos, game->vertical_one_ray);
 		if (horizontal_ray_distance > vertical_ray_distance)
@@ -125,6 +129,7 @@ int	game_loop(t_cub3d	*game)
 	display(game);
 	draw_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
+	mlx_do_sync(game->mlx);
 	return (0);
 }
 
