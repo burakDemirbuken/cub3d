@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 20:42:09 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:57:43 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	display(t_cub3d *game)
 {
 	float	wall_height;
 	int		i;
-	int		wall_bottom;
 	int		wall_top;
 	float	dis;
 	int		color;
 
 	i = 0;
-	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, 0, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT, false, 0x00000000);
+	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, 0, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x25653725);
+	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2 , REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x42984259);
     while (i < RAY_COUNT)
     {
 		float temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
@@ -39,32 +39,33 @@ void	display(t_cub3d *game)
 			temp +=2*M_PI; */
 		dis = cos(temp) * game->rays[i].dis;
         wall_height = (MAP_HEIGHT * REC_HEIGHT / dis);
-		if (wall_height > 10)
-			wall_height = 10;
-		wall_height *= 100;
-        wall_top = (MAP_HEIGHT * REC_HEIGHT / 2) - (wall_height / 2);
-        wall_bottom = wall_top + wall_height;
+		if (wall_height > MAP_HEIGHT)
+			wall_height = MAP_HEIGHT;
+		wall_height *= REC_HEIGHT;
+        wall_top = ((MAP_HEIGHT * REC_HEIGHT) - wall_height) / 2;
 		if (game->rays[i].v_h == 'v')
 			color = 0x00296800;
 		else
 			color = 0x00004531;
 		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDHT + (i * (REC_WIDTH * MAP_WIDHT / RAY_COUNT)),
 								wall_top, (REC_WIDTH * MAP_WIDHT / RAY_COUNT), (int)wall_height, false, color);
-		//bresenham_line(game->images.background, REC_WIDTH * MAP_WIDHT + i, wall_top,
-		//										REC_WIDTH * MAP_WIDHT + i, wall_bottom, color);
 		i++;
 	}
 }
 
 void	update_player_status(t_cub3d *game)
 {
-	if (game->player.is_press_w && game->player.pos.y > 3.0f)
-		game->player.pos.y -= 5.0f;
-	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
+	if (game->player.is_press_w)
+	{
+		float temp = (game->player.angle) * (M_PI / 180.0);
+		game->player.pos.x += cos(temp) * MOVE_SPEED;
+		game->player.pos.y += sin(temp) * MOVE_SPEED;
+	}
+	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 5.0f)
 		game->player.pos.y += 5.0f;
-	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
+	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 5.0f)
 		game->player.pos.x += 5.0f;
-	if (game->player.is_press_a && game->player.pos.x > 3.0f)
+	if (game->player.is_press_a && game->player.pos.x > 5.0f)
 		game->player.pos.x -= 5.0f;
 	if (game->player.is_press_p_totation)
 	{
@@ -94,6 +95,8 @@ int	game_loop(t_cub3d	*game)
 
 	i = 0;
 	a = 0;
+	printf("x: %f - y: %f\n", game->player.pos.x, game->player.pos.y);
+
 	while (i < PERSPECTIVE)
 	{
 		game->rays[a].angle = game->player.angle + i - (PERSPECTIVE / 2.0f);

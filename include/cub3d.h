@@ -29,16 +29,15 @@
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
-#define REC_HEIGHTf	100.0f
-#define REC_WIDTHf	100.0f
+#define	MOVE_SPEED	2
 // haritanın uzunluğu ve genişliği
 #define MAP_HEIGHT	11
 #define MAP_WIDHT	11
 
 #define WALL_HEIGHTf	500.0f
 
-#define	PERSPECTIVE	60.0f
-#define	RAY_COUNT	1100
+#define	PERSPECTIVE	50.0f
+#define	RAY_COUNT	550
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
