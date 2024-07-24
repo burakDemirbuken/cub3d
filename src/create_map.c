@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 14:08:53 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:24:37 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	create_map(t_cub3d *game)
 	while (y < MAP_HEIGHT)
 	{
 		x = 0;
-		game->map.map[y] = (char *)malloc(sizeof(char) * (MAP_WIDHT + 1));
-		while (x < MAP_WIDHT)
+		game->map.map[y] = (char *)malloc(sizeof(char) * (MAP_WIDTH + 1));
+		while (x < MAP_WIDTH)
 		{
-			if ( x == 0 || y == 0  || x == MAP_WIDHT - 1 || y == MAP_HEIGHT -1)
+			if ( x == 0 || y == 0  || x == MAP_WIDTH - 1 || y == MAP_HEIGHT -1)
 				game->map.map[y][x] = '1';
 			else
 				game->map.map[y][x] = '0';
@@ -84,8 +84,11 @@ void	create_map(t_cub3d *game)
 		y++;
 	}
 	game->map.map[y] = 0;
-	game->map.map[5][6] = '1';
-	game->map.map[5][4] = '1';
-	game->map.map[6][5] = '1';
-	game->map.map[4][5] = '1';
+	game->map.map[7][3] = '1';
+	game->map.map[3][3] = '1';
+	game->map.map[6][9] = '1';
+	game->map.map[3][4] = '1';
+	game->map.map[3][1] = '1';
+	game->map.map[7][4] = '1';
+	game->map.map[2][1] = '1';
 }

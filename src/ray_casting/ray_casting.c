@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/23 16:56:10 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:24:37 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 static bool	inside_map(t_vec2 ret)
 {
-	if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1 || (int)ret.x < 1
+	if ((int)ret.x > (MAP_WIDTH * REC_WIDTH) - 1 || (int)ret.x < 1
 		|| ret.y < 1 || ret.y > (MAP_HEIGHT * REC_HEIGHT) - 1)
 	{
-		if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1)
-			ret.x = (MAP_WIDHT * REC_WIDTH) - 1;
+		if ((int)ret.x > (MAP_WIDTH * REC_WIDTH) - 1)
+			ret.x = (MAP_WIDTH * REC_WIDTH) - 1;
 		if ((int)ret.x < 1)
 			ret.x = 1;
 		if (ret.y < 1)

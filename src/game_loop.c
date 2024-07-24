@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 13:57:43 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:41:19 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	display(t_cub3d *game)
 	int		color;
 
 	i = 0;
-	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, 0, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x25653725);
-	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2 , REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x42984259);
+	draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, 0, REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x39487362);
+	draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2 , REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x34523234);
     while (i < RAY_COUNT)
     {
 		float temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
@@ -47,38 +47,67 @@ void	display(t_cub3d *game)
 			color = 0x00296800;
 		else
 			color = 0x00004531;
-		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDHT + (i * (REC_WIDTH * MAP_WIDHT / RAY_COUNT)),
-								wall_top, (REC_WIDTH * MAP_WIDHT / RAY_COUNT), (int)wall_height, false, color);
+		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDTH + (i * (REC_WIDTH * MAP_WIDTH / RAY_COUNT)),
+								wall_top, (REC_WIDTH * MAP_WIDTH / RAY_COUNT), (int)wall_height, false, color);
 		i++;
+	}
+}
+
+void press_move_key(t_cub3d *game, bool key, float rad)
+{
+	if (key)
+	{
+		game->player.pos.x += cos(rad) * MOVE_SPEED;
+		game->player.pos.y += sin(rad) * MOVE_SPEED;
 	}
 }
 
 void	update_player_status(t_cub3d *game)
 {
+	float temp = (game->player.angle) * (M_PI / 180.0);
+
+
 	if (game->player.is_press_w)
 	{
-		float temp = (game->player.angle) * (M_PI / 180.0);
 		game->player.pos.x += cos(temp) * MOVE_SPEED;
 		game->player.pos.y += sin(temp) * MOVE_SPEED;
 	}
-	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 5.0f)
-		game->player.pos.y += 5.0f;
-	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 5.0f)
-		game->player.pos.x += 5.0f;
-	if (game->player.is_press_a && game->player.pos.x > 5.0f)
-		game->player.pos.x -= 5.0f;
-	if (game->player.is_press_p_totation)
+	if (game->player.is_press_s)
 	{
-		game->player.angle += 2.5F;
-		if (game->player.angle > 360)
-			game->player.angle = 0;
+		game->player.pos.x -= cos(temp) * MOVE_SPEED;
+		game->player.pos.y -= sin(temp) * MOVE_SPEED;
 	}
-	if (game->player.is_press_n_totation)
+	if (game->player.is_press_d)
 	{
-		game->player.angle -= 2.5F;
+		game->player.pos.x += cos(temp + M_PI_2) * MOVE_SPEED;
+		game->player.pos.y += sin(temp + M_PI_2) * MOVE_SPEED;
+	}
+	if (game->player.is_press_a)
+	{
+		game->player.pos.x += cos(temp - M_PI_2) * MOVE_SPEED;
+		game->player.pos.y += sin(temp - M_PI_2) * MOVE_SPEED;
+	}
+	if (game->player.is_press_p_rotation)
+	{
+		game->player.angle += 1.0F;
+		if (game->player.angle >= 360)
+			game->player.angle -= 360;
+	}
+	if (game->player.is_press_n_rotation)
+	{
+		game->player.angle -= 1.0F;
 		if (game->player.angle < 0)
-			game->player.angle = 359.9999999f;
+			game->player.angle += 360;
 	}
+
+	if (game->player.pos.y < 11.0f)
+		game->player.pos.y = 11.0f;
+	if (game->player.pos.y > MAP_HEIGHT * REC_HEIGHT - 11.0f)
+		game->player.pos.y = MAP_HEIGHT * REC_HEIGHT - 11.0f;
+	if (game->player.pos.x > MAP_WIDTH * REC_WIDTH - 11.0f)
+		game->player.pos.x = MAP_WIDTH * REC_WIDTH - 11.0f;
+	if (game->player.pos.x < 11.0f)
+		game->player.pos.x = 11.0f;
 }
 
 int	game_loop(t_cub3d	*game)
@@ -95,7 +124,6 @@ int	game_loop(t_cub3d	*game)
 
 	i = 0;
 	a = 0;
-	printf("x: %f - y: %f\n", game->player.pos.x, game->player.pos.y);
 
 	while (i < PERSPECTIVE)
 	{
@@ -132,7 +160,6 @@ int	game_loop(t_cub3d	*game)
 	display(game);
 	draw_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
-	mlx_do_sync(game->mlx);
 	return (0);
 }
 
@@ -142,5 +169,5 @@ int	game_loop(t_cub3d	*game)
 	#elif __APPLE__ || __MACH__
 		mlx_mouse_get_pos(game->win, &x, &y);
 	#endif
-	if (!(x < 0 || y >= MAP_HEIGHT * REC_HEIGHT || y < 0 || x >= MAP_WIDHT * REC_WIDTH))
+	if (!(x < 0 || y >= MAP_HEIGHT * REC_HEIGHT || y < 0 || x >= MAP_WIDTH * REC_WIDTH))
 		draw_rectangle(game, (x / REC_WIDTH) * REC_WIDTH, (y / REC_HEIGHT) * REC_HEIGHT, REC_HEIGHT, REC_HEIGHT, true, 0x00808080); */

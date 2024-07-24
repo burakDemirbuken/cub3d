@@ -29,15 +29,15 @@
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
-#define	MOVE_SPEED	2
+#define	MOVE_SPEED	3
 // haritanın uzunluğu ve genişliği
 #define MAP_HEIGHT	11
-#define MAP_WIDHT	11
+#define MAP_WIDTH	11
 
 #define WALL_HEIGHTf	500.0f
 
-#define	PERSPECTIVE	50.0f
-#define	RAY_COUNT	550
+#define	PERSPECTIVE	60.0f
+#define	RAY_COUNT	1100
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -87,8 +87,8 @@ typedef struct s_player
 	bool	is_press_a;
 	bool	is_press_s;
 	bool	is_press_d;
-	bool	is_press_n_totation;
-	bool	is_press_p_totation;
+	bool	is_press_n_rotation;
+	bool	is_press_p_rotation;
 	double	angle;
 }	t_player;
 

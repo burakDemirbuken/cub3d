@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 13:56:23 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:40:00 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 #elif __APPLE__ || __MACH__
 	#include "../include/minilibx/mlx.h"
 #endif
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 t_image	create_image(void *mlx, int width, int height)
 {
@@ -36,15 +34,18 @@ void	set_mlx(t_cub3d *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit(0);
-	game->win = mlx_new_window(game->mlx, MAP_WIDHT * REC_WIDTH * 2, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
+	game->win = mlx_new_window(game->mlx, MAP_WIDTH * REC_WIDTH * 2, MAP_HEIGHT * REC_HEIGHT, "naber müdür");
 	if (!game->win)
 		exit(0);
-	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDHT * 2, REC_HEIGHT * MAP_HEIGHT);
+	//mlx_mouse_hide(game->mlx, game->win);
+
+	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDTH * 2, REC_HEIGHT * MAP_HEIGHT);
 	game->images.floor = create_image(game->mlx, REC_WIDTH, REC_HEIGHT);
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
-	game->player.pos.x = MAP_WIDHT * REC_WIDTH / 2;
+	game->player.pos.x = MAP_WIDTH * REC_WIDTH / 2;
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
-	game->player.angle = 5.0f;
+	game->player.angle = 0.0f;
+	mlx_do_key_autorepeatoff(game->mlx);
 }
 
 int	main()
