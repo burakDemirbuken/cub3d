@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 18:37:32 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:41:19 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	display(t_cub3d *game)
 {
 	float	wall_height;
 	int		i;
-	int		wall_bottom;
 	int		wall_top;
 	float	dis;
 	int		color;
 
 	i = 0;
-	draw_rectangle(game->images.background, MAP_WIDHT * REC_WIDTH, 0, REC_WIDTH * MAP_WIDHT, REC_HEIGHT * MAP_HEIGHT, false, 0x00000000);
+	draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, 0, REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x39487362);
+	draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2 , REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x34523234);
     while (i < RAY_COUNT)
     {
 		float temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
@@ -39,45 +39,75 @@ void	display(t_cub3d *game)
 			temp +=2*M_PI; */
 		dis = cos(temp) * game->rays[i].dis;
         wall_height = (MAP_HEIGHT * REC_HEIGHT / dis);
-		if (wall_height > 10)
-			wall_height = 10;
-		wall_height *= 100;
-        wall_top = (MAP_HEIGHT * REC_HEIGHT / 2) - (wall_height / 2);
-        wall_bottom = wall_top + wall_height;
+		if (wall_height > MAP_HEIGHT)
+			wall_height = MAP_HEIGHT;
+		wall_height *= REC_HEIGHT;
+        wall_top = ((MAP_HEIGHT * REC_HEIGHT) - wall_height) / 2;
 		if (game->rays[i].v_h == 'v')
 			color = 0x00296800;
 		else
 			color = 0x00004531;
-		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDHT + (i * (REC_WIDTH * MAP_WIDHT / RAY_COUNT)),
-								wall_top, (REC_WIDTH * MAP_WIDHT / RAY_COUNT), (int)wall_height, false, color);
-		//bresenham_line(game->images.background, REC_WIDTH * MAP_WIDHT + i, wall_top,
-		//										REC_WIDTH * MAP_WIDHT + i, wall_bottom, color);
+		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDTH + (i * (REC_WIDTH * MAP_WIDTH / RAY_COUNT)),
+								wall_top, (REC_WIDTH * MAP_WIDTH / RAY_COUNT), (int)wall_height, false, color);
 		i++;
+	}
+}
+
+void press_move_key(t_cub3d *game, bool key, float rad)
+{
+	if (key)
+	{
+		game->player.pos.x += cos(rad) * MOVE_SPEED;
+		game->player.pos.y += sin(rad) * MOVE_SPEED;
 	}
 }
 
 void	update_player_status(t_cub3d *game)
 {
-	if (game->player.is_press_w && game->player.pos.y > 3.0f)
-		game->player.pos.y -= 3.0f;
-	if (game->player.is_press_s && game->player.pos.y < MAP_HEIGHT * REC_HEIGHT - 3.0f)
-		game->player.pos.y += 3.0f;
-	if (game->player.is_press_d && game->player.pos.x < MAP_WIDHT * REC_WIDTH - 3.0f)
-		game->player.pos.x += 3.0f;
-	if (game->player.is_press_a && game->player.pos.x > 3.0f)
-		game->player.pos.x -= 3.0f;
-	if (game->player.is_press_p_totation)
+	float temp = (game->player.angle) * (M_PI / 180.0);
+
+
+	if (game->player.is_press_w)
+	{
+		game->player.pos.x += cos(temp) * MOVE_SPEED;
+		game->player.pos.y += sin(temp) * MOVE_SPEED;
+	}
+	if (game->player.is_press_s)
+	{
+		game->player.pos.x -= cos(temp) * MOVE_SPEED;
+		game->player.pos.y -= sin(temp) * MOVE_SPEED;
+	}
+	if (game->player.is_press_d)
+	{
+		game->player.pos.x += cos(temp + M_PI_2) * MOVE_SPEED;
+		game->player.pos.y += sin(temp + M_PI_2) * MOVE_SPEED;
+	}
+	if (game->player.is_press_a)
+	{
+		game->player.pos.x += cos(temp - M_PI_2) * MOVE_SPEED;
+		game->player.pos.y += sin(temp - M_PI_2) * MOVE_SPEED;
+	}
+	if (game->player.is_press_p_rotation)
 	{
 		game->player.angle += 1.0F;
-		if (game->player.angle > 360)
-			game->player.angle = 0;
+		if (game->player.angle >= 360)
+			game->player.angle -= 360;
 	}
-	if (game->player.is_press_n_totation)
+	if (game->player.is_press_n_rotation)
 	{
 		game->player.angle -= 1.0F;
 		if (game->player.angle < 0)
-			game->player.angle = 359.9999999f;
+			game->player.angle += 360;
 	}
+
+	if (game->player.pos.y < 11.0f)
+		game->player.pos.y = 11.0f;
+	if (game->player.pos.y > MAP_HEIGHT * REC_HEIGHT - 11.0f)
+		game->player.pos.y = MAP_HEIGHT * REC_HEIGHT - 11.0f;
+	if (game->player.pos.x > MAP_WIDTH * REC_WIDTH - 11.0f)
+		game->player.pos.x = MAP_WIDTH * REC_WIDTH - 11.0f;
+	if (game->player.pos.x < 11.0f)
+		game->player.pos.x = 11.0f;
 }
 
 int	game_loop(t_cub3d	*game)
@@ -86,12 +116,15 @@ int	game_loop(t_cub3d	*game)
 	float	vertical_ray_distance;
 	float	i;
 	int		a;
+	float	rad;
+	float	tan_a;
 
 	update_player_status(game);
 	draw_map(game);
 
 	i = 0;
 	a = 0;
+
 	while (i < PERSPECTIVE)
 	{
 		game->rays[a].angle = game->player.angle + i - (PERSPECTIVE / 2.0f);
@@ -101,8 +134,10 @@ int	game_loop(t_cub3d	*game)
 			game->rays[a].angle -= 360;
 		if (game->rays[a].angle == 45.0f || game->rays[a].angle == 135.0f || game->rays[a].angle == 225.0f || game->rays[a].angle == 315.0f)
 			game->rays[a].angle += 0.000042f;
-		game->horizontal_one_ray = horizontal_ray_calculator(game, game->rays[a].angle);
-		game->vertical_one_ray = vertical_ray_calculator(game, game->rays[a].angle);
+		rad = game->rays[a].angle * (M_PI / 180.0);
+		tan_a = tan(rad);
+		game->horizontal_one_ray = horizontal_ray_calculator(game, rad, tan_a);
+		game->vertical_one_ray = vertical_ray_calculator(game, rad, tan_a);
 		horizontal_ray_distance = distance(game->player.pos, game->horizontal_one_ray);
 		vertical_ray_distance = distance(game->player.pos, game->vertical_one_ray);
 		if (horizontal_ray_distance > vertical_ray_distance)
@@ -134,5 +169,5 @@ int	game_loop(t_cub3d	*game)
 	#elif __APPLE__ || __MACH__
 		mlx_mouse_get_pos(game->win, &x, &y);
 	#endif
-	if (!(x < 0 || y >= MAP_HEIGHT * REC_HEIGHT || y < 0 || x >= MAP_WIDHT * REC_WIDTH))
+	if (!(x < 0 || y >= MAP_HEIGHT * REC_HEIGHT || y < 0 || x >= MAP_WIDTH * REC_WIDTH))
 		draw_rectangle(game, (x / REC_WIDTH) * REC_WIDTH, (y / REC_HEIGHT) * REC_HEIGHT, REC_HEIGHT, REC_HEIGHT, true, 0x00808080); */

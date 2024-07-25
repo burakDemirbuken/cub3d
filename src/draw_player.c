@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 18:38:46 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:52:50 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-// verilen x0,y0 kordinatından x1 y1 kordinatına doğru bir çizgi çeker.
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 {
 	int	dx, dy, p, x, y;
@@ -79,9 +78,5 @@ t_vec2	 rotate_around_point(t_vec2 point, t_vec2 pivot, double angle)
 
 void	draw_player(t_cub3d *game)
 {
-	t_vec2 cor;
-
 	draw_rectangle(game->images.background, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
-	cor = rotate_around_point((t_vec2){game->player.pos.x + 10, game->player.pos.y}, game->player.pos, game->player.angle);
-	bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)cor.x, (int)cor.y, 0x00FFFFFF);
 }

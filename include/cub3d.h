@@ -28,16 +28,15 @@
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
-#define REC_HEIGHTf	100.0f
-#define REC_WIDTHf	100.0f
+#define	MOVE_SPEED	3
 // haritanın uzunluğu ve genişliği
 #define MAP_HEIGHT	11
-#define MAP_WIDHT	11
+#define MAP_WIDTH	11
 
 #define WALL_HEIGHTf	500.0f
 
-#define	PERSPECTIVE	66.0f
-#define	RAY_COUNT	275
+#define	PERSPECTIVE	60.0f
+#define	RAY_COUNT	1100
 
 #define BUFFER_SIZE	13
 
@@ -50,6 +49,18 @@ typedef struct s_map
 	int			height;
 	int			width;
 }	t_map;
+
+typedef struct s_tmp_map
+{
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	unsigned int	f;
+	unsigned int	c;
+	char			**map;
+}	t_tmp_map;
+
 
 typedef struct s_vec2
 {
@@ -89,8 +100,8 @@ typedef struct s_player
 	bool	is_press_a;
 	bool	is_press_s;
 	bool	is_press_d;
-	bool	is_press_n_totation;
-	bool	is_press_p_totation;
+	bool	is_press_n_rotation;
+	bool	is_press_p_rotation;
 	double	angle;
 }	t_player;
 
@@ -130,8 +141,14 @@ void	draw_player(t_cub3d *game);
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 //*	ray_calculator.c
-t_vec2	horizontal_ray_calculator(t_cub3d *game, float angle);
-t_vec2	vertical_ray_calculator(t_cub3d *game, float angle);
+t_vec2	vertical_ray_calculator(t_cub3d *game, float rad, float tan_a);
+t_vec2	horizontal_ray_calculator(t_cub3d *game, float rad, float tan_a);
+
+//*	ray_calculator_utils.c
+float	get_offset(t_vec2 p_pos, float rad, char v_h);
 float	distance(t_vec2 point1,t_vec2  point2);
+
+// utilities
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif
