@@ -25,18 +25,20 @@
 # define KEY_C 8
 
 #endif
+
+#define WINDOWS_WIDTH	1920
+#define WINDOWS_HEIGHT	1080
+
 // ekrandaki bir dikdörtgenin uzunluğu ve genişliği
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
 #define	MOVE_SPEED	3
 // haritanın uzunluğu ve genişliği
-#define MAP_HEIGHT	11
+#define MAP_HEIGHT	12
 #define MAP_WIDTH	11
 
-#define WALL_HEIGHTf	500.0f
-
-#define	PERSPECTIVE	60.0f
+#define	PERSPECTIVE	60.0
 #define	RAY_COUNT	1100
 
 #include <stdbool.h>
@@ -58,8 +60,8 @@ typedef struct s_vec2
 typedef struct s_ray
 {
 	t_vec2	pos;
-	float	dis;
-	float	angle;
+	double	dis;
+	double	angle;
 	char	v_h;
 }	t_ray;
 
@@ -125,11 +127,11 @@ void	draw_player(t_cub3d *game);
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
 
 //*	ray_calculator.c
-t_vec2	vertical_ray_calculator(t_cub3d *game, float rad, float tan_a);
-t_vec2	horizontal_ray_calculator(t_cub3d *game, float rad, float tan_a);
+t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
 
 //*	ray_calculator_utils.c
-float	get_offset(t_vec2 p_pos, float rad, char v_h);
-float	distance(t_vec2 point1,t_vec2  point2);
+double	get_offset(t_vec2 p_pos, double rad, char v_h);
+double	distance(t_vec2 point1,t_vec2  point2);
 
 #endif

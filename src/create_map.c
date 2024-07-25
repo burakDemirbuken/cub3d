@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 14:24:37 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:03:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	draw_map(t_cub3d *game)
 		}
 		y++;
 	}
+	draw_player(game);
 }
 
 void	create_map(t_cub3d *game)
@@ -84,10 +85,14 @@ void	create_map(t_cub3d *game)
 		y++;
 	}
 	game->map.map[y] = 0;
+	game->map.height = MAP_HEIGHT;
+	game->map.width = MAP_WIDTH;
 	game->map.map[7][3] = '1';
-	game->map.map[3][3] = '1';
 	game->map.map[6][9] = '1';
 	game->map.map[3][4] = '1';
+	game->map.map[4][5] = '1';
+	game->map.map[4][3] = '1';
+	game->map.map[5][4] = '1';
 	game->map.map[3][1] = '1';
 	game->map.map[7][4] = '1';
 	game->map.map[2][1] = '1';
