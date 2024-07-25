@@ -6,15 +6,15 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/23 16:18:45 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:06:05 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/cub3d.h"
 #include <math.h>
 #include <stdlib.h>
 
-// verilen x0,y0 kordinatından x1 y1 kordinatına doğru bir çizgi çeker.
 void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 {
 	int	dx, dy, p, x, y;

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/22 20:51:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:24:37 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 static bool	inside_map(t_vec2 ret)
 {
-	if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1 || (int)ret.x < 1
+	if ((int)ret.x > (MAP_WIDTH * REC_WIDTH) - 1 || (int)ret.x < 1
 		|| ret.y < 1 || ret.y > (MAP_HEIGHT * REC_HEIGHT) - 1)
 	{
-		if ((int)ret.x > (MAP_WIDHT * REC_WIDTH) - 1)
-			ret.x = (MAP_WIDHT * REC_WIDTH) - 1;
+		if ((int)ret.x > (MAP_WIDTH * REC_WIDTH) - 1)
+			ret.x = (MAP_WIDTH * REC_WIDTH) - 1;
 		if ((int)ret.x < 1)
 			ret.x = 1;
 		if (ret.y < 1)
@@ -91,7 +91,7 @@ t_vec2	vertical_ray_calculator(t_cub3d *game, float rad, float tan_a)
 			return (ret);
 		if (hits_wall(game, ret, rad, 'v') == true)
 			return (ret);
-		ray_x.x = REC_WIDTHf;
+		ray_x.x = (float)REC_WIDTH;
 		ray_x.y = ray_x.x * tan_a;
 		if (ray_x.y < 0)
 			ray_x.y *= -1;
@@ -118,7 +118,7 @@ t_vec2	horizontal_ray_calculator(t_cub3d *game, float rad, float tan_a)
 			return (ret);
 		if (hits_wall(game, ret, rad, 'h') == true)
 			return (ret);
-		ray_y.y = REC_HEIGHTf;
+		ray_y.y = (float)REC_HEIGHT;
 		ray_y.x = ray_y.y / tan_a;
 		if (ray_y.x < 0)
 			ray_y.x *= -1;

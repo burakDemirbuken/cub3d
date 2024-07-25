@@ -22,9 +22,11 @@ SRC =	src/cub3d.c \
 		src/key_hook.c \
 		src/map_checks.c \
 		src/game_loop.c \
+		src/map_checks.c \
 		src/draw_player.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
+		utilities/ft_realloc.c
 
 OBJ = $(SRC:.c=.o)
 

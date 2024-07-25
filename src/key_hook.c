@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/15 11:51:52 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:24:06 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	key_down(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
-		game->player.is_press_n_totation = 1;
+		game->player.is_press_n_rotation = 1;
 	if (keycode == KEY_RIGHT)
-		game->player.is_press_p_totation = 1;
+		game->player.is_press_p_rotation = 1;
 	if (keycode == KEY_W)
 		game->player.is_press_w = 1;
 	if (keycode == KEY_A)
@@ -35,9 +35,9 @@ int	key_down(int keycode, t_cub3d *game)
 int	key_up(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
-		game->player.is_press_n_totation = 0;
+		game->player.is_press_n_rotation = 0;
 	if (keycode == KEY_RIGHT)
-		game->player.is_press_p_totation = 0;
+		game->player.is_press_p_rotation = 0;
 	if (keycode == KEY_W)
 		game->player.is_press_w = 0;
 	if (keycode == KEY_A)
@@ -54,7 +54,7 @@ int	key_up(int keycode, t_cub3d *game)
 {
 	if (keycode == 1)
 	{
-		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDHT * REC_WIDTH))
+		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDTH * REC_WIDTH))
 		{
 			if (game->is_click == false)
 			{
@@ -71,7 +71,7 @@ int	key_up(int keycode, t_cub3d *game)
 		}
 	}
 	if (keycode == 2)
-		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDHT * REC_WIDTH))
+		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDTH * REC_WIDTH))
 			game->map.map[y / REC_HEIGHT][x / REC_WIDTH] = 0x00252525;
 	return (0);
 } */
