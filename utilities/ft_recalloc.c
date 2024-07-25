@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_recalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 06:09:34 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/25 06:42:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:18:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 // Allocates memory for a new pointer. Copies the contents of the old one.
 // User needs to consider '\0' caharacters at the end of strings themselves.
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
+void	*ft_recalloc(void *ptr, size_t old_size, size_t new_size)
 {
 	size_t	index;
 	void	*new_ptr;
 
-	new_ptr = malloc(sizeof(void *) * new_size);
+	new_ptr = ft_calloc(sizeof(void *), new_size);
 	index = 0;
 	while (index < new_size && index < old_size)
 	{

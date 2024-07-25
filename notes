@@ -1,4 +1,3 @@
-yönü açıya bağlama
 memory free
 fps ve görüntü basma oranı
 
@@ -13,4 +12,5 @@ collision (duvardan geçememe)
 arayüz / user interface
 animasyonlu sprite
 
+✅ yönü açıya bağlama
 ✅ duvardan geçmeme olmadan segfault yemesini önlemek lazım

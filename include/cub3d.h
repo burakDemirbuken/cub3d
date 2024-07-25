@@ -126,7 +126,8 @@ void	draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void	create_map(t_cub3d *game);
 
-// map_checks.c
+// map_utils
+unsigned int get_colour(char *str);
 t_map	get_map(char *file_name);
 
 //*	key_hook.c
@@ -149,6 +150,6 @@ float	get_offset(t_vec2 p_pos, float rad, char v_h);
 float	distance(t_vec2 point1,t_vec2  point2);
 
 // utilities
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void	*ft_recalloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif

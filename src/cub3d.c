@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/25 15:07:17 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:14:12 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	set_mlx(t_cub3d *game)
 	mlx_do_key_autorepeatoff(game->mlx);
 }
 
-int	main()//int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_cub3d	game;
-	//t_map	tmp_map;
+	// t_cub3d	game;
+	t_map	tmp_map;
 
 	if (ac == 2)
 	{

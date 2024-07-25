@@ -1,7 +1,7 @@
 NAME	=	libft.a
 
-CC	=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CC	=	cc
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 SRC	= ft_memset.c \
 	ft_bzero.c \
