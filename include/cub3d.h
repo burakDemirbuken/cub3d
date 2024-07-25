@@ -33,13 +33,13 @@
 #define REC_HEIGHT	100
 #define REC_WIDTH	100
 
-#define	MOVE_SPEED	3
+#define	MOVE_SPEED	6
 // haritanın uzunluğu ve genişliği
-#define MAP_HEIGHT	12
-#define MAP_WIDTH	11
+#define MAP_HEIGHT	15
+#define MAP_WIDTH	15
 
-#define	PERSPECTIVE	60.0
-#define	RAY_COUNT	1100
+#define	PERSPECTIVE	60.0f
+#define	RAY_COUNT	1920
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -77,8 +77,6 @@ typedef struct s_image
 typedef struct s_images
 {
 	t_image	background;
-	t_image	floor;
-	t_image	wall;
 } t_images;
 
 
@@ -100,8 +98,6 @@ typedef struct s_cub3d
 	t_map		map;
 	t_vec2		click;
 	t_images	images;
-	t_vec2		horizontal_one_ray;
-	t_vec2		vertical_one_ray;
 	t_ray		rays[RAY_COUNT];
 	bool		is_click;
 	void		*mlx;

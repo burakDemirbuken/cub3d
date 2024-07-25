@@ -6,11 +6,12 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:30 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:32:31 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include "../include/libft/libft.h"
 #ifdef __linux__
 	#include "../include/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
@@ -25,7 +26,7 @@ unsigned int get_color(int R, int G, int B)
 }
 void display(t_cub3d *game)
 {
-	double	wall_height;
+	double	wall_size;
 	int		i;
 	int		wall_top;
 	double	dis;
@@ -48,37 +49,42 @@ void display(t_cub3d *game)
 			g = (unsigned int)(210 * intensity);
 			b = (unsigned int)(210 * intensity);
 		color = (r << 16) | (g << 8) | b;
-		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDTH + i, 0, 1, REC_HEIGHT * MAP_HEIGHT / 2, false, color);
+		draw_rectangle(game->images.background,WINDOWS_WIDTH + i, 0, 1, WINDOWS_HEIGHT / 2, false, color);
 			r = (unsigned int)(210 * intensity);
 			g = (unsigned int)(15 * intensity);
 			b = (unsigned int)(67 * intensity);
 		color = (r << 16) | (g << 8) | b;
-		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDTH + i, REC_HEIGHT * MAP_HEIGHT / 2, 1, REC_HEIGHT * MAP_HEIGHT / 2, false, color);
+		draw_rectangle(game->images.background,WINDOWS_WIDTH + i, WINDOWS_HEIGHT / 2, 1, WINDOWS_HEIGHT / 2, false, color);
 		i++;
 	} */
-		draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, 0, REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x39487362);
-	draw_rectangle(game->images.background, MAP_WIDTH * REC_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2 , REC_WIDTH * MAP_WIDTH, REC_HEIGHT * MAP_HEIGHT / 2, false, 0x34523234);
-
+	draw_rectangle(game->images.background, 0, 0, WINDOWS_WIDTH, WINDOWS_HEIGHT / 2, false, 0x39487362);
+	draw_rectangle(game->images.background, 0, WINDOWS_HEIGHT / 2 , WINDOWS_WIDTH, WINDOWS_HEIGHT / 2, false, 0x34523234);
 	i = 0;
 	color = 0;
 	while (i < RAY_COUNT)
 	{
-		double temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
-		dis = cos(temp) * game->rays[i].dis;
-		wall_height = (MAP_HEIGHT * REC_HEIGHT / dis);
-		if (wall_height > MAP_HEIGHT)
-			wall_height = MAP_HEIGHT;
-		wall_height *= REC_HEIGHT;
-		wall_top = ((MAP_HEIGHT * REC_HEIGHT) - wall_height) / 2;
+		double angle_diff = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
+		dis = cos(angle_diff) * game->rays[i].dis;
+/* 		if (dis > 10)
+			dis = 10; // Uzaklık çok küçükse, bir alt sınır belirleyin
+		wall_size = (WINDOWS_HEIGHT / dis); // Duvar yüksekliğini hesaplayın
 
-		// Adjust color based on distance
-		intensity = 1.0 - (dis / 700);
+		if (wall_size > WINDOWS_HEIGHT)
+		wall_size = WINDOWS_HEIGHT; // Duvar yüksekliğini ekran yüksekliğiyle sınırlayın
+ */
+		wall_size = (WINDOWS_HEIGHT / dis);
+		if (i > RAY_COUNT - 10)
+			printf("%f\n", wall_size);
+		if (wall_size > 10)
+			wall_size = 10;
+		wall_size *= 100;
+		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
+		intensity = 1.0 - (dis / 550);
 		if (intensity < 0.0)
 			intensity = 0.0;
 		if (intensity > 1.0)
 			intensity = 1.0;
-
-		unsigned int r, g, b;
+ 		unsigned int r, g, b;
 		if (game->rays[i].v_h == 'v')
 		{
 			r = (unsigned int)(0x29 * intensity);
@@ -93,11 +99,11 @@ void display(t_cub3d *game)
 		}
 
 		color = (r << 16) | (g << 8) | b;
-
-		draw_rectangle(game->images.background, REC_WIDTH * MAP_WIDTH + (i * (REC_WIDTH * MAP_WIDTH / RAY_COUNT)),
-								wall_top, (REC_WIDTH * MAP_WIDTH / RAY_COUNT), (int)wall_height, false, color);
+		draw_rectangle(game->images.background, i * (WINDOWS_WIDTH / RAY_COUNT),
+			wall_top, (WINDOWS_WIDTH / RAY_COUNT), (int)wall_size, false, color);
 		i++;
 	}
+	printf("\n");
 }
 
 
@@ -160,20 +166,21 @@ void	update_player_status(t_cub3d *game)
 
 int	game_loop(t_cub3d	*game)
 {
-	double	horizontal_ray_distance;
-	double	vertical_ray_distance;
-	double	i;
-	int		a;
-	double	rad;
-	double	tan_a;
+	double		horizontal_ray_distance;
+	double		vertical_ray_distance;
+	t_vec2		horizontal_ray_pos;
+	t_vec2		vertical_ray_pos;
+	double		i;
+	int			a;
+	double		rad;
+	double		tan_a;
 
 	update_player_status(game);
-	draw_map(game);
 
 	i = 0;
 	a = 0;
 
-	while (i < PERSPECTIVE)
+	while (a < RAY_COUNT)
 	{
 		game->rays[a].angle = game->player.angle + i - (PERSPECTIVE / 2.0);
 		if (game->rays[a].angle < 0)
@@ -184,30 +191,28 @@ int	game_loop(t_cub3d	*game)
 			game->rays[a].angle += 0.000042;
 		rad = game->rays[a].angle * (M_PI / 180.0);
 		tan_a = tan(rad);
-		game->horizontal_one_ray = horizontal_ray_calculator(game, rad, tan_a);
-		game->vertical_one_ray = vertical_ray_calculator(game, rad, tan_a);
-		horizontal_ray_distance = distance(game->player.pos, game->horizontal_one_ray);
-		vertical_ray_distance = distance(game->player.pos, game->vertical_one_ray);
+		horizontal_ray_pos = horizontal_ray_calculator(game, rad, tan_a);
+		vertical_ray_pos = vertical_ray_calculator(game, rad, tan_a);
+		horizontal_ray_distance = distance(game->player.pos, horizontal_ray_pos);
+		vertical_ray_distance = distance(game->player.pos, vertical_ray_pos);
 		if (horizontal_ray_distance > vertical_ray_distance)
 		{
-			game->rays[a].pos = game->vertical_one_ray;
+			game->rays[a].pos = vertical_ray_pos;
 			game->rays[a].dis = vertical_ray_distance;
 			game->rays[a].v_h = 'v';
 		}
 		else
 		{
-			game->rays[a].pos = game->horizontal_one_ray;
+			game->rays[a].pos = horizontal_ray_pos;
 			game->rays[a].dis = horizontal_ray_distance;
 			game->rays[a].v_h = 'h';
 		}
-		bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)game->rays[a].pos.x, (int)game->rays[a].pos.y, 0x00FFFF23);
+		//bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)game->rays[a].pos.x, (int)game->rays[a].pos.y, 0x00FFFF23);
 		i += PERSPECTIVE / RAY_COUNT;
 		a++;
 	}
 	display(game);
-	draw_player(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
-
 	return (0);
 }
 
