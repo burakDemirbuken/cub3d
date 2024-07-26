@@ -20,12 +20,14 @@ LIBFT = include/libft/libft.a
 SRC =	src/cub3d.c \
 		src/create_map.c \
 		src/key_hook.c \
-		src/map_checks.c \
 		src/game_loop.c \
 		src/draw_player.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
-		utilities/ft_recalloc.c
+		utilities/ft_recalloc.c \
+		src/map_utils/get_map.c \
+		src/map_utils/get_colour.c \
+		src/map_utils/get_texture.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,9 +6,11 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:10:55 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/25 20:12:38 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/26 12:55:53 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/libft/libft.h"
 
 static unsigned int	rgb_to_hex(int red, int green, int blue)
 {
@@ -18,9 +20,9 @@ static unsigned int	rgb_to_hex(int red, int green, int blue)
 static void	skip_to_colour(char **str)
 {
 	while (**str >= '0' && **str <= '9')
-		str++;
+		(*str)++;
 	while (!(**str >= '0' && **str <= '9'))
-		*(*str++);
+		(*str)++;
 }
 
 unsigned int get_colour(char *str)

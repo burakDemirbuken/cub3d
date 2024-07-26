@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:44:29 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/25 20:32:29 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:24:57 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ void	is_cub(char *file_name)
 	}
 }
 
-// void	elements_valid(char **map)
-// {
-// 	texture_path_reachable();
-// 	surround_walls();
-// 	no_undefined_chars();
-// }
-
 char	**read_file(int fd)
 {
 	char	**content;
@@ -55,97 +48,91 @@ char	**read_file(int fd)
 	return (content);
 }
 
-// 6 elements come before the map
-// All six elements need to be peresent
+void	set_elements(char *element, t_tmp_map *map, int *count)
+{
+	(*count)++;
+	if (!ft_strncmp(element, "NO", 2))
+		map->no = get_texture(element);
+	else if (!ft_strncmp(element, "SO", 2))
+		map->so = get_texture(element);
+	else if (!ft_strncmp(element, "EA", 2))
+		map->ea = get_texture(element);
+	else if (!ft_strncmp(element, "WE", 2))
+		map->we = get_texture(element);
+	else if (!ft_strncmp(element, "C", 1))
+		map->c = get_colour(element);
+	else if (!ft_strncmp(element, "F", 1))
+		map->f = get_colour(element);
+}
 
-// static void	path_finder(t_map *map, int y, int x)
-// {
-// 	if (map->virtual_map[y][x] == '1')
-// 		return ;
-// 	else if (map->virtual_map[y][x] == 'C')
-// 		map->c_count[1]++;
-// 	else if (map->virtual_map[y][x] == 'E')
-// 		map-> e_count[1]++;
-// 	else if (map->virtual_map[y][x] != 'P' && map->virtual_map[y][x] != '0')
-// 		return (write(2, "The map has undefined elements\n", 31),
-// 			free_map(map), exit(1));
-// 	map->virtual_map[y][x] = '1';
-// 	path_finder(map, y, x - 1);
-// 	path_finder(map, y - 1, x);
-// 	path_finder(map, y, x + 1);
-// 	path_finder(map, y + 1, x);
-// }
+int	set_map(char **content, t_tmp_map *map)
+{
+	int	i;
+	int	j;
 
-t_tmp_map	set_elements(char *element)
+	i = -1;
+	while (content[++i])
+	{
+		j = -1;
+		while (content[i][++j])
+		{
+			if (content[i][j + 1] == '\0')
+				content[i][j] = '\0';
+			else if (!(content[i][j] == '0' || content[i][j] == '1'
+				|| content[i][j] == 'N' || content[i][j] == 'S'
+				|| content[i][j] == 'W' || content[i][j] == 'E'
+				|| content[i][j] == ' '))
+				return (ft_putstr_fd("Map has undefined elements\n",
+					STDERR_FILENO), 1);
+		}
+	}
+	map->map = (char **)ft_calloc(i + 1, sizeof(char *));
+	i = -1;
+	while (map->map[++i])
+		map->map[i] = ft_strdup(content[i]);
+	map->map[i] = NULL;
+}
+
+t_tmp_map	seperate_content(char **content)
 {
 	t_tmp_map	map;
 	int	i;
-	int	non;
+	int	last;
+	int	count;
 
 	i = -1;
-	non = 0;
-	while(content[++i])
-	{
-		if (!ft_strncmp(content[i], "NO", 2))
-			map.no = get_texture(content[i]);
-		else if (!ft_strncmp(content[i], "SO", 2))
-			map.so = get_texture(content[i]);
-		else if (!ft_strncmp(content[i], "EA", 2))
-			map.ea = get_texture(content[i]);
-		else if (!ft_strncmp(content[i], "WE", 2))
-			map.we = get_texture(content[i]);
-		else if (!ft_strncmp(content[i], "C", 1))
-			map.c = get_colour(content[i]);
-		else if (!ft_strncmp(content[i], "F", 1))
-			map.f = get_colour(content[i]);
-		else
-			non++;
-	}
-	// needs proper exit
-	if (i - non != 6)
-		ft_putstr_fd("The number of element is wrong\n", STDERR_FILENO);
-	return (map);
-}
-
-void	function(char **content)
-{
-	int	i = -1;
-	int	last;
+	count = 0;
 	while(content[++i])
 	{
 		if (!ft_strncmp(content[i], "NO", 2) || !ft_strncmp(content[i], "SO", 2)
 			|| !ft_strncmp(content[i], "EA", 2) || !ft_strncmp(content[i], "WE", 2)
 			|| !ft_strncmp(content[i], "C", 1) || !ft_strncmp(content[i], "F", 1))
 		{
-			set_elements(content[i]);
+			set_elements(content[i], &map, &count);
 			last = i;
 		}
 	}
-	if (i == last)
+	if (count != 6)
+		ft_putstr_fd("Wrong number of elements\n", STDERR_FILENO);
+	if (i == last++)
 		ft_putstr_fd("No map found\n", STDERR_FILENO);
-	i = last;
-	while (!ft_strncmp(content[i], "\n", 1))
-		i++;
-	map.map = content + i;
+	while (!ft_strncmp(content[last], "\n", 1))
+		last++;
+	set_map(content + last, &map);
+	return (map);
 }
 
-t_map	get_map(char *file_name)
+void	get_map(char *file_name)
 {
 	char	**file_content;
 	int		fd;
-	t_map	map;
-	t_tmp_map tmp_map;
+	t_tmp_map map;
 
 	is_cub(file_name);
 	fd = open(file_name, O_RDONLY);
 	file_content = read_file(fd);
 	close(fd);
-	tmp_map = count_elements(file_content);
-
-	// elements_valid(map);
-	// return (map);
-
-	(void)tmp_map;
-	map.map = file_content;
-	return(map);
+	map = seperate_content(file_content);
+	ft_strfree(file_content);
+	map_checks(map.map);
 }
