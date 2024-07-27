@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/25 18:03:34 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:44:51 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 		i_w = 0;
 		while (i_w < width)
 		{
+			if (i_w + x < 1 || i_w + x > WINDOWS_WIDTH - 1
+				|| i_h + y < 0 || i_h + y > WINDOWS_HEIGHT - 1)
+			{
+				i_w++;
+				continue;
+			}
 			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
 				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght

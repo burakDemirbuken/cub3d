@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/25 20:32:31 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:39:51 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ void display(t_cub3d *game)
 		wall_size = WINDOWS_HEIGHT; // Duvar yüksekliğini ekran yüksekliğiyle sınırlayın
  */
 		wall_size = (WINDOWS_HEIGHT / dis);
-		if (i > RAY_COUNT - 10)
-			printf("%f\n", wall_size);
 		if (wall_size > 10)
 			wall_size = 10;
-		wall_size *= 100;
+		wall_size *= 150;
 		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
 		intensity = 1.0 - (dis / 550);
 		if (intensity < 0.0)
@@ -103,7 +101,6 @@ void display(t_cub3d *game)
 			wall_top, (WINDOWS_WIDTH / RAY_COUNT), (int)wall_size, false, color);
 		i++;
 	}
-	printf("\n");
 }
 
 
