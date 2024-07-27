@@ -26,20 +26,22 @@
 
 #endif
 
-#define WINDOWS_WIDTH	1920
-#define WINDOWS_HEIGHT	1080
+# define	WINDOWS_WIDTH	1920
+# define	WINDOWS_HEIGHT	1080
 
 // ekrandaki bir dikdörtgenin uzunluğu ve genişliği
-#define REC_HEIGHT	100
-#define REC_WIDTH	100
+# define	REC_HEIGHT	100
+# define	REC_WIDTH	100
 
-#define	MOVE_SPEED	6
+# define	MOVE_SPEED	6
 // haritanın uzunluğu ve genişliği
-#define MAP_HEIGHT	15
-#define MAP_WIDTH	15
+# define	MAP_HEIGHT	15
+# define	MAP_WIDTH	15
 
-#define	PERSPECTIVE	60.0f
-#define	RAY_COUNT	1920
+# define	WALL_SIZE	150
+
+# define	PERSPECTIVE	60.0f
+# define	RAY_COUNT	1920
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -114,6 +116,7 @@ void	create_map(t_cub3d *game);
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);
 int		key_up(int keycode, t_cub3d *game);
+void	update_player_status(t_cub3d *game);
 
 //* game_loop.c
 int		game_loop(t_cub3d	*game);
@@ -129,5 +132,8 @@ t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
 //*	ray_calculator_utils.c
 double	get_offset(t_vec2 p_pos, double rad, char v_h);
 double	distance(t_vec2 point1,t_vec2  point2);
+
+//*	display.c
+void	display(t_cub3d *game);
 
 #endif

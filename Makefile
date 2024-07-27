@@ -1,11 +1,10 @@
 NAME = cub3d
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -I include/
 CFLAGS = -Wall -Wextra -Werror -g -I include/
 
 
-UNAME_S := $(shell uname -s)
+UNAME_S = $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
 	MLX_PATH = ./include/minilibx_linux/
@@ -24,7 +23,8 @@ SRC =	src/cub3d.c \
 		src/draw_player.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
-
+		src/display.c \
+	
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

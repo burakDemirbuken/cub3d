@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 16:48:07 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/27 14:57:09 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,8 @@ void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 	}
 }
 
-t_vec2	 rotate_around_point(t_vec2 point, t_vec2 pivot, double angle)
-{
-	t_vec2	new_point;
-
-	double rad = angle * (M_PI / 180.0);
-	double temp_x = point.x - pivot.x;
-	double temp_y = point.y - pivot.y;
-	double rotated_x = temp_x * cos(rad) - temp_y * sin(rad);
-	double rotated_y = temp_x * sin(rad) + temp_y * cos(rad);
-	new_point.x = rotated_x + pivot.x;
-	new_point.y = rotated_y + pivot.y;
-
-	return new_point;
-}
-
 void	draw_player(t_cub3d *game)
 {
-	draw_rectangle(game->images.background, game->player.pos.x - 10, game->player.pos.y - 10, 20, 20, false, 0x00FF0000);
+	draw_rectangle(game->images.background, game->player.pos.x / 5 - 2 ,
+		game->player.pos.y / 5 - 2, 5, 5, false, 0x00FF0000);
 }

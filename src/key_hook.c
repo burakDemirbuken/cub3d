@@ -6,12 +6,54 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 16:24:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:00:01 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdlib.h>
+#include <math.h>
+
+void press_move_key(t_cub3d *game, bool key, double rad)
+{
+	if (key)
+	{
+		game->player.pos.x += cos(rad) * MOVE_SPEED;
+		game->player.pos.y += sin(rad) * MOVE_SPEED;
+	}
+}
+
+void	update_player_status(t_cub3d *game)
+{
+	double	rad;
+
+	rad = (game->player.angle) * (M_PI / 180.0);
+	press_move_key(game, game->player.is_press_w, rad);
+	press_move_key(game, game->player.is_press_d, rad + M_PI_2);
+	press_move_key(game, game->player.is_press_s, rad - M_PI);
+	press_move_key(game, game->player.is_press_a, rad - M_PI_2);
+	if (game->player.is_press_p_rotation)
+	{
+		game->player.angle += 1.0;
+		if (game->player.angle >= 360)
+			game->player.angle -= 360;
+	}
+	if (game->player.is_press_n_rotation)
+	{
+		game->player.angle -= 1.0;
+		if (game->player.angle < 0)
+			game->player.angle += 360;
+	}
+	if (game->player.pos.y < 11.0)
+		game->player.pos.y = 11.0;
+	if (game->player.pos.y > game->map.height * REC_HEIGHT - 11.0)
+		game->player.pos.y = game->map.height * REC_HEIGHT - 11.0;
+	if (game->player.pos.x > game->map.width * REC_WIDTH - 11.0)
+		game->player.pos.x = game->map.width * REC_WIDTH - 11.0;
+	if (game->player.pos.x < 11.0)
+		game->player.pos.x = 11.0;
+}
+
 int	key_down(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
