@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:07:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/26 16:28:56 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:15:46 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 // All six elements need to be peresent
 
 #include "../../include/cub3d.h"
+#include "../../include/libft/libft.h"
 
 int get_maplen(char **map)
 {
@@ -28,53 +29,59 @@ int get_maplen(char **map)
 // flood fill algorithm does tha deed!
 
 // map check is not complete!
-static void	map_checker(char **map, int y, int x, int *flag)
+static void	flood_fill(char **map, int y, int x)
 {
-	char	c;
-
 	if (map[y][x] == '1')
 		return ;
-	else if (y == 0 || y == ft_maplen(map) || x == 0 || x == ft_strlen(map[y]))
-	{
+	else if (map[y][x] == ' ')
+		map[y][x] = '#';
+	else
 		ft_putstr_fd("Map must be surrounded by walls\n", 2);
-		*flag = 1;
+	flood_fill(map, y, x - 1);
+	flood_fill(map, y - 1, x);
+	flood_fill(map, y, x + 1);
+	flood_fill(map, y + 1, x);
+}
+
+void	print_map(char **map)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+	{
+		ft_putstr_fd(map[i], 1);
+		ft_putchar_fd('\n', 1);
+		i++;
 	}
-	else if (map[y][x] != '1' && map[y][x] != '0')
-		return (ft_putstr_fd("The map has undefined elements\n", 2), *flag = 1);
-	c = map[y][x];
-	map[y][x] = '1';
-	path_finder(map, y, x - 1);
-	path_finder(map, y - 1, x);
-	path_finder(map, y, x + 1);
-	path_finder(map, y + 1, x);
-	map[y][x] = c;
 }
 
 void	map_checks(char **map)
 {
-	int		i[2];
-	int		start[2];
-	char	c;
-	int		flag;
+	char	**new_map;
+	int		arrlen;
+	int		strlen;
 
-	i[0] = -1;
-	start[0] = -1;
-	while (map[++i[0]] && *start == -1)
+	print_map(map);
+	arrlen = get_maplen(map);
+	//trim_nl();
+	new_map = ft_calloc(arrlen + 2, sizeof(char *));
+	strlen = ft_strlen(map[0]);
+	new_map[0] = ft_calloc(strlen + 2, sizeof(char));
+	new_map[0][strlen + 2] = '\0';
+	while (strlen--)
+		new_map[0][strlen] = ' ';
+	arrlen = 0;
+	while (map[arrlen])
 	{
-		i[1] = -1;
-		while(map[i[0]][++i[1]] && *start == -1)
-		{
-			if (map[i[0]][i[1]] == 'N' || map[i[0]][i[1]] == 'S'
-				|| map[i[0]][i[1]] == 'W' || map[i[0]][i[1]] == 'E')
-			{
-				start[0] = i[0];
-				start[1] = i[1];
-				c = map[i[0]][i[1]];
-				map[i[0]][i[1]] = '0';
-			}
-		}
+		new_map[arrlen + 1] = ft_strjoin(" ", map[arrlen]);
+		arrlen++;
 	}
-	flag = 0;
-	map_checker(map, start[0], start[1], &flag);
-	map[start[0]][start[1]] = c;
+	strlen = ft_strlen(map[arrlen]);
+	new_map[arrlen + 1] = ft_calloc(strlen + 2, sizeof(char));
+	new_map[arrlen + 1][strlen + 2] = '\0';
+	while (strlen--)
+		new_map[arrlen + 1][strlen] = ' ';
+	flood_fill(new_map, 0, 0);
+	print_map(new_map);
 }

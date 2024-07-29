@@ -129,7 +129,9 @@ void	create_map(t_cub3d *game);
 // map_utils
 unsigned int get_colour(char *str);
 char	*get_texture(char *str);
-t_map	get_map(char *file_name);
+void	map_checks(char **map);
+void	get_map(char *file_name);
+void	print_map(char **map);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);

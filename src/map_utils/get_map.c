@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:44:29 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/26 15:24:57 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:19:22 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ int	set_map(char **content, t_tmp_map *map)
 	while (map->map[++i])
 		map->map[i] = ft_strdup(content[i]);
 	map->map[i] = NULL;
+	return (0);
 }
 
-t_tmp_map	seperate_content(char **content)
+t_tmp_map	 seperate_content(char **content)
 {
 	t_tmp_map	map;
 	int	i;
