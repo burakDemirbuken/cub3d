@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/27 14:34:42 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:04:59 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_image	create_image(void *mlx, int width, int height)
 		return (img);
 	img.data = mlx_get_data_addr(img.image, &img.bits_per_pixel,
 			&img.line_lenght, &img.endian);
+	img.height = height;
+	img.width = width;
 	return (img);
 }
 
@@ -41,13 +43,13 @@ void	set_mlx(t_cub3d *game)
 			WINDOWS_WIDTH, WINDOWS_HEIGHT, "cub3d");
 	if (!game->win)
 		exit(0); //free
-	mlx_mouse_hide(game->mlx, game->win);
+	//mlx_mouse_hide(game->mlx, game->win);
 	game->images.background = create_image(game->mlx,
 			WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	if (!game->images.background.image)
 		exit(0); //free
-	game->player.pos.x = 150;
-	game->player.pos.y = 150;
+	game->player.pos.x = 650;
+	game->player.pos.y = 750;
 	game->player.angle = 0;
 	mlx_do_key_autorepeatoff(game->mlx);
 }

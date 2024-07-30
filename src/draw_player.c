@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/27 14:57:09 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:40:09 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color)
 
 void	draw_player(t_cub3d *game)
 {
-	draw_rectangle(game->images.background, game->player.pos.x / 5 - 2 ,
-		game->player.pos.y / 5 - 2, 5, 5, false, 0x00FF0000);
+	draw_rectangle(game->images.background, game->player.pos.x / 5 - 2 + 25,
+		game->player.pos.y / 5 - 2 + 25, 5, 5, false, 0x00FF0000);
 }

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/27 15:00:01 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:11:25 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,25 @@
 #include <stdlib.h>
 #include <math.h>
 
-void press_move_key(t_cub3d *game, bool key, double rad)
+void player_move(t_cub3d *game, bool key, double rad)
 {
+	t_vec2	new_pos;
+
 	if (key)
 	{
-		game->player.pos.x += cos(rad) * MOVE_SPEED;
-		game->player.pos.y += sin(rad) * MOVE_SPEED;
+		new_pos = game->player.pos;
+		new_pos.x += cos(rad) * MOVE_SPEED;
+			new_pos.y += sin(rad) * MOVE_SPEED;
+		/* if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] == '1')
+		{
+			new_pos.x -= cos(rad) * MOVE_SPEED;
+			game->player.pos = new_pos;
+			if(game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] != '1')
+				return;
+		}
+		new_pos.y += sin(rad) * MOVE_SPEED;
+		if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] != '1')
+ */			game->player.pos = new_pos;
 	}
 }
 
@@ -28,10 +41,10 @@ void	update_player_status(t_cub3d *game)
 	double	rad;
 
 	rad = (game->player.angle) * (M_PI / 180.0);
-	press_move_key(game, game->player.is_press_w, rad);
-	press_move_key(game, game->player.is_press_d, rad + M_PI_2);
-	press_move_key(game, game->player.is_press_s, rad - M_PI);
-	press_move_key(game, game->player.is_press_a, rad - M_PI_2);
+	player_move(game, game->player.is_press_w, rad);
+	player_move(game, game->player.is_press_d, rad + M_PI_2);
+	player_move(game, game->player.is_press_s, rad - M_PI);
+	player_move(game, game->player.is_press_a, rad - M_PI_2);
 	if (game->player.is_press_p_rotation)
 	{
 		game->player.angle += 1.0;

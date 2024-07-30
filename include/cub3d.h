@@ -35,8 +35,8 @@
 
 # define	MOVE_SPEED	6
 // haritanın uzunluğu ve genişliği
-# define	MAP_HEIGHT	15
-# define	MAP_WIDTH	15
+# define	MAP_HEIGHT	20
+# define	MAP_WIDTH	20
 
 # define	WALL_SIZE	150
 
@@ -48,9 +48,9 @@
 
 typedef struct s_map
 {
-	char		**map;
-	int			height;
-	int			width;
+	char	**map;
+	int		height;
+	int		width;
 }	t_map;
 
 typedef struct s_vec2
@@ -71,6 +71,8 @@ typedef struct s_image
 {
 	char	*data;
 	void	*image;
+	int		height;
+	int		width;
 	int		endian;
 	int		line_lenght;
 	int		bits_per_pixel;

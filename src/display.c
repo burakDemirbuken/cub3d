@@ -6,14 +6,45 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/27 14:30:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:27:09 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <math.h>
 
-void display(t_cub3d *game)
+void	put_pixel_to_image(t_image img, int x, int y, int color)
+{
+	if (img.height > y && y >= 0 && (img.width > x && x >= 0))
+		*(unsigned int*)(img.data + (int)(y * img.line_lenght +
+			x * (img.bits_per_pixel / 8))) = color;
+}
+
+void	draw_gradyan_vertical(t_image img, int y, int color, int width)
+{
+	double		i;
+	double	intensity;
+	unsigned int t_color;
+
+	i = 0;
+	while (i <= width / 2)
+	{
+		t_color = color;
+		intensity = i / ((double)width / 2.0) + 0.42;
+		if (intensity < 0.0)
+			intensity = 0;
+		unsigned int r, g, b;
+			r = ((color & 0x00FF0000) >> 16) * intensity;
+			g = ((color & 0x0000FF00) >> 8) * intensity;
+			b = (color & 0x000000FF) * intensity;
+		t_color = (r << 16) | (g << 8) | b;
+		put_pixel_to_image(img, i, y, t_color);
+		put_pixel_to_image(img, width - i, y, t_color);
+		i++;
+	}
+}
+
+void	display(t_cub3d *game)
 {
 	double			wall_size;
 	int				i;
@@ -23,31 +54,27 @@ void display(t_cub3d *game)
 	double			intensity;
 
 	i = 0;
-/* 	while (i < RAY_COUNT)
+	while (i < WINDOWS_HEIGHT / 2)
 	{
-		double temp = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
-		dis = cos(temp) * game->rays[i].dis;
-		intensity = 1.0 - (dis / 700);
+		intensity = i / ((double)WINDOWS_HEIGHT / 2.0) - 0.30;
 		if (intensity < 0.0)
-			intensity = 0.0;
-		if (intensity > 1.0)
-			intensity = 1.0;
-
+			intensity = 0;
 		unsigned int r, g, b;
-			r = (unsigned int)(15 * intensity);
-			g = (unsigned int)(210 * intensity);
-			b = (unsigned int)(210 * intensity);
+			r = (unsigned int)(0 * intensity);
+			g = (unsigned int)(125 * intensity);
+			b = (unsigned int)(0 * intensity);
 		color = (r << 16) | (g << 8) | b;
-		draw_rectangle(game->images.background,WINDOWS_WIDTH + i, 0, 1, WINDOWS_HEIGHT / 2, false, color);
-			r = (unsigned int)(210 * intensity);
-			g = (unsigned int)(15 * intensity);
-			b = (unsigned int)(67 * intensity);
+		//draw_gradyan_vertical(game->images.background, i, 0, color, 100);
+		draw_gradyan_vertical(game->images.background, WINDOWS_HEIGHT / 2 - i, color, WINDOWS_WIDTH);
+		//draw_rectangle(game->images.background, 0, WINDOWS_HEIGHT / 2 - i, WINDOWS_WIDTH, 1, false, color);
+
+			r = (unsigned int)(0 * intensity);
+			g = (unsigned int)(125 * intensity);
+			b = (unsigned int)(0 * intensity);
 		color = (r << 16) | (g << 8) | b;
-		draw_rectangle(game->images.background,WINDOWS_WIDTH + i, WINDOWS_HEIGHT / 2, 1, WINDOWS_HEIGHT / 2, false, color);
+		draw_gradyan_vertical(game->images.background, WINDOWS_HEIGHT / 2 + i, color, WINDOWS_WIDTH);
 		i++;
-	} */
-	draw_rectangle(game->images.background, 0, 0, WINDOWS_WIDTH, WINDOWS_HEIGHT / 2, false, 0x39487362);
-	draw_rectangle(game->images.background, 0, WINDOWS_HEIGHT / 2 , WINDOWS_WIDTH, WINDOWS_HEIGHT / 2, false, 0x34523234);
+	}
 	i = 0;
 	color = 0;
 	while (i < RAY_COUNT)
@@ -59,7 +86,7 @@ void display(t_cub3d *game)
 			wall_size = 10;
 		wall_size *= WALL_SIZE;
 		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
-		intensity = 1.0 - (dis / 700);
+		intensity = 1.0 - (game->rays[i].dis / 410);
 		if (intensity < 0.0)
 			intensity = 0.0;
 		if (intensity > 1.0)
@@ -67,15 +94,15 @@ void display(t_cub3d *game)
  		unsigned int r, g, b;
 		if (game->rays[i].v_h == 'v')
 		{
-			r = (unsigned int)(0x29 * intensity);
-			g = (unsigned int)(0x68 * intensity);
+			r = (unsigned int)(124 * intensity);
+			g = (unsigned int)(0x00 * intensity);
 			b = (unsigned int)(0x00 * intensity);
 		}
 		else
 		{
 			r = (unsigned int)(0x00 * intensity);
-			g = (unsigned int)(0x45 * intensity);
-			b = (unsigned int)(0x31 * intensity);
+			g = (unsigned int)(124 * intensity);
+			b = (unsigned int)(0x00 * intensity);
 		}
 
 		color = (r << 16) | (g << 8) | b;

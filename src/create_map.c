@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/27 14:36:25 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:52:20 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_map(t_cub3d *game)
 				color = 0x00080808;
 			else
 				color = 0x00808080;
-			draw_rectangle(game->images.background, x * 20, y * 20, 20, 20, true, color);
+			draw_rectangle(game->images.background, x * 20 + 25, y * 20 + 25, 20, 20, true, color);
 			x++;
 		}
 		y++;
