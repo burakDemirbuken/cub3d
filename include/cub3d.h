@@ -46,21 +46,15 @@
 typedef struct s_map
 {
 	char		**map;
-	int			height;
-	int			width;
-}	t_map;
-
-typedef struct s_tmp_map
-{
 	char			*no;
 	char			*so;
 	char			*we;
 	char			*ea;
 	unsigned int	f;
 	unsigned int	c;
-	char			**map;
-}	t_tmp_map;
-
+	int			height;
+	int			width;
+}	t_map;
 
 typedef struct s_vec2
 {

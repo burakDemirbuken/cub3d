@@ -22,7 +22,7 @@ void	*ft_recalloc(void *ptr, size_t old_size, size_t new_size)
 
 	new_ptr = ft_calloc(sizeof(void *), new_size);
 	index = 0;
-	while (index < new_size && index < old_size)
+	while (((char *)ptr) && index < new_size && index < old_size)
 	{
 		((char *)new_ptr)[index] = ((const char *)ptr)[index];
 		index++;

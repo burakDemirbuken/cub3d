@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:44:29 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/29 18:19:22 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:07:49 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 #include "../include/libft/libft.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 
+// Checks the file extension. Exits if it's wrong.
 void	is_cub(char *file_name)
 {
-	int		len;
+	int	len;
 
 	len = ft_strlen(file_name);
 	if (len <= 4 || file_name[--len] != 'b' || file_name[--len] != 'u'
 		|| file_name[--len] != 'c' || file_name[--len] != '.')
 	{
-		perror("File extension not .ber\n");
+		ft_putstr_fd("cub3d: File extension not .cub\n", STDERR_FILENO);
 		exit (1);
 	}
 }
 
+// Reads the file using get next line.
+// It reallocates place for the 2d array pointer as it reads more lines.
+// Returns the 2d char array.
 char	**read_file(int fd)
 {
 	char	**content;
@@ -40,15 +45,20 @@ char	**read_file(int fd)
 	index = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		content = ft_recalloc(content, sizeof(char *) * index,
-			sizeof(char *) * index + 1);
+		// check if this returns NULL to handle memory errors gracefully...
+		content = ft_recalloc(content, sizeof(char *) * (index + 1),
+			sizeof(char *) * (index + 2));
+		ft_putnbr_fd(sizeof(char *) * (index + 2), 1);
+		ft_putchar_fd('\n', 1);
 		content[index++] = line;
 		content[index] = NULL;
 	}
+	print_map(content);
+	ft_putstr_fd("Map read\n", 1);
 	return (content);
 }
 
-void	set_elements(char *element, t_tmp_map *map, int *count)
+void	set_elements(char *element, t_map *map, int *count)
 {
 	(*count)++;
 	if (!ft_strncmp(element, "NO", 2))
@@ -65,7 +75,7 @@ void	set_elements(char *element, t_tmp_map *map, int *count)
 		map->f = get_colour(element);
 }
 
-int	set_map(char **content, t_tmp_map *map)
+int	set_map(char **content, t_map *map)
 {
 	int	i;
 	int	j;
@@ -94,9 +104,9 @@ int	set_map(char **content, t_tmp_map *map)
 	return (0);
 }
 
-t_tmp_map	 seperate_content(char **content)
+t_map	 seperate_content(char **content)
 {
-	t_tmp_map	map;
+	t_map	map;
 	int	i;
 	int	last;
 	int	count;
@@ -125,15 +135,20 @@ t_tmp_map	 seperate_content(char **content)
 
 void	get_map(char *file_name)
 {
-	char	**file_content;
+	char	**content;
 	int		fd;
-	t_tmp_map map;
+	t_map	map;
 
 	is_cub(file_name);
 	fd = open(file_name, O_RDONLY);
-	file_content = read_file(fd);
+	if(fd < 0)
+	{
+		perror("cub3d");
+		exit(1);
+	}
+	content = read_file(fd);
 	close(fd);
-	map = seperate_content(file_content);
-	ft_strfree(file_content);
+	map = seperate_content(content);
+	ft_strfree(content);
 	map_checks(map.map);
 }
