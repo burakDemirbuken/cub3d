@@ -43,13 +43,26 @@
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
 
-typedef struct s_map
+typedef struct s_tmp_map
 {
-	char		**map;
 	char			*no;
 	char			*so;
 	char			*we;
 	char			*ea;
+	char		**map;
+	unsigned int	f;
+	unsigned int	c;
+	int			height;
+	int			width;
+}	t_tmp_map;
+
+typedef struct s_map
+{
+	t_image		no;
+	t_image		so;
+	t_image		we;
+	t_image		ea;
+	char		**map;
 	unsigned int	f;
 	unsigned int	c;
 	int			height;
@@ -120,12 +133,15 @@ void	draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void	create_map(t_cub3d *game);
 
-// map_utils
-unsigned int get_colour(char *str);
-char	*get_texture(char *str);
-void	map_checks(char **map);
-void	get_map(char *file_name);
-void	print_map(char **map);
+// MAP UTILS
+unsigned int	get_colour(char *str);
+char		*get_texture(char *str);
+void		map_checks(char **map);
+void		get_map(char *file_name);
+void		print_map(char **map);
+char		**read_file(int fd);
+void		is_cub(char *file_name);
+t_map		separate_content(char **content);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);

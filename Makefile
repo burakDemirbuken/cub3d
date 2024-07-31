@@ -28,7 +28,9 @@ SRC =	src/cub3d.c \
 		src/map_utils/get_map.c \
 		src/map_utils/get_colour.c \
 		src/map_utils/get_texture.c \
-		src/map_utils/map_checks.c
+		src/map_utils/map_checks.c \
+		src/map_utils/file_reading.c \
+		src/map_utils/separate_content.c
 
 OBJ = $(SRC:.c=.o)
 
