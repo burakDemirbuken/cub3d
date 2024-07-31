@@ -33,7 +33,8 @@
 # define	REC_HEIGHT	100
 # define	REC_WIDTH	100
 
-# define	MOVE_SPEED	6
+# define	MOVE_SPEED	60
+
 // haritanın uzunluğu ve genişliği
 # define	MAP_HEIGHT	20
 # define	MAP_WIDTH	20
@@ -137,5 +138,8 @@ double	distance(t_vec2 point1,t_vec2  point2);
 
 //*	display.c
 void	display(t_cub3d *game);
+
+//!	dosyaya ayrılacak
+t_ray	ray_throw(t_cub3d *game, double angle);
 
 #endif

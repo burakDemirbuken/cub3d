@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/30 17:27:09 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:07:28 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	put_pixel_to_image(t_image img, int x, int y, int color)
 {
-	if (img.height > y && y >= 0 && (img.width > x && x >= 0))
+	if (img.height > y && y >= 0 && img.width > x && x >= 0)
 		*(unsigned int*)(img.data + (int)(y * img.line_lenght +
 			x * (img.bits_per_pixel / 8))) = color;
 }
@@ -54,23 +54,20 @@ void	display(t_cub3d *game)
 	double			intensity;
 
 	i = 0;
-	while (i < WINDOWS_HEIGHT / 2)
+	while (i <= WINDOWS_HEIGHT / 2)
 	{
 		intensity = i / ((double)WINDOWS_HEIGHT / 2.0) - 0.30;
 		if (intensity < 0.0)
 			intensity = 0;
 		unsigned int r, g, b;
-			r = (unsigned int)(0 * intensity);
-			g = (unsigned int)(125 * intensity);
-			b = (unsigned int)(0 * intensity);
+		r = (unsigned int)(0 * intensity);
+		g = (unsigned int)(125 * intensity);
+		b = (unsigned int)(0 * intensity);
 		color = (r << 16) | (g << 8) | b;
-		//draw_gradyan_vertical(game->images.background, i, 0, color, 100);
 		draw_gradyan_vertical(game->images.background, WINDOWS_HEIGHT / 2 - i, color, WINDOWS_WIDTH);
-		//draw_rectangle(game->images.background, 0, WINDOWS_HEIGHT / 2 - i, WINDOWS_WIDTH, 1, false, color);
-
-			r = (unsigned int)(0 * intensity);
-			g = (unsigned int)(125 * intensity);
-			b = (unsigned int)(0 * intensity);
+		r = (unsigned int)(0 * intensity);
+		g = (unsigned int)(125 * intensity);
+		b = (unsigned int)(0 * intensity);
 		color = (r << 16) | (g << 8) | b;
 		draw_gradyan_vertical(game->images.background, WINDOWS_HEIGHT / 2 + i, color, WINDOWS_WIDTH);
 		i++;

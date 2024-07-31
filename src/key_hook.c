@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/30 18:11:25 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:12:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,38 @@
 void player_move(t_cub3d *game, bool key, double rad)
 {
 	t_vec2	new_pos;
+	t_ray	ray;
+	double	difference;
 
 	if (key)
 	{
 		new_pos = game->player.pos;
 		new_pos.x += cos(rad) * MOVE_SPEED;
-			new_pos.y += sin(rad) * MOVE_SPEED;
-		/* if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] == '1')
-		{
-			new_pos.x -= cos(rad) * MOVE_SPEED;
-			game->player.pos = new_pos;
-			if(game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] != '1')
-				return;
-		}
 		new_pos.y += sin(rad) * MOVE_SPEED;
-		if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_WIDTH)] != '1')
- */			game->player.pos = new_pos;
+		if (rad < 0)
+			rad += 2 * M_PI;
+		if (rad > 2 * M_PI)
+			rad -= 2 * M_PI;
+		ray = ray_throw(game, rad * (double)(180 / M_PI));
+		if (ray.dis <= distance(game->player.pos, new_pos))
+		{
+			difference = 10;
+			if (ray.dis < 10)
+			{
+				if (ray.v_h == 'v')
+					difference = game->player.pos.x - ray.pos.x ;
+				else
+					difference = game->player.pos.y - ray.pos.y ;
+			}
+			if (ray.v_h == 'v')
+				ray.pos.x += difference;
+			else
+				ray.pos.y += difference;
+			game->player.pos = ray.pos;
+		}
+		else
+			game->player.pos = new_pos;
+		printf("x: %f - y: %f\n", game->player.pos.x, game->player.pos.y);
 	}
 }
 
@@ -47,13 +63,13 @@ void	update_player_status(t_cub3d *game)
 	player_move(game, game->player.is_press_a, rad - M_PI_2);
 	if (game->player.is_press_p_rotation)
 	{
-		game->player.angle += 1.0;
+		game->player.angle += 2.5;
 		if (game->player.angle >= 360)
 			game->player.angle -= 360;
 	}
 	if (game->player.is_press_n_rotation)
 	{
-		game->player.angle -= 1.0;
+		game->player.angle -= 2.5;
 		if (game->player.angle < 0)
 			game->player.angle += 360;
 	}
