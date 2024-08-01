@@ -135,13 +135,15 @@ void	create_map(t_cub3d *game);
 
 // MAP UTILS
 unsigned int	get_colour(char *str);
-char		*get_texture(char *str);
-void		map_checks(char **map);
-void		get_map(char *file_name);
-void		print_map(char **map);
-char		**read_file(int fd);
-void		is_cub(char *file_name);
-t_map		separate_content(char **content);
+char			*get_texture(char *str);
+void			map_checks(char **map);
+void			get_map(char *file_name);
+void			print_map(char **map);
+char			**read_file(int fd);
+void			is_cub(char *file_name);
+t_map			separate_content(char **content);
+void			initialize_tmp_map(t_tmp_map *map);
+void			free_tmp_map(t_tmp_map *map);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/26 15:11:19 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/01 15:22:00 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	set_mlx(t_cub3d *game)
 	game->images.background = create_image(game->mlx, REC_WIDTH * MAP_WIDTH * 2, REC_HEIGHT * MAP_HEIGHT);
 	game->images.floor = create_image(game->mlx, REC_WIDTH, REC_HEIGHT);
 	game->images.wall = create_image(game->mlx, REC_HEIGHT, REC_HEIGHT);
-	game->player.pos.x = MAP_WIDTH * REC_WIDTH / 2;
+	game->player.pos.x = MAP_WIDTH * REC_WIDTH;
+	// game->player.pos.y = player_map_y * REC_HEIGHT - (REC_HEIGHT / 2);
 	game->player.pos.y = MAP_HEIGHT * REC_HEIGHT / 2;
 	game->player.angle = 0.0f;
 	mlx_do_key_autorepeatoff(game->mlx);
