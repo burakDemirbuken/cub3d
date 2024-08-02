@@ -33,19 +33,27 @@
 # define	REC_HEIGHT	100
 # define	REC_WIDTH	100
 
-# define	MOVE_SPEED	60
+# define	MOVE_SPEED	6
 
 // haritanın uzunluğu ve genişliği
 # define	MAP_HEIGHT	20
 # define	MAP_WIDTH	20
 
-# define	WALL_SIZE	150
+# define	WALL_SIZE	100
 
 # define	PERSPECTIVE	60.0f
 # define	RAY_COUNT	1920
 
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
+
+typedef struct s_color
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned int	hex;
+}	t_color;
 
 typedef struct s_map
 {
@@ -81,6 +89,7 @@ typedef struct s_image
 
 typedef struct s_images
 {
+	t_image	mahmut; //////////!!!!!!!!!!!!
 	t_image	background;
 } t_images;
 
@@ -101,10 +110,8 @@ typedef struct s_cub3d
 {
 	t_player	player;
 	t_map		map;
-	t_vec2		click;
 	t_images	images;
 	t_ray		rays[RAY_COUNT];
-	bool		is_click;
 	void		*mlx;
 	void		*win;
 	//t_player	player2; EĞLENCELİ
@@ -138,6 +145,13 @@ double	distance(t_vec2 point1,t_vec2  point2);
 
 //*	display.c
 void	display(t_cub3d *game);
+
+//*	color.c
+t_color	rgb_to_color(int r, int g, int b);
+t_color	hex_to_color(unsigned int hex);
+
+//* cub3d_utils.c
+void	put_pixel_to_image(t_image img, int x, int y, unsigned int color);
 
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);

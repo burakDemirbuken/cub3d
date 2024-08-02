@@ -24,7 +24,9 @@ SRC =	src/cub3d.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/display.c \
-	
+		src/color.c \
+		src/cub3d_utils.c \
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

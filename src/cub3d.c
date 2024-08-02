@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/31 17:58:08 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:11:51 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #endif
 #include <stdlib.h>
 
-t_image	create_image(void *mlx, int width, int height)
+t_image	create_new_image(void *mlx, int width, int height)
 {
 	t_image	img;
 
@@ -34,6 +34,19 @@ t_image	create_image(void *mlx, int width, int height)
 	return (img);
 }
 
+t_image	import_image(void *mlx, char *path)
+{
+	t_image	img;
+
+	ft_memset(&img, 0, sizeof(t_image));
+	img.image = mlx_xpm_file_to_image(mlx, path, &img.width, &img.height);
+	if (!img.image)
+		return (img);
+	img.data = mlx_get_data_addr(img.image, &img.bits_per_pixel,
+			&img.line_lenght, &img.endian);
+	return (img);
+}
+
 void	set_mlx(t_cub3d *game)
 {
 	game->mlx = mlx_init();
@@ -44,10 +57,11 @@ void	set_mlx(t_cub3d *game)
 	if (!game->win)
 		exit(0); //free
 	//mlx_mouse_hide(game->mlx, game->win);
-	game->images.background = create_image(game->mlx,
+	game->images.background = create_new_image(game->mlx,
 			WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	if (!game->images.background.image)
 		exit(0); //free
+	game->images.mahmut = import_image(game->mlx, "mahmut.xpm");
 	game->player.pos.x = 650;
 	game->player.pos.y = 750;
 	game->player.angle = 0;

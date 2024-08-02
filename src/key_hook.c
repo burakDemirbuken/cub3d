@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/31 20:12:34 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:46:56 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,28 @@ void player_move(t_cub3d *game, bool key, double rad)
 			if (ray.dis < 10)
 			{
 				if (ray.v_h == 'v')
-					difference = game->player.pos.x - ray.pos.x ;
+					difference = fabs(game->player.pos.x - ray.pos.x);
 				else
-					difference = game->player.pos.y - ray.pos.y ;
+					difference = fabs(game->player.pos.y - ray.pos.y);
 			}
 			if (ray.v_h == 'v')
-				ray.pos.x += difference;
+			{
+				if (game->player.pos.x < ray.pos.x)
+					ray.pos.x -= difference;
+				else
+					ray.pos.x += difference;
+			}
 			else
-				ray.pos.y += difference;
+			{
+				if (game->player.pos.y < ray.pos.y)
+					ray.pos.y -= difference;
+				else
+					ray.pos.y += difference;
+			}
 			game->player.pos = ray.pos;
 		}
 		else
 			game->player.pos = new_pos;
-		printf("x: %f - y: %f\n", game->player.pos.x, game->player.pos.y);
 	}
 }
 
@@ -102,7 +111,6 @@ int	key_down(int keycode, t_cub3d *game)
 	return (0);
 }
 
-// tuşa bıraktığı anda t_cub3d structda bulunun değerleri false yapıyor. Bu sayede tuşa basılı tuttuğunu anlaşılıyor.
 int	key_up(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
@@ -120,7 +128,6 @@ int	key_up(int keycode, t_cub3d *game)
 	return (0);
 }
 
-// ilk tıklamada bir kare seçer ikinci tıklamada ise 1. tıklamayla 2. tıklama arasına çizgi çeker.
 /* int	mouse_click(int keycode, int x, int y, t_cub3d *game)
 {
 	if (keycode == 1)
