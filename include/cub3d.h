@@ -45,16 +45,25 @@
 
 typedef struct s_tmp_map
 {
-	char			*no;
-	char			*so;
-	char			*we;
-	char			*ea;
-	char		**map;
+	char			**no;
+	char			**so;
+	char			**we;
+	char			**ea;
+	char			**map;
 	unsigned int	f;
 	unsigned int	c;
-	int			height;
-	int			width;
+	int				height;
+	int				width;
 }	t_tmp_map;
+
+typedef struct s_image
+{
+	char	*data;
+	void	*image;
+	int		endian;
+	int		line_lenght;
+	int		bits_per_pixel;
+}	t_image;
 
 typedef struct s_map
 {
@@ -82,15 +91,6 @@ typedef struct s_ray
 	float	angle;
 	char	v_h;
 }	t_ray;
-
-typedef struct s_image
-{
-	char	*data;
-	void	*image;
-	int		endian;
-	int		line_lenght;
-	int		bits_per_pixel;
-}	t_image;
 
 typedef struct s_images
 {
@@ -137,13 +137,14 @@ void	create_map(t_cub3d *game);
 unsigned int	get_colour(char *str);
 char			*get_texture(char *str);
 void			map_checks(char **map);
-void			get_map(char *file_name);
+void			get_tmp_map(char *file_name);
 void			print_map(char **map);
-char			**read_file(int fd);
+char			*read_file(int fd);
 void			is_cub(char *file_name);
-t_map			separate_content(char **content);
+t_tmp_map		separate_content(char *f_line);
 void			initialize_tmp_map(t_tmp_map *map);
 void			free_tmp_map(t_tmp_map *map);
+t_map			set_actual_map(t_tmp_map *tmp_map);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);

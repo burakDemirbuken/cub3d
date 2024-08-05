@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_content.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:15:30 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/01 18:37:09 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/03 15:00:39 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,32 @@
 #include "../include/libft/libft.h"
 #include <unistd.h>
 
-void	set_elements(char *element, t_map *map, int *count)
+// Sets a single element that is not a colour via ft_split.
+int	set_single_element(char ***texture_p, char *element)
 {
-	(*count)++;
+	(*texture_p) = ft_split(element, ' ');
+	if ((*texture_p) = NULL)
+		return (perror("cub3d"), 1);
+	return (0);
+}
+
+// Sets all elements except the map.
+int	set_elements(char *element, t_tmp_map *map)
+{
 	if (!ft_strncmp(element, "NO", 2))
-		map->no = get_texture(element);
+		return (set_single_element(*(map->no), element + 2));
 	else if (!ft_strncmp(element, "SO", 2))
-		map->so = get_texture(element);
+		return (set_single_element(*(map->so), element + 2));
 	else if (!ft_strncmp(element, "EA", 2))
-		map->ea = get_texture(element);
+		return (set_single_element(*(map->ea), element + 2));
 	else if (!ft_strncmp(element, "WE", 2))
-		map->we = get_texture(element);
+		return (set_single_element(*(map->we), element + 2));
 	else if (!ft_strncmp(element, "C", 1))
-		map->c = get_colour(element);
+		return (map->c = get_colour(element));
 	else if (!ft_strncmp(element, "F", 1))
 		map->f = get_colour(element);
+	else
+		return (ft_putstr_fd("Invalid element.\n", STDERR_FILENO), 1);
 }
 
 // Makes a copy of the map in file content.
@@ -92,6 +103,7 @@ int	elements_valid(t_tmp_map *map, int i, int map_start, int count)
 	// THIS PART NEEDS AN UPDATE!!!
 	if (!map->no || !map->so || !map->we || !map->ea)
 		return (ft_putstr_fd("Missing elements.\n", STDERR_FILENO), 0);
+	return (1);
 }
 
 // Sets the elements to the tmp_map struct.
@@ -111,12 +123,13 @@ int	iterate_through_elements(char **cont, t_tmp_map *map)
 			|| !ft_strncmp(cont[i], "WE", 2) || !ft_strncmp(cont[i], "EA", 2)
 			|| !ft_strncmp(cont[i], "F", 1) || !ft_strncmp(cont[i], "C", 1))
 		{
-			set_elements(cont[i], map, &count);
+			if (set_elements(cont[i], map))
+				return (ft_strfree(cont), free_tmp_map(map), exit(1), -1);
 			map_start = i + 1;
 			count++;
 		}
 	}
-	if (!elements_valid)
+	if (!elements_valid(map, i, map_start, count))
 		return (ft_strfree(cont), free_tmp_map(map), exit(1), -1);
 	return (map_start);
 }
@@ -140,6 +153,5 @@ t_tmp_map	separate_content(char *f_line)
 			ft_strfree(f_cont), free_tmp_map(&map), exit(1), map);
 	copy_map(f_cont + map_start, &map);
 	ft_strfree(f_cont);
-	// here we are.
 	return (map);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/01 15:22:00 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/03 14:49:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		get_map(av[1]);
+		get_tmp_map(av[1]);
 	}
 	else
 		ft_putstr_fd("Expected a map.\n", 2);

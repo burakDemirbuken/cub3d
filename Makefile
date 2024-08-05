@@ -25,7 +25,7 @@ SRC =	src/cub3d.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		utilities/ft_recalloc.c \
-		src/map_utils/get_map.c \
+		src/map_utils/get_tmp_map.c \
 		src/map_utils/get_colour.c \
 		src/map_utils/get_texture.c \
 		src/map_utils/map_checks.c \

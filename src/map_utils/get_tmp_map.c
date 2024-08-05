@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   get_tmp_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:44:29 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/31 20:02:51 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/03 14:53:50 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 #include <unistd.h>
 #include <errno.h>
 
-void	get_map(char *file_name)
+void	get_tmp_map(char *file_name)
 {
 	char		*f_line;
 	int			fd;
 	t_tmp_map	tmp_map;
+	t_map		map;
 
 	is_cub(file_name);
 	fd = open(file_name, O_RDONLY);
@@ -29,5 +30,6 @@ void	get_map(char *file_name)
 	f_line = read_file(fd);
 	close(fd);
 	tmp_map = separate_content(f_line);
-	free(f_line);
+	map = set_actual_map(&tmp_map);
+	(void)map;
 }
