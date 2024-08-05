@@ -1,9 +1,7 @@
 NAME = cub3d
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -I include/
 CFLAGS = -Wall -Wextra -Werror -g -I include/
-
 
 UNAME_S := $(shell uname -s)
 
@@ -25,12 +23,15 @@ SRC =	src/cub3d.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		utilities/ft_recalloc.c \
-		src/map_utils/get_tmp_map.c \
+		src/map_utils/file_reading.c \
+		src/map_utils/flood_fill.c \
+		src/map_utils/get_actual_map.c \
 		src/map_utils/get_colour.c \
 		src/map_utils/get_texture.c \
+		src/map_utils/get_tmp_map.c \
 		src/map_utils/map_checks.c \
-		src/map_utils/file_reading.c \
-		src/map_utils/separate_content.c
+		src/map_utils/separate_content.c \
+		src/map_utils/tmp_map.c \
 
 OBJ = $(SRC:.c=.o)
 

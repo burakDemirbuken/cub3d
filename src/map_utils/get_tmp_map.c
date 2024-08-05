@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tmp_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 19:44:29 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/03 14:53:50 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:11:22 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	get_tmp_map(char *file_name)
 	f_line = read_file(fd);
 	close(fd);
 	tmp_map = separate_content(f_line);
-	map = set_actual_map(&tmp_map);
+	map = get_actual_map(&tmp_map);
 	(void)map;
 }

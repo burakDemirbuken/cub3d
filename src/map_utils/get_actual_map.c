@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_actual_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 23:15:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/03 14:42:31 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:41:17 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@
 // Copy map for flood fill
 // Flood fill
 
-int	empty_line(int width)
+char	*empty_line(int width)
 {
 	char 	*map;
 
 	map = ft_calloc(width + 1, sizeof(char));
 	if (map == NULL)
-		return (1);
+		return (perror("cub3d"), NULL);
 	ft_memset(map, ' ', width);
 	map[width] = '\0';
-	return (0);
+	return (map);
 }
 
-char **copy_map(t_tmp_map *tmp_map)
+static char **copy_map(t_tmp_map *tmp_map)
 {
 	char	**map;
 	int		i;
@@ -44,18 +44,26 @@ char **copy_map(t_tmp_map *tmp_map)
 	map[0] = empty_line(tmp_map->width + 2);
 	map[tmp_map->height + 1] = empty_line(tmp_map->width + 2);
 	map[tmp_map->height + 2] = NULL;
-	i = 0;
-	while (tmp_map->map[i])
+	i = -1;
+	while (tmp_map->map[++i])
 	{
 		map[i + 1] = empty_line(tmp_map->width + 2);
+		if (map[i + 1] == NULL)
+			return (ft_strfree(map), free_tmp_map(tmp_map), exit(1), NULL);
 		ft_memcpy(map[i + 1] + 1, tmp_map->map[i], ft_strlen(tmp_map->map[i]));
 	}
-	print_map(map);
+	return (map);
 }
 
 t_map	get_actual_map(t_tmp_map *tmp_map)
 {
+	t_map	actual_map;
 	char **map;
 
 	map = copy_map(tmp_map);
+	print_map(map);
+	flood_fill(map, 0, 0);
+	print_map(map);
+	actual_map.map = map;
+	return (actual_map);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/03 14:49:44 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:53:23 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,7 @@ int	main(int ac, char **av)
 	// 	mlx_loop(game.mlx);
 	// }
 	// return (1);
+
+
+	// THE MAP GOES EMPTY EVERY TIME, NEEDS FIXING.
 }

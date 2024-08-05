@@ -136,7 +136,6 @@ void	create_map(t_cub3d *game);
 // MAP UTILS
 unsigned int	get_colour(char *str);
 char			*get_texture(char *str);
-void			map_checks(char **map);
 void			get_tmp_map(char *file_name);
 void			print_map(char **map);
 char			*read_file(int fd);
@@ -144,7 +143,8 @@ void			is_cub(char *file_name);
 t_tmp_map		separate_content(char *f_line);
 void			initialize_tmp_map(t_tmp_map *map);
 void			free_tmp_map(t_tmp_map *map);
-t_map			set_actual_map(t_tmp_map *tmp_map);
+t_map			get_actual_map(t_tmp_map *tmp_map);
+void			flood_fill(char **map, int y, int x);
 
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);

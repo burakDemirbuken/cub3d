@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_content.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42kocaeli.com.    +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:15:30 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/03 15:00:39 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:11:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,40 @@
 #include <unistd.h>
 
 // Sets a single element that is not a colour via ft_split.
+// returns 1 if there is an error.
 int	set_single_element(char ***texture_p, char *element)
 {
 	(*texture_p) = ft_split(element, ' ');
-	if ((*texture_p) = NULL)
+	if ((*texture_p) == NULL)
 		return (perror("cub3d"), 1);
 	return (0);
 }
 
 // Sets all elements except the map.
+// returns 1 if there is an error.
 int	set_elements(char *element, t_tmp_map *map)
 {
 	if (!ft_strncmp(element, "NO", 2))
-		return (set_single_element(*(map->no), element + 2));
+		return (set_single_element(&(map->no), element + 2));
 	else if (!ft_strncmp(element, "SO", 2))
-		return (set_single_element(*(map->so), element + 2));
+		return (set_single_element(&(map->so), element + 2));
 	else if (!ft_strncmp(element, "EA", 2))
-		return (set_single_element(*(map->ea), element + 2));
+		return (set_single_element(&(map->ea), element + 2));
 	else if (!ft_strncmp(element, "WE", 2))
-		return (set_single_element(*(map->we), element + 2));
+		return (set_single_element(&(map->we), element + 2));
 	else if (!ft_strncmp(element, "C", 1))
-		return (map->c = get_colour(element));
+		return (map->c = get_colour(element), 0);
 	else if (!ft_strncmp(element, "F", 1))
-		map->f = get_colour(element);
+		return (map->f = get_colour(element), 0);
 	else
 		return (ft_putstr_fd("Invalid element.\n", STDERR_FILENO), 1);
+
+	// This boi needs a revision where colours are.
 }
 
 // Makes a copy of the map in file content.
 // Exits if there is an error.
-void	copy_map(char **cont, t_tmp_map *map)
+static void	copy_map(char **cont, t_tmp_map *map)
 {
 	int	i;
 
@@ -52,7 +56,7 @@ void	copy_map(char **cont, t_tmp_map *map)
 	if (map->map == NULL)
 		return (perror("cub3d"), ft_strfree(cont), free_tmp_map(map), exit(1));
 	i = -1;
-	while (map->map[++i])
+	while (cont[++i])
 	{
 		map->map[i] = ft_strdup(cont[i]);
 		if (map->map[i] == NULL)
@@ -117,7 +121,7 @@ int	iterate_through_elements(char **cont, t_tmp_map *map)
 
 	i = -1;
 	count = 0;
-	while (++i)
+	while (cont[++i])
 	{
 		if (!ft_strncmp(cont[i], "NO", 2) || !ft_strncmp(cont[i], "SO", 2)
 			|| !ft_strncmp(cont[i], "WE", 2) || !ft_strncmp(cont[i], "EA", 2)

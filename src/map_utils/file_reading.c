@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/31 19:53:05 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:47:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ void	is_cub(char *file_name)
 char	*read_file(int fd)
 {
 	char	*content;
+	char	*tmp;
 	char	*line;
 	int		bytes;
 
-	content = NULL;
+	content = ft_strdup("");
+	if (content == NULL)
+		return (close(fd), NULL);
 	while (1)
 	{
 		bytes = get_next_line(fd, &line);
@@ -45,7 +48,12 @@ char	*read_file(int fd)
 			break ;
 		else if (bytes == -1)
 			return (close(fd), free(content), exit(1), NULL);
-		content = ft_strjoin(content, line);
+		tmp = ft_strjoin(content, line);
+		if (tmp == NULL)
+			return (close(fd), free(content), free(line), NULL);
+		free(content);
+		free(line);
+		content = tmp;
 	}
 	return (content);
 }
