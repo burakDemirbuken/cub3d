@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/02 20:42:50 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:45:13 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,92 +27,129 @@
  *	double cos(double)
  */
 
-static void	draw_gradyan_vertical(t_image img, int y, t_color color, int width)
+extern __inline__ void	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, t_color color, int width)
 {
 	double		i;
-	double	intensity;
 	t_color t_color;
 
 	i = 0;
 	while (i <= width / 2)
 	{
 		t_color = color;
-		intensity = i / ((double)width / 2.0) + 0.42;
-		if (intensity < 0.0)
-			intensity = 0;
-		t_color = rgb_to_color(color.r * intensity,
-				color.g * intensity, color.b * intensity);
+		if (game->shadow)
+			t_color = blackout(t_color, 1.0 - (i / ((double)width / 2.0) + 0.42));
 		put_pixel_to_image(img, i, y, t_color.hex);
 		put_pixel_to_image(img, width - i, y, t_color.hex);
 		i++;
 	}
 }
 
-static void	draw_floor_ceiling(t_cub3d *game)
+extern __inline__ void	draw_floor_ceiling(t_cub3d *game)
 {
 	int				i;
 	t_color			color;
-	double			intensity;
 
 	i = 0;
 	while (i <= WINDOWS_HEIGHT / 2)
 	{
-		intensity = i / ((double)WINDOWS_HEIGHT / 2.0) - 0.30;
-		if (intensity < 0.0)
-			intensity = 0;
-		color = rgb_to_color(0 * intensity, 255 * intensity, 0 * intensity);
-		draw_gradyan_vertical(game->images.background,
+		color = rgb_to_color(0 , 0, 255);
+		if (game->shadow)
+			color = blackout(color, 1.0 - (i / (((double)WINDOWS_HEIGHT / 2.0))) + 0.32);
+		draw_gradyan_vertical(game, game->images.background,
 			WINDOWS_HEIGHT / 2 - i, color, WINDOWS_WIDTH);
-		color = rgb_to_color(255 * intensity, 0 * intensity, 0 * intensity);
-		draw_gradyan_vertical(game->images.background,
+		color = rgb_to_color(123, 0, 255);
+		if (game->shadow)
+			color = blackout(color, 1.0 - (i / ((double)WINDOWS_HEIGHT / 2.0)) + 0.32);
+		draw_gradyan_vertical(game, game->images.background,
 			WINDOWS_HEIGHT / 2 + i, color, WINDOWS_WIDTH);
 		i++;
 	}
+}
+
+extern __inline__ unsigned int	get_pixel_color(t_image img, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= img.width || y >= img.height)
+		return (0);
+	return (*(unsigned int*)(img.data +
+		(int)((y * img.line_lenght) + (x * (img.bits_per_pixel / 8)))));
+}
+
+//	isim değişecek
+extern __inline__ void	wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
+{
+	int		i;
+	t_color	color;
+	double	ratio;
+	double	ratio_color;
+
+	i = 0;
+	ratio = image.height / wall_size;
+	ratio_color = game->rays[a].dis / 420;
+	while (i < wall_size)
+	{
+		if (game->shadow)
+		{
+			color = hex_to_color(get_pixel_color(image, x, i * ratio));
+			color = blackout(color, ratio_color);
+			put_pixel_to_image(game->images.background, a, wall_top + i, color.hex);
+		}
+		else
+			put_pixel_to_image(game->images.background, a, wall_top + i,
+				get_pixel_color(image, x, i * ratio));
+		i++;
+	}
+}
+
+t_image	which_image(t_cub3d *game, double *x, t_ray ray)
+{
+	t_image	image;
+
+	if (ray.v_h == 'v' && 90 < ray.angle && ray.angle <= 270)
+	{
+		image = game->images.E;
+		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
+			* image.width / REC_HEIGHT;
+	}
+	else if (ray.v_h == 'v')
+	{
+		image = game->images.W;
+		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
+	}
+	else if (0 < ray.angle && ray.angle <= 180)
+	{
+		image = game->images.N;
+		*x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
+	}
+	else
+	{
+		image = game->images.S;
+		*x = (fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
+	}
+	return (image);
 }
 
 static void	draw_wall(t_cub3d *game)
 {
 	double	wall_size;
 	int		i;
-	double	j;
 	int		wall_top;
 	double	dis;
-	t_color	color;
-	//double	intensity;
-	t_vec2	image;
+	double	x;
+	t_image	image;
+	double	angle_diff;
 
 	i = 0;
 	while (i < RAY_COUNT)
 	{
-		j = 0;
-		double angle_diff = (game->player.angle - game->rays[i].angle) * (M_PI / 180.0);
+		angle_diff = (game->player.angle - game->rays[i].angle) * RAD_CONVERT;
 		dis = cos(angle_diff) * game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 10)
 			wall_size = 10;
 		wall_size *= WALL_SIZE;
 		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
-
-		image.x = (fmod(game->rays[i].pos.x, REC_WIDTH));
-
-		while (j < wall_size)
-		{
-			color = hex_to_color(*(unsigned int*)(game->images.mahmut.data + (int)((j) * game->images.mahmut.line_lenght + image.x * (game->images.mahmut.bits_per_pixel / 8))));
-			put_pixel_to_image(game->images.background, i, wall_top + j, color.hex);
-			j += 1;
-		}
-
-/* 		intensity = 1.0 - (game->rays	[i].dis / 410);
-		if (intensity < 0.0)
-			intensity = 0.0;
-		if (intensity > 1.0)
-			intensity = 1.0;
-		if (game->rays[i].v_h == 'v')
-			color = rgb_to_color(0x00 * intensity, 0x00 * intensity, 124 * intensity);
-		else
-			color = rgb_to_color(0x00 * intensity, 124 * intensity, 0x00 * intensity);
-		draw_rectangle(game->images.background, i * (WINDOWS_WIDTH / RAY_COUNT),
-			wall_top, (WINDOWS_WIDTH / RAY_COUNT), (int)wall_size, false, color.hex); */
+		image = which_image(game, &x, game->rays[i]);
+		wall(game, image, wall_size, i, x, wall_top);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/02 17:11:51 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:37:16 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,14 @@ void	set_mlx(t_cub3d *game)
 			WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	if (!game->images.background.image)
 		exit(0); //free
-	game->images.mahmut = import_image(game->mlx, "mahmut.xpm");
+	game->images.N = import_image(game->mlx, "jack2.xpm");
+	game->images.S = import_image(game->mlx, "bmo.xpm");
+	game->images.W = import_image(game->mlx, "finn.xpm");
+	game->images.E = import_image(game->mlx, "gunter.xpm");
 	game->player.pos.x = 650;
 	game->player.pos.y = 750;
-	game->player.angle = 0;
+	game->player.angle = 270;
+	game->shadow = 1;
 	mlx_do_key_autorepeatoff(game->mlx);
 }
 

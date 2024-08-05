@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/01 14:46:56 by bdemirbu         ###   ########.fr       */
+/*   Created: Invalid Date        by                   #+#    #+#             */
+/*   Updated: 2024/08/05 14:38:04 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,18 @@ void player_move(t_cub3d *game, bool key, double rad)
 		if (ray.dis <= distance(game->player.pos, new_pos))
 		{
 			difference = 10;
-			if (ray.dis < 10)
-			{
-				if (ray.v_h == 'v')
-					difference = fabs(game->player.pos.x - ray.pos.x);
-				else
-					difference = fabs(game->player.pos.y - ray.pos.y);
-			}
-			if (ray.v_h == 'v')
-			{
-				if (game->player.pos.x < ray.pos.x)
-					ray.pos.x -= difference;
-				else
-					ray.pos.x += difference;
-			}
-			else
-			{
-				if (game->player.pos.y < ray.pos.y)
-					ray.pos.y -= difference;
-				else
-					ray.pos.y += difference;
-			}
+			if (ray.dis < 10 && ray.v_h == 'v')
+				difference = fabs(game->player.pos.x - ray.pos.x);
+			else if (ray.dis < 10)
+				difference = fabs(game->player.pos.y - ray.pos.y);
+			if (ray.v_h == 'v' && game->player.pos.x < ray.pos.x)
+				ray.pos.x -= difference;
+			else if (ray.v_h == 'v')
+				ray.pos.x += difference;
+			if (ray.v_h != 'v' && game->player.pos.y < ray.pos.y)
+				ray.pos.y -= difference;
+			else if (ray.v_h != 'v')
+				ray.pos.y += difference;
 			game->player.pos = ray.pos;
 		}
 		else
@@ -65,7 +56,7 @@ void	update_player_status(t_cub3d *game)
 {
 	double	rad;
 
-	rad = (game->player.angle) * (M_PI / 180.0);
+	rad = (game->player.angle) * (RAD_CONVERT);
 	player_move(game, game->player.is_press_w, rad);
 	player_move(game, game->player.is_press_d, rad + M_PI_2);
 	player_move(game, game->player.is_press_s, rad - M_PI);
@@ -125,6 +116,8 @@ int	key_up(int keycode, t_cub3d *game)
 		game->player.is_press_s = 0;
 	if (keycode == KEY_D)
 		game->player.is_press_d = 0;
+	if (keycode ==  KEY_G)
+		game->shadow = !game->shadow;
 	return (0);
 }
 

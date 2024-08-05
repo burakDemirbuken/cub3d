@@ -4,28 +4,30 @@
 
 #ifdef __linux__
 
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_ESC 65307
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_C 99
+# define KEY_W		119
+# define KEY_A		97
+# define KEY_S		115
+# define KEY_D		100
+# define KEY_ESC	65307
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+# define KEY_C		99
+# define KEY_G		42
 
 #elif __APPLE__ || __MACH__
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_ESC 53
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_C 8
-
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_ESC	53
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+# define KEY_C		8
+# define KEY_G		5
 #endif
 
+# define	RAD_CONVERT		0.0174532925199432954743716805978692718781530857086181640625
 # define	WINDOWS_WIDTH	1920
 # define	WINDOWS_HEIGHT	1080
 
@@ -39,7 +41,7 @@
 # define	MAP_HEIGHT	20
 # define	MAP_WIDTH	20
 
-# define	WALL_SIZE	100
+# define	WALL_SIZE	150
 
 # define	PERSPECTIVE	60.0f
 # define	RAY_COUNT	1920
@@ -89,7 +91,10 @@ typedef struct s_image
 
 typedef struct s_images
 {
-	t_image	mahmut; //////////!!!!!!!!!!!!
+	t_image	N;
+	t_image	E;
+	t_image	S;
+	t_image	W;
 	t_image	background;
 } t_images;
 
@@ -114,6 +119,7 @@ typedef struct s_cub3d
 	t_ray		rays[RAY_COUNT];
 	void		*mlx;
 	void		*win;
+	bool		shadow;
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
@@ -152,7 +158,7 @@ t_color	hex_to_color(unsigned int hex);
 
 //* cub3d_utils.c
 void	put_pixel_to_image(t_image img, int x, int y, unsigned int color);
-
+t_color	blackout(t_color color, double ratio);
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
 

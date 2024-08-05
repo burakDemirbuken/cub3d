@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/02 14:53:05 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:20:32 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_ray	ray_throw(t_cub3d *game, double angle)
 	if (angle == 45.0 || angle == 135.0 || angle == 225.0 || angle == 315.0)
 		angle += 0.000042;
 	ret.angle = angle;
-	rad = ret.angle * (M_PI / 180.0);
+	rad = ret.angle * (RAD_CONVERT);
 	tan_a = tan(rad);
 	horizontal_ray_pos = horizontal_ray_calculator(game, rad, tan_a);
 	vertical_ray_pos = vertical_ray_calculator(game, rad, tan_a);
@@ -78,7 +78,7 @@ int	game_loop(t_cub3d	*game)
 		a++;
 	}
 	display(game);
-	//draw_map(game);
+	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
