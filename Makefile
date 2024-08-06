@@ -22,14 +22,13 @@ SRC =	src/cub3d.c \
 		src/draw_player.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
-		utilities/ft_recalloc.c \
 		src/map_utils/file_reading.c \
 		src/map_utils/flood_fill.c \
 		src/map_utils/get_actual_map.c \
 		src/map_utils/get_colour.c \
 		src/map_utils/get_texture.c \
 		src/map_utils/get_tmp_map.c \
-		src/map_utils/map_checks.c \
+		src/map_utils/print_map.c \
 		src/map_utils/separate_content.c \
 		src/map_utils/tmp_map.c \
 

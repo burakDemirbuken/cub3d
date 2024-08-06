@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:15:30 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/05 17:11:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/06 17:03:37 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	check_through_map(char **cont, t_tmp_map *map)
 				|| cont[i][j] == ' ' || cont[i][j] == '\0'))
 				return (ft_putstr_fd("Undefined elements.\n", STDERR_FILENO),
 					ft_strfree(cont), free_tmp_map(map), exit(1), -1);
-			if (map->width < j)
-				map->width = j;
 		}
+		if (map->width < j)
+			map->width = j;
 	}
 	map->height = i;
 	return (count);

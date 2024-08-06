@@ -67,10 +67,10 @@ typedef struct s_image
 
 typedef struct s_map
 {
-	t_image		no;
-	t_image		so;
-	t_image		we;
-	t_image		ea;
+	t_image		*no;
+	t_image		*so;
+	t_image		*we;
+	t_image		*ea;
 	char		**map;
 	unsigned int	f;
 	unsigned int	c;
