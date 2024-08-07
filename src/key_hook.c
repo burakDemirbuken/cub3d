@@ -6,11 +6,16 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2024/08/05 14:38:04 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:25:48 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#ifdef __linux__
+	#include "../include/minilibx_linux/mlx.h"
+#elif __APPLE__ || __MACH__
+	#include "../include/minilibx/mlx.h"
+#endif
 #include <stdlib.h>
 #include <math.h>
 

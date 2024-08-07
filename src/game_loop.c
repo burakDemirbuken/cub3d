@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/05 19:20:32 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/07 08:19:39 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,26 @@ t_ray	ray_throw(t_cub3d *game, double angle)
 	return (ret);
 }
 
+void	mouse_control(t_cub3d *game)
+{
+	int			x;
+	int			y;
 
+	mlx_mouse_get_pos(game->win, &x, &y);
+	if (0 < y && y < WINDOWS_HEIGHT)
+		mlx_mouse_hide();
+	else
+		mlx_mouse_show();
+	if (0 < y && y < WINDOWS_HEIGHT)
+	{
+		game->player.angle += (x - WINDOWS_WIDTH / 2) / 10;
+		mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
+	}
+}
 int	game_loop(t_cub3d	*game)
 {
-
-	double		i;
-	int			a;
-
+	mouse_control(game);
 	update_player_status(game);
-
-	i = 0;
-	a = 0;
-
-	while (a < RAY_COUNT)
-	{
-		game->rays[a] =  ray_throw(game, game->player.angle + i - (PERSPECTIVE / 2.0));
-		//bresenham_line(game->images.background, (int)game->player.pos.x, (int)game->player.pos.y, (int)game->rays[a].pos.x, (int)game->rays[a].pos.y, 0x00FFFF23);
-		i += PERSPECTIVE / RAY_COUNT;
-		a++;
-	}
 	display(game);
 	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);

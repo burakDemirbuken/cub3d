@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/05 14:37:16 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:45:50 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(void)
 	set_mlx(&game);
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
-	// mlx_mouse_hook(game.win, mouse_click, &game);
+
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 }

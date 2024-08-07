@@ -96,6 +96,10 @@ typedef struct s_images
 	t_image	S;
 	t_image	W;
 	t_image	background;
+	t_image	floor;
+	t_image	ceiling;
+	t_image	shadow_floor;
+	t_image	shadow_ceiling;
 } t_images;
 
 
@@ -133,6 +137,7 @@ void	create_map(t_cub3d *game);
 int		key_down(int keycode, t_cub3d *game);
 int		key_up(int keycode, t_cub3d *game);
 void	update_player_status(t_cub3d *game);
+int		mouse_hook(int keycode, int x, int y, t_cub3d *game);
 
 //* game_loop.c
 int		game_loop(t_cub3d	*game);
@@ -157,8 +162,9 @@ t_color	rgb_to_color(int r, int g, int b);
 t_color	hex_to_color(unsigned int hex);
 
 //* cub3d_utils.c
-void	put_pixel_to_image(t_image img, int x, int y, unsigned int color);
-t_color	blackout(t_color color, double ratio);
+void 		put_pixel_to_image(t_image img, int x, int y, unsigned int color);
+t_color		blackout(t_color color, double ratio);
+unsigned int	get_pixel_color(t_image img, int x, int y);
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
 

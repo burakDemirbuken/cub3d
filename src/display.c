@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/05 17:45:13 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/07 08:23:28 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  *	double cos(double)
  */
 
-extern __inline__ void	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, t_color color, int width)
+static void inline	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, t_color color, int width)
 {
 	double		i;
 	t_color t_color;
@@ -44,7 +44,7 @@ extern __inline__ void	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, 
 	}
 }
 
-extern __inline__ void	draw_floor_ceiling(t_cub3d *game)
+static void inline	draw_floor_ceiling(t_cub3d *game)
 {
 	int				i;
 	t_color			color;
@@ -66,16 +66,8 @@ extern __inline__ void	draw_floor_ceiling(t_cub3d *game)
 	}
 }
 
-extern __inline__ unsigned int	get_pixel_color(t_image img, int x, int y)
-{
-	if (x < 0 || y < 0 || x >= img.width || y >= img.height)
-		return (0);
-	return (*(unsigned int*)(img.data +
-		(int)((y * img.line_lenght) + (x * (img.bits_per_pixel / 8)))));
-}
-
 //	isim değişecek
-extern __inline__ void	wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
+static void inline	wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
 {
 	int		i;
 	t_color	color;
@@ -87,20 +79,23 @@ extern __inline__ void	wall(t_cub3d *game, t_image image, double wall_size, /* -
 	ratio_color = game->rays[a].dis / 420;
 	while (i < wall_size)
 	{
-		if (game->shadow)
+		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0 && WINDOWS_WIDTH > a && a >= 0)
 		{
-			color = hex_to_color(get_pixel_color(image, x, i * ratio));
-			color = blackout(color, ratio_color);
-			put_pixel_to_image(game->images.background, a, wall_top + i, color.hex);
+			if (game->shadow)
+			{
+				color = hex_to_color(get_pixel_color(image, x, i * ratio));
+				color = blackout(color, ratio_color);
+				put_pixel_to_image(game->images.background, a, wall_top + i, color.hex);
+			}
+			else
+				put_pixel_to_image(game->images.background, a, wall_top + i,
+					get_pixel_color(image, x, i * ratio));
 		}
-		else
-			put_pixel_to_image(game->images.background, a, wall_top + i,
-				get_pixel_color(image, x, i * ratio));
 		i++;
 	}
 }
 
-t_image	which_image(t_cub3d *game, double *x, t_ray ray)
+static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 {
 	t_image	image;
 
@@ -135,17 +130,24 @@ static void	draw_wall(t_cub3d *game)
 	int		wall_top;
 	double	dis;
 	double	x;
+	double	a;
 	t_image	image;
 	double	angle_diff;
 
 	i = 0;
+	a = 0;
 	while (i < RAY_COUNT)
 	{
+		game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
+		a += PERSPECTIVE / RAY_COUNT;
 		angle_diff = (game->player.angle - game->rays[i].angle) * RAD_CONVERT;
-		dis = cos(angle_diff) * game->rays[i].dis;
+		if (game->rays[i].dis > 100)
+			dis = cos(angle_diff) * game->rays[i].dis;
+		else
+			dis = game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
-		if (wall_size > 10)
-			wall_size = 10;
+		if (wall_size > 100)
+			wall_size = 100;
 		wall_size *= WALL_SIZE;
 		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
 		image = which_image(game, &x, game->rays[i]);
@@ -153,7 +155,7 @@ static void	draw_wall(t_cub3d *game)
 		i++;
 	}
 }
-
+//isim değişikliği olucka
 void	display(t_cub3d *game)
 {
 	draw_floor_ceiling(game);
