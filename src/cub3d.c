@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/08 12:26:37 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/08 13:01:12 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,30 @@ void	set_mlx(t_cub3d *game)
 	mlx_do_key_autorepeatoff(game->mlx);
 }
 
+// need mlx pointer
+// need av[1]
+
 int	main(int ac, char **av)
 {
-	// t_cub3d	game;
+	t_cub3d	game;
 
 	if (ac == 2)
 	{
-		get_tmp_map(av[1]);
+		// NEEEM CHANGEE!!
+		configure_level(&game, av[1]);
+		// ft_memset(&game, 0, sizeof(t_cub3d));
+		// create_map(&game);
+		// set_mlx(&game);
+		// draw_map(&game);
+		// draw_player(&game);
+		// mlx_hook(game.win, 3, 1L << 0, key_up, &game);
+		// mlx_hook(game.win, 2, 1L << 1, key_down, &game);
+
+		// mlx_mouse_hook(game.win, mouse_click, &game);
+		// mlx_loop_hook(game.mlx, game_loop, &game);
+		// mlx_loop(game.mlx);
 	}
 	else
 		ft_putstr_fd("Expected a map.\n", 2);
-	// 	ft_memset(&game, 0, sizeof(t_cub3d));
-	// 	create_map(&game);
-	// 	set_mlx(&game);
-	// 	draw_map(&game);
-	// 	draw_player(&game);
-	// 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
-	// 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);
-
-	// 	// mlx_mouse_hook(game.win, mouse_click, &game);
-	// 	mlx_loop_hook(game.mlx, game_loop, &game);
-	// 	mlx_loop(game.mlx);
 	// return (1);
 }

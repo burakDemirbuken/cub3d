@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   separate_content.c                                 :+:      :+:    :+:   */
+/*   old_separate_content.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:15:30 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/06 17:03:37 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/08 14:52:17 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include "../include/libft/libft.h"
 #include <unistd.h>
-
-// Sets a single element that is not a colour via ft_split.
-// returns 1 if there is an error.
-int	set_single_element(char ***texture_p, char *element)
-{
-	(*texture_p) = ft_split(element, ' ');
-	if ((*texture_p) == NULL)
-		return (perror("cub3d"), 1);
-	return (0);
-}
 
 // Sets all elements except the map.
 // returns 1 if there is an error.
@@ -138,18 +128,18 @@ int	iterate_through_elements(char **cont, t_tmp_map *map)
 	return (map_start);
 }
 
-t_tmp_map	separate_content(char *f_line)
+t_file	separate_content(char *line)
 {
-	t_tmp_map	map;
-	char		**f_cont;
-	int			map_start;
-	int			count;
+	t_file	file_content;
+	char	**f_cont;
+	int		map_start;
+	int		count;
 
-	initialize_tmp_map(&map);
-	f_cont = ft_split(f_line, '\n');
-	if (f_cont == NULL)
-		return(perror("cub3d"), free(f_line), exit(1), map);
-	free(f_line);
+	// initialize_tmp_map(&map);
+	// f_cont = ft_split(f_line, '\n');
+	// if (f_cont == NULL)
+	// 	return(perror("cub3d"), free(f_line), exit(1), map);
+	// free(f_line);
 	map_start = iterate_through_elements(f_cont, &map);
 	count = check_through_map(f_cont + map_start, &map);
 	if (count != 1)

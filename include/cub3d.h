@@ -50,6 +50,12 @@
 #include <stdbool.h>
 #include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
 
+typedef struct s_vec2
+{
+	double	x;
+	double	y;
+}	t_vec2;
+
 typedef struct s_player
 {
 	t_vec2	pos;
@@ -62,7 +68,7 @@ typedef struct s_player
 	double	angle;
 }	t_player;
 
-typedef struct s_tmp_map
+typedef struct s_file
 {
 	char			**no;
 	char			**so;
@@ -73,7 +79,7 @@ typedef struct s_tmp_map
 	unsigned int	c;
 	int				height;
 	int				width;
-}	t_tmp_map;
+}	t_file;
 
 typedef struct s_map
 {
@@ -108,19 +114,9 @@ typedef struct s_images
 	t_image	S;
 	t_image	W;
 	t_image	background;
-	t_image	floor;
-	t_image	ceiling;
-	t_image	shadow_floor;
-	t_image	shadow_ceiling;
 	t_color	floor_color;
 	t_color	ceiling_color;
 } t_images;
-
-typedef struct s_vec2
-{
-	double	x;
-	double	y;
-}	t_vec2;
 
 typedef struct s_ray
 {
@@ -142,27 +138,40 @@ typedef struct s_cub3d
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
+typedef struct s_tmp_map
+{
+
+} t_tmp_map;
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-= END OF STRUCTS =-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 //*	create_map.c
-void	draw_map(t_cub3d *game);
-void	draw_rectangle(t_image img, int x, int y, int width,
+void			draw_map(t_cub3d *game);
+void			draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
-void	create_map(t_cub3d *game);
+void			create_map(t_cub3d *game);
 
-// MAP UTILS
+/* ------------------------------- LEVEL UTILS -------------------------------*/
+// configure_level.c
+void			configure_level(t_cub3d *game, char *file_name);
+
+// file_reading.c
+bool			extension_is_cub(char *file_name);
+char			*read_file(int fd);
+
+// seperate_content.c
+t_file			separate_content(char *f_line);
+
 unsigned int	get_colour(char *str);
 char			*get_texture(char *str);
 void			get_tmp_map(char *file_name);
 void			print_map(char **map);
-char			*read_file(int fd);
-void			is_cub(char *file_name);
-t_tmp_map		separate_content(char *f_line);
 void			initialize_tmp_map(t_tmp_map *map);
 void			free_tmp_map(t_tmp_map *map);
 t_map			get_actual_map(t_tmp_map *tmp_map);
 void			flood_fill(char **map, int y, int x);
 
+// SHIT HITS THE FAN
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);
 int		key_up(int keycode, t_cub3d *game);

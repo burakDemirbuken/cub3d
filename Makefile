@@ -25,15 +25,15 @@ SRC =	src/cub3d.c \
 		src/color.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
-		src/map_utils/file_reading.c \
-		src/map_utils/flood_fill.c \
-		src/map_utils/get_actual_map.c \
-		src/map_utils/get_colour.c \
-		src/map_utils/get_texture.c \
-		src/map_utils/get_tmp_map.c \
-		src/map_utils/print_map.c \
-		src/map_utils/separate_content.c \
-		src/map_utils/tmp_map.c \
+		src/level_utils/file_reading.c \
+		src/level_utils/flood_fill.c \
+		src/level_utils/get_actual_map.c \
+		src/level_utils/get_colour.c \
+		src/level_utils/get_texture.c \
+		src/level_utils/configure_level.c \
+		src/level_utils/print_map.c \
+		src/level_utils/separate_content.c \
+		src/level_utils/tmp_map.c \
 
 OBJ = $(SRC:.c=.o)
 
