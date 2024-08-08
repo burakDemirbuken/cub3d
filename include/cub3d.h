@@ -1,6 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
-
+// ☃
 
 #ifdef __linux__
 
@@ -13,6 +13,7 @@
 # define KEY_RIGHT	65363
 # define KEY_C		99
 # define KEY_G		42
+# define KEY_H		43
 
 #elif __APPLE__ || __MACH__
 
@@ -25,9 +26,11 @@
 # define KEY_RIGHT	124
 # define KEY_C		8
 # define KEY_G		5
+# define KEY_H		4
 #endif
 
-# define	RAD_CONVERT		0.0174532925199432954743716805978692718781530857086181640625
+# define	RAD_CONVERT		0.01745329251994329547437\
+16805978692718781530857086181640625
 # define	WINDOWS_WIDTH	1920
 # define	WINDOWS_HEIGHT	1080
 
@@ -96,10 +99,6 @@ typedef struct s_images
 	t_image	S;
 	t_image	W;
 	t_image	background;
-	t_image	floor;
-	t_image	ceiling;
-	t_image	shadow_floor;
-	t_image	shadow_ceiling;
 } t_images;
 
 
@@ -128,43 +127,45 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 //*	create_map.c
-void	draw_map(t_cub3d *game);
-void	draw_rectangle(t_image img, int x, int y, int width,
+void			draw_map(t_cub3d *game);
+void			draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
-void	create_map(t_cub3d *game);
+void			create_map(t_cub3d *game);
 
 //*	key_hook.c
-int		key_down(int keycode, t_cub3d *game);
-int		key_up(int keycode, t_cub3d *game);
-void	update_player_status(t_cub3d *game);
-int		mouse_hook(int keycode, int x, int y, t_cub3d *game);
+int				key_down(int keycode, t_cub3d *game);
+int				key_up(int keycode, t_cub3d *game);
 
 //* game_loop.c
-int		game_loop(t_cub3d	*game);
+int				game_loop(t_cub3d	*game);
 
 //*	draw_player.c
-void	draw_player(t_cub3d *game);
-void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
+void			draw_player(t_cub3d *game);
 
 //*	ray_calculator.c
-t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
-t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2			vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
 
 //*	ray_calculator_utils.c
-double	get_offset(t_vec2 p_pos, double rad, char v_h);
-double	distance(t_vec2 point1,t_vec2  point2);
+double			get_offset(t_vec2 p_pos, double rad, char v_h);
+double			distance(t_vec2 point1,t_vec2  point2);
 
 //*	display.c
-void	display(t_cub3d *game);
+void			display(t_cub3d *game);
 
 //*	color.c
-t_color	rgb_to_color(int r, int g, int b);
-t_color	hex_to_color(unsigned int hex);
+t_color			rgb_to_color(int r, int g, int b);
+t_color			hex_to_color(unsigned int hex);
 
 //* cub3d_utils.c
-void 		put_pixel_to_image(t_image img, int x, int y, unsigned int color);
-t_color		blackout(t_color color, double ratio);
+void 			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
+t_color			blackout(t_color color, double ratio);
 unsigned int	get_pixel_color(t_image img, int x, int y);
+
+//*	update_player_status.c
+void			update_player_status(t_cub3d *game);
+
+
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
 

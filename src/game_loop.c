@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/07 08:19:39 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:06:33 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,12 @@ t_ray	ray_throw(t_cub3d *game, double angle)
 	return (ret);
 }
 
-void	mouse_control(t_cub3d *game)
-{
-	int			x;
-	int			y;
-
-	mlx_mouse_get_pos(game->win, &x, &y);
-	if (0 < y && y < WINDOWS_HEIGHT)
-		mlx_mouse_hide();
-	else
-		mlx_mouse_show();
-	if (0 < y && y < WINDOWS_HEIGHT)
-	{
-		game->player.angle += (x - WINDOWS_WIDTH / 2) / 10;
-		mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
-	}
-}
 int	game_loop(t_cub3d	*game)
 {
-	mouse_control(game);
 	update_player_status(game);
 	display(game);
-	draw_map(game);
+	//draw_map(game);
+	//mini_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
