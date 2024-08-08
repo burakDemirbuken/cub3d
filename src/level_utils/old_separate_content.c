@@ -6,35 +6,13 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:15:30 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/08 14:52:17 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/08 16:59:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include "../include/libft/libft.h"
 #include <unistd.h>
-
-// Sets all elements except the map.
-// returns 1 if there is an error.
-int	set_elements(char *element, t_tmp_map *map)
-{
-	if (!ft_strncmp(element, "NO", 2))
-		return (set_single_element(&(map->no), element + 2));
-	else if (!ft_strncmp(element, "SO", 2))
-		return (set_single_element(&(map->so), element + 2));
-	else if (!ft_strncmp(element, "EA", 2))
-		return (set_single_element(&(map->ea), element + 2));
-	else if (!ft_strncmp(element, "WE", 2))
-		return (set_single_element(&(map->we), element + 2));
-	else if (!ft_strncmp(element, "C", 1))
-		return (map->c = get_colour(element), 0);
-	else if (!ft_strncmp(element, "F", 1))
-		return (map->f = get_colour(element), 0);
-	else
-		return (ft_putstr_fd("Invalid element.\n", STDERR_FILENO), 1);
-
-	// This boi needs a revision where colours are.
-}
 
 // Makes a copy of the map in file content.
 // Exits if there is an error.

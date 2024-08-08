@@ -77,8 +77,8 @@ typedef struct s_file
 	char			**map;
 	unsigned int	f;
 	unsigned int	c;
-	int				height;
-	int				width;
+	int				map_height;
+	int				map_width;
 }	t_file;
 
 typedef struct s_map
@@ -172,6 +172,8 @@ t_map			get_actual_map(t_tmp_map *tmp_map);
 void			flood_fill(char **map, int y, int x);
 
 // SHIT HITS THE FAN
+size_t	str_arrlen(char **arr);
+
 //*	key_hook.c
 int		key_down(int keycode, t_cub3d *game);
 int		key_up(int keycode, t_cub3d *game);

@@ -1,4 +1,5 @@
-NO ../textures/bmo.xpm
+NO ../textures/bmo.xpm  ../textures/jack.xpm   ../textures/jack.xpm  ../textures/jack.xpm
+char **image_no
 SO ../textures/finn.xpm
 WE ../textures/gunter.xpm
 EA ../textures/jack.xpm
