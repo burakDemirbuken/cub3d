@@ -6,24 +6,24 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 16:24:55 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:52:00 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <math.h>
 
-float	distance(t_vec2 point1, t_vec2 point2)
+double	distance(t_vec2 point1, t_vec2 point2)
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 
 	x = point1.x - point2.x;
 	y = point1.y - point2.y;
 	return (sqrt((x * x) + (y * y)));
 }
 
-float	get_offset(t_vec2 p_pos, float rad, char v_h)
+double	get_offset(t_vec2 p_pos, double rad, char v_h)
 {
 	if (v_h == 'h')
 	{
@@ -39,5 +39,5 @@ float	get_offset(t_vec2 p_pos, float rad, char v_h)
 		else
 			return (REC_WIDTH - fmod(p_pos.x, REC_WIDTH));
 	}
-	return (0.0f);
+	return (0.0);
 }

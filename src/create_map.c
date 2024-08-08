@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 14:24:37 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:11:46 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 		i_w = 0;
 		while (i_w < width)
 		{
+			if (i_w + x < 1 || i_w + x > WINDOWS_WIDTH - 1
+				|| i_h + y < 0 || i_h + y > WINDOWS_HEIGHT - 1)
+			{
+				i_w++;
+				continue;
+			}
 			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
 				*(unsigned int*)(img.data + (int)((y + i_h) * img.line_lenght
@@ -54,11 +60,12 @@ void	draw_map(t_cub3d *game)
 				color = 0x00080808;
 			else
 				color = 0x00808080;
-			draw_rectangle(game->images.background, x * REC_WIDTH, y * REC_HEIGHT, REC_WIDTH, REC_HEIGHT, true, color);
+			draw_rectangle(game->images.background, x * 20 + 25, y * 20 + 25, 20, 20, true, color);
 			x++;
 		}
 		y++;
 	}
+	draw_player(game);
 }
 
 void	create_map(t_cub3d *game)
@@ -84,10 +91,14 @@ void	create_map(t_cub3d *game)
 		y++;
 	}
 	game->map.map[y] = 0;
+	game->map.height = MAP_HEIGHT;
+	game->map.width = MAP_WIDTH;
 	game->map.map[7][3] = '1';
-	game->map.map[3][3] = '1';
 	game->map.map[6][9] = '1';
 	game->map.map[3][4] = '1';
+	game->map.map[4][5] = '1';
+	game->map.map[4][3] = '1';
+	game->map.map[5][4] = '1';
 	game->map.map[3][1] = '1';
 	game->map.map[7][4] = '1';
 	game->map.map[2][1] = '1';

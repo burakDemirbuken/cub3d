@@ -3,7 +3,7 @@ NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -I include/
 
-UNAME_S := $(shell uname -s)
+UNAME_S = $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
 	MLX_PATH = ./include/minilibx_linux/
@@ -16,10 +16,13 @@ endif
 LIBFT = include/libft/libft.a
 
 SRC =	src/cub3d.c \
+		src/cub3d_utils.c \
 		src/create_map.c \
 		src/key_hook.c \
 		src/game_loop.c \
 		src/draw_player.c \
+		src/display.c \
+		src/color.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/map_utils/file_reading.c \

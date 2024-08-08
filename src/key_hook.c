@@ -5,13 +5,89 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 22:19:00 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 16:24:06 by bdemirbu         ###   ########.fr       */
+/*   Created: Invalid Date        by                   #+#    #+#             */
+/*   Updated: 2024/08/06 13:25:48 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#ifdef __linux__
+	#include "../include/minilibx_linux/mlx.h"
+#elif __APPLE__ || __MACH__
+	#include "../include/minilibx/mlx.h"
+#endif
 #include <stdlib.h>
+#include <math.h>
+
+void player_move(t_cub3d *game, bool key, double rad)
+{
+	t_vec2	new_pos;
+	t_ray	ray;
+	double	difference;
+
+	if (key)
+	{
+		new_pos = game->player.pos;
+		new_pos.x += cos(rad) * MOVE_SPEED;
+		new_pos.y += sin(rad) * MOVE_SPEED;
+		if (rad < 0)
+			rad += 2 * M_PI;
+		if (rad > 2 * M_PI)
+			rad -= 2 * M_PI;
+		ray = ray_throw(game, rad * (double)(180 / M_PI));
+		if (ray.dis <= distance(game->player.pos, new_pos))
+		{
+			difference = 10;
+			if (ray.dis < 10 && ray.v_h == 'v')
+				difference = fabs(game->player.pos.x - ray.pos.x);
+			else if (ray.dis < 10)
+				difference = fabs(game->player.pos.y - ray.pos.y);
+			if (ray.v_h == 'v' && game->player.pos.x < ray.pos.x)
+				ray.pos.x -= difference;
+			else if (ray.v_h == 'v')
+				ray.pos.x += difference;
+			if (ray.v_h != 'v' && game->player.pos.y < ray.pos.y)
+				ray.pos.y -= difference;
+			else if (ray.v_h != 'v')
+				ray.pos.y += difference;
+			game->player.pos = ray.pos;
+		}
+		else
+			game->player.pos = new_pos;
+	}
+}
+
+void	update_player_status(t_cub3d *game)
+{
+	double	rad;
+
+	rad = (game->player.angle) * (RAD_CONVERT);
+	player_move(game, game->player.is_press_w, rad);
+	player_move(game, game->player.is_press_d, rad + M_PI_2);
+	player_move(game, game->player.is_press_s, rad - M_PI);
+	player_move(game, game->player.is_press_a, rad - M_PI_2);
+	if (game->player.is_press_p_rotation)
+	{
+		game->player.angle += 2.5;
+		if (game->player.angle >= 360)
+			game->player.angle -= 360;
+	}
+	if (game->player.is_press_n_rotation)
+	{
+		game->player.angle -= 2.5;
+		if (game->player.angle < 0)
+			game->player.angle += 360;
+	}
+	if (game->player.pos.y < 11.0)
+		game->player.pos.y = 11.0;
+	if (game->player.pos.y > game->map.height * REC_HEIGHT - 11.0)
+		game->player.pos.y = game->map.height * REC_HEIGHT - 11.0;
+	if (game->player.pos.x > game->map.width * REC_WIDTH - 11.0)
+		game->player.pos.x = game->map.width * REC_WIDTH - 11.0;
+	if (game->player.pos.x < 11.0)
+		game->player.pos.x = 11.0;
+}
+
 int	key_down(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
@@ -31,7 +107,6 @@ int	key_down(int keycode, t_cub3d *game)
 	return (0);
 }
 
-// tuşa bıraktığı anda t_cub3d structda bulunun değerleri false yapıyor. Bu sayede tuşa basılı tuttuğunu anlaşılıyor.
 int	key_up(int keycode, t_cub3d *game)
 {
 	if (keycode == KEY_LEFT)
@@ -46,10 +121,11 @@ int	key_up(int keycode, t_cub3d *game)
 		game->player.is_press_s = 0;
 	if (keycode == KEY_D)
 		game->player.is_press_d = 0;
+	if (keycode ==  KEY_G)
+		game->shadow = !game->shadow;
 	return (0);
 }
 
-// ilk tıklamada bir kare seçer ikinci tıklamada ise 1. tıklamayla 2. tıklama arasına çizgi çeker.
 /* int	mouse_click(int keycode, int x, int y, t_cub3d *game)
 {
 	if (keycode == 1)
