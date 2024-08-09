@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/08 17:20:33 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:58:57 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,24 @@
 #include <unistd.h>
 // STDERR_FILENO
 
-// 
+// Checks if there is an error in the elements.
+int	elements_valid(t_file *file, int i, int map_start, int count, int *flag)
+{
+	if (count != 6)
+		return(ft_putstr_fd("cub3d: Wrong amount of elements.\n",
+			STDERR_FILENO), 0);
+	if (map_start == i + 1)
+		return (ft_putstr_fd("cub3d: No map found.\n", STDERR_FILENO), 0);
+	while (count--)
+		if (flag[count] != 1)
+			return (ft_putstr_fd("cub3d: Wrong amount of elements.\n",
+				STDERR_FILENO), 0);
+	if (!file->no || !file->no[0] || !file->so || !file->so[0]
+		|| !file->we || !file->we[0] || !file->ea || !file->ea[0])
+		return (ft_putstr_fd("cub3d: Missing elements.\n", STDERR_FILENO), 0);
+}
+
+// Sets file->f and file->c colors.
 bool	set_color(char *content, t_color *color)
 {
 	char **rgb;
@@ -48,7 +65,7 @@ bool	set_color(char *content, t_color *color)
 }
 
 // Seperates the texture paths via ft_split.
-// returns 1 if there is an error.
+// Returns 1 if there is an error.
 bool	set_texture_paths(char *content, char ***texture)
 {
 	(*texture) = ft_split(content, ' ');
@@ -58,19 +75,19 @@ bool	set_texture_paths(char *content, char ***texture)
 }
 
 // Sets an element that isn't the map.
-// returns 1 if there is an error.
+// Returns 1 if there is an error.
 int	set_elements(char *content, t_file *file, int *flag)
 {
 	if (!ft_strncmp(content, "NO", 2))
 		return (flag[0]++, set_texture_paths(content + 2, &(file->no)));
 	else if (!ft_strncmp(content, "SO", 2))
-		return (flag[0]++, set_texture_paths(content + 2, &(file->so)));
+		return (flag[1]++, set_texture_paths(content + 2, &(file->so)));
 	else if (!ft_strncmp(content, "WE", 2))
-		return (flag[0]++, set_texture_paths(content + 2, &(file->we)));
+		return (flag[2]++, set_texture_paths(content + 2, &(file->we)));
 	else if (!ft_strncmp(content, "EA", 2))
-		return (flag[0]++, set_texture_paths(content + 2, &(file->ea)));
+		return (flag[3]++, set_texture_paths(content + 2, &(file->ea)));
 	else if (content[0] == 'F')
-		return(flag[0]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
+		return(flag[4]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
 	else if (content[0] == 'C')
-		return(flag[0]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
+		return(flag[5]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
 }

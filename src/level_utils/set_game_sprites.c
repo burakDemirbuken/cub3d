@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_texture.c                                      :+:      :+:    :+:   */
+/*   set_game_sprites.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 20:14:11 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/07/26 16:29:11 by bkorkut          ###   ########.fr       */
+/*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
+/*   Updated: 2024/08/09 16:40:56 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3d.h"
+// typedef t_cub3d
+// typedef t_file
 
-// texture part is not complete!
-char	*get_texture(char *str)
+void	set_game_sprites(t_cub3d *game, t_file *file)
 {
-	str += 2;
-	while (*str == ' ')
-		str++;
-	// here will come the mlx image things!
-	return (str);
+	
 }

@@ -162,14 +162,11 @@ char			*read_file(int fd);
 // seperate_content.c
 t_file			separate_content(char *f_line);
 
-unsigned int	get_colour(char *str);
 char			*get_texture(char *str);
-void			get_tmp_map(char *file_name);
 void			print_map(char **map);
-void			initialize_tmp_map(t_tmp_map *map);
-void			free_tmp_map(t_tmp_map *map);
 t_map			get_actual_map(t_tmp_map *tmp_map);
-void			flood_fill(char **map, int y, int x);
+bool			flood_fill(char **map, int y, int x);
+
 
 // SHIT HITS THE FAN
 size_t	str_arrlen(char **arr);

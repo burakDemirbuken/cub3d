@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 23:15:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/06 18:19:19 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/09 16:39:11 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,39 @@
 // Flood fill needs null checks
 
 // COPY MAP
-char	*empty_line(int width)
-{
-	char 	*map;
+// char	*empty_line(int width)
+// {
+// 	char 	*map;
 
-	map = ft_calloc(width + 1, sizeof(char));
-	if (map == NULL)
-		return (perror("cub3d"), NULL);
-	ft_memset(map, ' ', width);
-	map[width] = '\0';
-	return (map);
-}
+// 	map = ft_calloc(width + 1, sizeof(char));
+// 	if (map == NULL)
+// 		return (perror("cub3d"), NULL);
+// 	ft_memset(map, ' ', width);
+// 	map[width] = '\0';
+// 	return (map);
+// }
 
-static char **copy_map(t_tmp_map *tmp_map)
-{
-	char	**map;
-	int		i;
+// static char **copy_map(t_tmp_map *tmp_map)
+// {
+// 	char	**map;
+// 	int		i;
 
-	map = (char **)ft_calloc(tmp_map->height + 3, sizeof(char *));
-	if (map == NULL)
-		return (perror("cub3d"), free_tmp_map(tmp_map), exit(1), NULL);
-	map[0] = empty_line(tmp_map->width + 2);
-	map[tmp_map->height + 1] = empty_line(tmp_map->width + 2);
-	map[tmp_map->height + 2] = NULL;
-	i = -1;
-	while (tmp_map->map[++i])
-	{
-		map[i + 1] = empty_line(tmp_map->width + 2);
-		if (map[i + 1] == NULL)
-			return (ft_strfree(map), free_tmp_map(tmp_map), exit(1), NULL);
-		ft_memcpy(map[i + 1] + 1, tmp_map->map[i], ft_strlen(tmp_map->map[i]));
-	}
-	return (map);
-}
-
+// 	map = (char **)ft_calloc(tmp_map->height + 3, sizeof(char *));
+// 	if (map == NULL)
+// 		return (perror("cub3d"), free_tmp_map(tmp_map), exit(1), NULL);
+// 	map[0] = empty_line(tmp_map->width + 2);
+// 	map[tmp_map->height + 1] = empty_line(tmp_map->width + 2);
+// 	map[tmp_map->height + 2] = NULL;
+// 	i = -1;
+// 	while (tmp_map->map[++i])
+// 	{
+// 		map[i + 1] = empty_line(tmp_map->width + 2);
+// 		if (map[i + 1] == NULL)
+// 			return (ft_strfree(map), free_tmp_map(tmp_map), exit(1), NULL);
+// 		ft_memcpy(map[i + 1] + 1, tmp_map->map[i], ft_strlen(tmp_map->map[i]));
+// 	}
+// 	return (map);
+// }
 // COPY MAP END
 
 // PATH VALIDITY CHECKS
@@ -84,20 +83,6 @@ bool	the_path_is_valid(char *path)
 	return (true);
 }
 // END OF PATH VALIDITY CHECKS
-
-// DESTROYING IMAGES
-void	delete_image(void *mlx, t_image *image)
-{
-
-}
-// END OF DESTROYING IMAGES
-
-void	initialize_images(char **paths)
-{
-	int	i;
-
-	i =
-}
 
 // TEXTURE THINGS
 t_image	*get_texture_image(char **paths)
@@ -135,9 +120,9 @@ t_map	get_actual_map(t_tmp_map *tmp_map)
 	t_map	actual_map;
 	char **map;
 
-	map = copy_map(tmp_map);
-	flood_fill(map, 0, 0);
-	actual_map.map = map;
+	// map = copy_map(tmp_map);
+	// flood_fill(map, 0, 0);
+	// actual_map.map = map;
 	get_wall_textures(tmp_map, &actual_map);
 	return (actual_map);
 }

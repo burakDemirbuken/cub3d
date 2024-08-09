@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/08 14:28:14 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/09 16:18:27 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 // open(const char *pathname, int flags);
 #include <unistd.h>
 // STDERR_FILENO
+
+void	free_file();
 
 static t_file parse_file(char *file_name)
 {
@@ -40,16 +42,21 @@ static t_file parse_file(char *file_name)
 	close(fd);
 	if (!line)
 		exit(1);
-	file = seperate_content(line);
+	file = separate_content(line);
 	return (file);
 }
 
-// void	process_data(t_cub3d *game, t_file *file);
+void	process_data(t_cub3d *game, t_file *file)
+{
+	set_game_map(game, file);
+	set_game_sprites(game, file);
+}
 
 void	configure_level(t_cub3d *game, char *file_name)
 {
 	t_file	file;
 
 	file = parse_file(file_name);
-	process_data(game, file);
+	process_data(game, &file);
+	free_file(&file);
 }
