@@ -92,9 +92,23 @@ typedef struct s_image
 	int		bits_per_pixel;
 }	t_image;
 
+typedef struct s_frame
+{
+   t_image texture;
+   struct s_frame *next;
+   struct s_frame *prev;
+} t_frame;
+
+typedef struct s_animations
+{
+    t_frame *frame;
+    int		frame_count;
+} t_animations;
+
 typedef struct s_images
 {
 	t_image	N;
+	t_animations	Na;
 	t_image	E;
 	t_image	S;
 	t_image	W;
@@ -156,17 +170,20 @@ void			display(t_cub3d *game);
 //*	color.c
 t_color			rgb_to_color(int r, int g, int b);
 t_color			hex_to_color(unsigned int hex);
+t_color			blackout(t_color color, double ratio);
 
 //* cub3d_utils.c
 void 			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
-t_color			blackout(t_color color, double ratio);
 unsigned int	get_pixel_color(t_image img, int x, int y);
 
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
+//*	create_animate.c
+t_animations	create_animate(t_cub3d *game, char **paths);
 
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
+t_image	import_image(void *mlx, char *path);
 
 #endif

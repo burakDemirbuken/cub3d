@@ -27,6 +27,7 @@ SRC =	src/cub3d.c \
 		src/color.c \
 		src/cub3d_utils.c \
 		src/update_player_status.c \
+		src/create_animate.c \
 
 OBJ = $(SRC:.c=.o)
 

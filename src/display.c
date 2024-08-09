@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/07 09:14:57 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:58:38 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 
 	if (ray.v_h == 'v' && 90 < ray.angle && ray.angle <= 270)
 	{
-		image = game->images.E;
+		image = game->images.Na.frame->texture;
 		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
 			* image.width / REC_HEIGHT;
 	}
@@ -141,10 +141,7 @@ static void	draw_wall(t_cub3d *game)
 		game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
 		a += PERSPECTIVE / RAY_COUNT;
 		angle_diff = (game->player.angle - game->rays[i].angle) * RAD_CONVERT;
-		if (game->rays[i].dis > 100)
 			dis = cos(angle_diff) * game->rays[i].dis;
-		else
-			dis = game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 100)
 			wall_size = 100;

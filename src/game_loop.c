@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/08 11:06:33 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:57:45 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,83 @@ t_ray	ray_throw(t_cub3d *game, double angle)
 	return (ret);
 }
 
+void	mini_map(t_cub3d *game)
+{
+	double	offset_x;
+	double	offset_y;
+	int		y;
+	int		x;
+	unsigned int color;
+
+	y = 3;
+	offset_x = fmod(game->player.pos.x, REC_WIDTH) / 4;
+	offset_y = fmod(game->player.pos.y, REC_HEIGHT) / 4;
+	while (y != 0)
+	{
+		x = 3;
+		while (x != 0)
+		{
+			if (game->map.map[((int)(game->player.pos.y / REC_HEIGHT) + 3 ) - y][((int)(game->player.pos.x / REC_WIDTH) + 3) - x] == '1')
+				color = 0x00345234;
+			else
+				color = 0x00983246;
+			draw_rectangle(game->images.background, (y * 25) - offset_x, (x * 25) - offset_y ,25, 25, true, color);
+			x--;
+		}
+		y--;
+	}
+/*
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT) - 1][(int)(game->player.pos.x / REC_WIDTH)] == '1')
+		draw_rectangle(game->images.background, 50 - offset_x , 25 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 50 - offset_x , 25 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT) - 1][(int)(game->player.pos.x / REC_WIDTH) + 1] == '1')
+		draw_rectangle(game->images.background, 75 - offset_x , 25 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 75 - offset_x , 25 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT)][(int)(game->player.pos.x / REC_WIDTH) - 1] == '1')
+		draw_rectangle(game->images.background, 25 - offset_x , 50 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 25 - offset_x , 50 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT)][(int)(game->player.pos.x / REC_WIDTH)] == '1')
+		draw_rectangle(game->images.background, 50 - offset_x , 50 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 50 - offset_x , 50 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT)][(int)(game->player.pos.x / REC_WIDTH) + 1] == '1')
+		draw_rectangle(game->images.background, 75 - offset_x , 50 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 75 - offset_x , 50 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT) + 1][(int)(game->player.pos.x / REC_WIDTH) - 1] == '1')
+		draw_rectangle(game->images.background, 25 - offset_x , 75 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 25 - offset_x , 75 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT) + 1][(int)(game->player.pos.x / REC_WIDTH)] == '1')
+		draw_rectangle(game->images.background, 50 - offset_x , 75 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 50 - offset_x , 75 - offset_y , 25, 25, false, 0x00983246);
+
+	if (game->map.map[(int)(game->player.pos.y / REC_HEIGHT) + 1][(int)(game->player.pos.x / REC_WIDTH) + 1] == '1')
+		draw_rectangle(game->images.background, 75 - offset_x , 75 - offset_y , 25, 25, false, 0x00345234);
+	else
+		draw_rectangle(game->images.background, 75 - offset_x , 75 - offset_y , 25, 25, false, 0x00983246);
+
+ */
+	draw_rectangle(game->images.background, 25 + 25 - 1 , 25 + 25 - 1 , 3, 3, false, 0x00FF0000);
+}
+
 int	game_loop(t_cub3d	*game)
 {
 	update_player_status(game);
 	display(game);
 	//draw_map(game);
-	//mini_map(game);
+	mini_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
-
-/*	mousenin olduğu kareyi belirlenen renge boyar.
- 	#ifdef __linux__
-		mlx_mouse_get_pos(game->mlx, game->win, &x, &y);
-	#elif __APPLE__ || __MACH__
-		mlx_mouse_get_pos(game->win, &x, &y);
-	#endif
-	if (!(x < 0 || y >= MAP_HEIGHT * REC_HEIGHT || y < 0 || x >= MAP_WIDTH * REC_WIDTH))
-		draw_rectangle(game, (x / REC_WIDTH) * REC_WIDTH, (y / REC_HEIGHT) * REC_HEIGHT, REC_HEIGHT, REC_HEIGHT, true, 0x00808080); */

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/08 11:15:01 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:53:37 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	mouse_control(t_cub3d *game)
 		mlx_mouse_hide();
 	else
 		mlx_mouse_show();
-	if (0 < y && y < WINDOWS_HEIGHT)
+	if (20 < y && y < WINDOWS_HEIGHT)
 	{
 		game->player.angle += (x - WINDOWS_WIDTH / 2) / 10;
 		mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
