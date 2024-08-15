@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/07 08:23:28 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:19:25 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@
  *	double cos(double)
  */
 
-static void inline	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, t_color color, int width)
+static void inline	draw_gradyan_vertical(t_cub3d *game, t_image img, int y, t_color color)
 {
 	double		i;
 	t_color t_color;
 
 	i = 0;
-	while (i <= width / 2)
+	while (i <= WINDOWS_WIDTH / 2)
 	{
 		t_color = color;
 		if (game->shadow)
-			t_color = blackout(t_color, 1.0 - (i / ((double)width / 2.0) + 0.42));
+			t_color = blackout(t_color, 1.0 - (i / ((double)WINDOWS_WIDTH / 2.0) + 0.42));
 		put_pixel_to_image(img, i, y, t_color.hex);
-		put_pixel_to_image(img, width - i, y, t_color.hex);
+		put_pixel_to_image(img, WINDOWS_WIDTH - i, y, t_color.hex);
 		i++;
 	}
 }
@@ -56,12 +56,12 @@ static void inline	draw_floor_ceiling(t_cub3d *game)
 		if (game->shadow)
 			color = blackout(color, 1.0 - (i / (((double)WINDOWS_HEIGHT / 2.0))) + 0.32);
 		draw_gradyan_vertical(game, game->images.background,
-			WINDOWS_HEIGHT / 2 - i, color, WINDOWS_WIDTH);
+			WINDOWS_HEIGHT / 2 - i, color);
 		color = rgb_to_color(123, 0, 255);
 		if (game->shadow)
 			color = blackout(color, 1.0 - (i / ((double)WINDOWS_HEIGHT / 2.0)) + 0.32);
 		draw_gradyan_vertical(game, game->images.background,
-			WINDOWS_HEIGHT / 2 + i, color, WINDOWS_WIDTH);
+			WINDOWS_HEIGHT / 2 + i, color);
 		i++;
 	}
 }
@@ -101,7 +101,7 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 
 	if (ray.v_h == 'v' && 90 < ray.angle && ray.angle <= 270)
 	{
-		image = game->images.E;
+		image = game->images.Na.frame->texture;
 		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
 			* image.width / REC_HEIGHT;
 	}
@@ -141,10 +141,7 @@ static void	draw_wall(t_cub3d *game)
 		game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
 		a += PERSPECTIVE / RAY_COUNT;
 		angle_diff = (game->player.angle - game->rays[i].angle) * RAD_CONVERT;
-		if (game->rays[i].dis > 100)
 			dis = cos(angle_diff) * game->rays[i].dis;
-		else
-			dis = game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 100)
 			wall_size = 100;
@@ -155,6 +152,7 @@ static void	draw_wall(t_cub3d *game)
 		i++;
 	}
 }
+
 //isim değişikliği olucka
 void	display(t_cub3d *game)
 {

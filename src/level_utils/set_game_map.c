@@ -6,15 +6,16 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/09 16:38:19 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/15 13:56:39 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 // typedef t_cub3d
 // typedef t_file
+#include "../include/libft/libft.h"
 
-char	*empty_line(int width)
+static char	*empty_line(int width)
 {
 	char 	*map;
 
@@ -26,7 +27,7 @@ char	*empty_line(int width)
 	return (map);
 }
 
-char	**copy_game_map(t_file *file)
+static char	**copy_game_map(t_file *file)
 {
 	char	**map;
 	int		i;
@@ -48,7 +49,7 @@ char	**copy_game_map(t_file *file)
 	return (map);
 }
 
-bool	flood_fill(char **map, int y, int x)
+static bool	flood_fill(char **map, int y, int x)
 {
 	if (y < 0 || x < 0 || map[y] == NULL || map[y][x] == '\0')
 		return (false);

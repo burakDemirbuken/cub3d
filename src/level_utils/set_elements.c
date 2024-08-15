@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/09 14:58:57 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/15 15:02:01 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,38 @@ int	elements_valid(t_file *file, int i, int map_start, int count, int *flag)
 	if (!file->no || !file->no[0] || !file->so || !file->so[0]
 		|| !file->we || !file->we[0] || !file->ea || !file->ea[0])
 		return (ft_putstr_fd("cub3d: Missing elements.\n", STDERR_FILENO), 0);
+	return (1);
 }
 
 // Sets file->f and file->c colors.
-bool	set_color(char *content, t_color *color)
+static bool	set_color(char *content, t_color *color)
 {
-	char **rgb;
+	char	**rgb;
+	int		colors[3];
 
 	if (!content)
-		return (perror("cub3d"), 1);
+		return (perror("cub3d"), true);
 	rgb = ft_split(content, ',');
 	if (!rgb)
-		return (perror("cub3d"), 1);
+		return (perror("cub3d"), true);
 	if (str_arrlen(rgb) != 3)
-		return (ft_strfree(rgb), ft_putstr_fdI("cub3d: Missing colors\n",
-			STDERR_FILENO), 1);
-	color->r = ft_atoi(rgb[0]);
-	color->g = ft_atoi(rgb[1]);
-	color->b = ft_atoi(rgb[2]);
+		return (ft_strfree(rgb), ft_putstr_fd("cub3d: Missing colors\n",
+			STDERR_FILENO), true);
+	colors[0] = ft_atoi(rgb[0]);
+	colors[1] = ft_atoi(rgb[1]);
+	colors[2] = ft_atoi(rgb[2]);
 	ft_strfree(rgb);
-	if (!((color->r >= 0 && color->r < 256) && (color->g >= 0 && color->g < 256)
-		&& (color->b >= 0 && color->b < 256)))
-		return (ft_putstr_fd("cub3d: Invalid colors\n", STDERR_FILENO), 1);
-	*color = rgb_to_color(color->r, color->g, color->b);
+	if (!((colors[0] >= 0 && colors[0] < 256) && (colors[1] >= 0 && colors[1] < 256)
+		&& (colors[2] >= 0 && colors[2] < 256)))
+		return (ft_putstr_fd("cub3d: Invalid colors\n", STDERR_FILENO), true);
+	*color = rgb_to_color(colors[0], colors[1], colors[2]);
 	free(content);
-	return (true);
+	return (false);
 }
 
 // Seperates the texture paths via ft_split.
 // Returns 1 if there is an error.
-bool	set_texture_paths(char *content, char ***texture)
+static bool	set_texture_paths(char *content, char ***texture)
 {
 	(*texture) = ft_split(content, ' ');
 	if (!(*texture))
@@ -90,4 +92,5 @@ int	set_elements(char *content, t_file *file, int *flag)
 		return(flag[4]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
 	else if (content[0] == 'C')
 		return(flag[5]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
+	return (0);
 }

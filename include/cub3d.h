@@ -1,5 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+// ☃
 
 #ifdef __linux__
 
@@ -12,6 +13,7 @@
 # define KEY_RIGHT	65363
 # define KEY_C		99
 # define KEY_G		42
+# define KEY_H		43
 
 #elif __APPLE__ || __MACH__
 
@@ -24,9 +26,11 @@
 # define KEY_RIGHT	124
 # define KEY_C		8
 # define KEY_G		5
+# define KEY_H		4
 #endif
 
-# define	RAD_CONVERT		0.0174532925199432954743716805978692718781530857086181640625
+# define	RAD_CONVERT		0.01745329251994329547437\
+16805978692718781530857086181640625
 # define	WINDOWS_WIDTH	1920
 # define	WINDOWS_HEIGHT	1080
 
@@ -68,17 +72,25 @@ typedef struct s_player
 	double	angle;
 }	t_player;
 
+typedef struct s_color
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+	unsigned int	hex;
+}	t_color;
+
 typedef struct s_file
 {
-	char			**no;
-	char			**so;
-	char			**we;
-	char			**ea;
-	char			**map;
-	unsigned int	f;
-	unsigned int	c;
-	int				map_height;
-	int				map_width;
+	char	**no;
+	char	**so;
+	char	**we;
+	char	**ea;
+	char	**map;
+	t_color	f;
+	t_color	c;
+	int		map_height;
+	int		map_width;
 }	t_file;
 
 typedef struct s_map
@@ -99,23 +111,27 @@ typedef struct s_image
 	int		bits_per_pixel;
 }	t_image;
 
-typedef struct s_color
+
+typedef struct s_frame
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-	unsigned int	hex;
-}	t_color;
+   t_image texture;
+   struct s_frame *next;
+   struct s_frame *prev;
+} t_frame;
+
+typedef struct s_animations
+{
+    t_frame *frame;
+    int		frame_count;
+} t_animations;
 
 typedef struct s_images
 {
-	t_image	N;
-	t_image	E;
-	t_image	S;
-	t_image	W;
-	t_image	background;
-	t_color	floor_color;
-	t_color	ceiling_color;
+	t_animations	N;
+	t_animations	E;
+	t_animations	S;
+	t_animations	W;
+	t_image			background;
 } t_images;
 
 typedef struct s_ray
@@ -154,6 +170,7 @@ void			create_map(t_cub3d *game);
 /* ------------------------------- LEVEL UTILS -------------------------------*/
 // configure_level.c
 void			configure_level(t_cub3d *game, char *file_name);
+void			free_file(t_file *file);
 
 // file_reading.c
 bool			extension_is_cub(char *file_name);
@@ -164,47 +181,58 @@ t_file			separate_content(char *f_line);
 
 char			*get_texture(char *str);
 void			print_map(char **map);
+void			set_game_map(t_cub3d *game, t_file *file);
 t_map			get_actual_map(t_tmp_map *tmp_map);
-bool			flood_fill(char **map, int y, int x);
 
+// set_game_sprites.c
+void			set_game_sprites(t_cub3d *game, t_file *file);
+
+// set_elements.c
+int				set_elements(char *content, t_file *file, int *flag);
+int				elements_valid(t_file *file, int i, int map_start,
+					int count, int *flag);
 
 // SHIT HITS THE FAN
 size_t	str_arrlen(char **arr);
 
 //*	key_hook.c
-int		key_down(int keycode, t_cub3d *game);
-int		key_up(int keycode, t_cub3d *game);
-void	update_player_status(t_cub3d *game);
-int		mouse_hook(int keycode, int x, int y, t_cub3d *game);
+int				key_down(int keycode, t_cub3d *game);
+int				key_up(int keycode, t_cub3d *game);
 
 //* game_loop.c
-int		game_loop(t_cub3d	*game);
+int				game_loop(t_cub3d	*game);
 
 //*	draw_player.c
-void	draw_player(t_cub3d *game);
-void	bresenham_line(t_image img, int x0, int y0, int x1, int y1, int color);
+void			draw_player(t_cub3d *game);
 
 //*	ray_calculator.c
-t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
-t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2			vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
 
 //*	ray_calculator_utils.c
-double	get_offset(t_vec2 p_pos, double rad, char v_h);
-double	distance(t_vec2 point1,t_vec2  point2);
+double			get_offset(t_vec2 p_pos, double rad, char v_h);
+double			distance(t_vec2 point1,t_vec2  point2);
 
 //*	display.c
-void	display(t_cub3d *game);
+void			display(t_cub3d *game);
 
 //*	color.c
-t_color	rgb_to_color(int r, int g, int b);
-t_color	hex_to_color(unsigned int hex);
+t_color			rgb_to_color(int r, int g, int b);
+t_color			hex_to_color(unsigned int hex);
+t_color			blackout(t_color color, double ratio);
 
 //* cub3d_utils.c
-void 		put_pixel_to_image(t_image img, int x, int y, unsigned int color);
-t_color		blackout(t_color color, double ratio);
+void 			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
 unsigned int	get_pixel_color(t_image img, int x, int y);
+
+//*	update_player_status.c
+void			update_player_status(t_cub3d *game);
+
+//*	create_animate.c
+t_animations	create_animate(t_cub3d *game, char **paths);
 
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
+t_image	import_image(void *mlx, char *path);
 
 #endif

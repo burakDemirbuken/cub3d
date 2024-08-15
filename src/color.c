@@ -34,3 +34,16 @@ t_color	hex_to_color(unsigned int hex)
 	color.hex = hex;
 	return (color);
 }
+
+t_color inline	blackout(t_color color, double ratio)
+{
+	double	intensity;
+
+	intensity = 1.0 - ratio;
+	if (intensity < 0.0)
+		intensity = 0.0;
+	if (intensity > 1.0)
+		intensity = 1.0;
+	return (rgb_to_color(color.r * intensity,
+			color.g * intensity, color.b * intensity));
+}

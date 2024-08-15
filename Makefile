@@ -23,17 +23,17 @@ SRC =	src/cub3d.c \
 		src/draw_player.c \
 		src/display.c \
 		src/color.c \
+		src/str_arrlen.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/level_utils/file_reading.c \
-		src/level_utils/flood_fill.c \
-		src/level_utils/get_actual_map.c \
-		src/level_utils/get_colour.c \
-		src/level_utils/get_texture.c \
 		src/level_utils/configure_level.c \
 		src/level_utils/print_map.c \
 		src/level_utils/separate_content.c \
-		src/level_utils/tmp_map.c \
+		src/level_utils/set_elements.c \
+		src/level_utils/set_game_map.c \
+		src/update_player_status.c \
+		src/create_animate.c \
 
 OBJ = $(SRC:.c=.o)
 

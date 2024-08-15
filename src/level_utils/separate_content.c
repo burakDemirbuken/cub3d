@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/09 16:18:43 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/15 14:56:27 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // Sets the elements that are not the map.
 // Returns the index of the first map element.
 // Exits if there is an error.
-int	set_first_half(t_file *file, char **content)
+static int	set_first_half(t_file *file, char **content)
 {
 	int	i;
 	int	map_start;
@@ -30,13 +30,13 @@ int	set_first_half(t_file *file, char **content)
 
 	i = -1;
 	count = 6;
-	while (count--)
-		flag[count] = 0;
+	while (count)
+		flag[--count] = 0;
 	while (content[++i])
 	{
 		if (!ft_strncmp(content[i], "NO", 2) || !ft_strncmp(content[i], "SO", 2)
-			|| !ft_strncmp(content[i], "WE", 2) || content[0] == 'C'
-			|| !ft_strncmp(content[i], "EA", 2) || content[0] == 'F')
+			|| !ft_strncmp(content[i], "WE", 2) || content[i][0] == 'C'
+			|| !ft_strncmp(content[i], "EA", 2) || content[i][0] == 'F')
 		{
 			if (set_elements(content[i], file, flag))
 				return (ft_strfree(content), free_file(file), exit(1), -1);
@@ -44,13 +44,13 @@ int	set_first_half(t_file *file, char **content)
 			count++;
 		}
 	}
-	if (!elements_valid(file, i, map_start, count))
+	if (!elements_valid(file, i, map_start, count, flag))
 		return (ft_strfree(content), free_file(file), exit(1), -1);
 	return (map_start);
 }
 
 // Counts the map length and checks for undefined elements.
-int	inspect_map(t_file *file, char **content)
+static int	inspect_map(t_file *file, char **content)
 {
 	int	i;
 	int	j;
@@ -79,7 +79,7 @@ int	inspect_map(t_file *file, char **content)
 }
 
 // Copies the map off of file content to the file struct.
-bool	copy_content_map(t_file *file, char **content)
+static bool	copy_content_map(t_file *file, char **content)
 {
 	int	i;
 
@@ -100,21 +100,22 @@ bool	copy_content_map(t_file *file, char **content)
 
 // Sets the map part.
 // Exits if there is an error.
-void	set_map_half(t_file *file, char **content, int map_start)
+static bool	set_map_half(t_file *file, char **content, int map_start)
 {
 	int	count;
 
 	count = inspect_map(file, content + map_start);
 	if (count == -1)
-		return (ft_strfree(content), free_file(file), exit(1), -1);
+		return (ft_strfree(content), free_file(file), exit(1), 1);
 	if (count != 1)
 		return (ft_putstr_fd("cub3d: Player starting position undefined.\n",
-			STDERR_FILENO), ft_strfree(content), free_file(file), exit(1), -1);
+			STDERR_FILENO), ft_strfree(content), free_file(file), exit(1), 1);
 	if (file->map_height < 3 || file->map_width < 3)
 		return (ft_putstr_fd("cub3d: Map is too small.\n", STDERR_FILENO),
-			ft_strfree(content), free_file(file), exit(1), -1);
+			ft_strfree(content), free_file(file), exit(1), 1);
 	if (!copy_content_map(file, content + map_start))
-		return (ft_strfree(content), free_file(file), exit(1), -1);
+		return (ft_strfree(content), free_file(file), exit(1), 1);
+	return (0);
 }
 
 // Seperates the file content.
@@ -123,7 +124,6 @@ t_file	separate_content(char *line)
 	t_file	file;
 	char	**content;
 	int		map_start;
-	int		count;
 
 	ft_memset(&file, 0, sizeof(t_file));
 	content = ft_split(line, '\n');

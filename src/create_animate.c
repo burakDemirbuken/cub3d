@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_game_sprites.c                                 :+:      :+:    :+:   */
+/*   create_animate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/15 17:18:54 by bkorkut          ###   ########.fr       */
+/*   Created: 2024/08/08 18:37:16 by bdemirbu          #+#    #+#             */
+/*   Updated: 2024/08/15 16:22:22 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
-// typedef t_cub3d
-// typedef t_file
+#include "cub3d.h"
 #include "libft/libft.h"
 #include <stdlib.h>
 #ifdef __linux__
@@ -53,45 +51,34 @@ t_image	import_image(void *mlx, char *path)
 	return (img);
 }
 
-bool	create_anim(t_animations *anim, void *mlx, char **paths)
+t_animations create_animate(t_cub3d *game, char **paths)
 {
-	t_frame	*frame;
-	int		i;
+	t_animations	ret;
+	t_frame			*frame;
+	int				i;
 
-	anim->frame = (t_frame *)malloc(sizeof(t_frame));
-	if (!anim->frame)
-		return (perror("cub3d"), false);
-	anim->frame->texture = import_image(mlx, paths[0]);
-	if (!anim->frame->texture.image)
-		return (perror("cub3d"), false);
-	frame = anim->frame;
+	ret.frame = (t_frame *)malloc(sizeof(t_frame));
+	if (!ret.frame)
+		exit(1); //	free
+	ret.frame->texture = import_image(game->mlx, paths[0]);
+	if (!ret.frame->texture.image)
+		exit(1); //	free
+	frame = ret.frame;
 	i = 1;
 	while (paths[i])
 	{
 		frame->next = (t_frame *)malloc(sizeof(t_frame));
 		if (!frame->next)
-			return (perror("cub3d"), false);
-		frame->next->texture = import_image(mlx, paths[i]);
+			exit(1); //	free
+		frame->next->texture = import_image(game->mlx, paths[i]);
 		if (!frame->next->texture.image)
-			return (perror("cub3d"), false);
+			exit(1); //	free
 		frame->next->prev = frame;
 		frame = frame->next;
 		i++;
 	}
-	anim->frame->prev = frame;
-	frame->next = anim->frame;
-	anim->frame_count = i;
-	return (true);
-}
-
-void	set_game_sprites(t_cub3d *game, t_file *file)
-{
-	if (!create_anim(&game->images.N, game->mlx, file->no))
-		end_program();
-	else if (!create_anim(&game->images.S, game->mlx, file->so))
-		end_program();
-	else if (!create_anim(&game->images.W, game->mlx, file->we))
-		end_program();
-	else if (!create_anim(&game->images.E, game->mlx, file->ea))
-		end_program();
+	ret.frame->prev = frame;
+	frame->next = ret.frame;
+	ret.frame_count = i;
+	return (ret);
 }
