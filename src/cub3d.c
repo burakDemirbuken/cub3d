@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/09 16:21:01 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:46:36 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,38 @@ int	main(void)
 	create_map(&game);
 	set_mlx(&game);
 	char **path;
-	path = (char **)malloc(sizeof(char *) * 5);
-	path[0] = "finn.xpm";
-	path[1] = "jack2.xpm";
-	path[2] = "bmo.xpm";
-	path[3] = "jack.xpm";
-	path[4] = NULL;
+	path = (char **)malloc(sizeof(char *) * 31);
+	path[0] = "Portal00.xpm";
+	path[1] = "Portal01.xpm";
+	path[2] = "Portal02.xpm";
+	path[3] = "Portal03.xpm";
+	path[4] = "Portal04.xpm";
+	path[5] = "Portal05.xpm";
+	path[6] = "Portal06.xpm";
+	path[7] = "Portal07.xpm";
+	path[8] = "Portal08.xpm";
+	path[9] = "Portal09.xpm";
+	path[10] = "Portal10.xpm";
+	path[11] = "Portal11.xpm";
+	path[12] = "Portal12.xpm";
+	path[13] = "Portal13.xpm";
+	path[14] = "Portal14.xpm";
+	path[15] = "Portal15.xpm";
+	path[16] = "Portal16.xpm";
+	path[17] = "Portal17.xpm";
+	path[18] = "Portal18.xpm";
+	path[19] = "Portal19.xpm";
+	path[20] = "Portal20.xpm";
+	path[21] = "Portal21.xpm";
+	path[22] = "Portal22.xpm";
+	path[23] = "Portal23.xpm";
+	path[24] = "Portal24.xpm";
+	path[25] = "Portal25.xpm";
+	path[26] = "Portal26.xpm";
+	path[27] = "Portal27.xpm";
+	path[28] = "Portal28.xpm";
+	path[29] = "Portal29.xpm";
+	path[30] = NULL;
 	game.images.Na = create_animate(&game, path);
 	mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 	mlx_hook(game.win, 2, 1L << 1, key_down, &game);

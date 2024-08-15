@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/09 16:57:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:38:36 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	mini_map(t_cub3d *game)
 		x = 3;
 		while (x != 0)
 		{
-			if (game->map.map[((int)(game->player.pos.y / REC_HEIGHT) + 3 ) - y][((int)(game->player.pos.x / REC_WIDTH) + 3) - x] == '1')
+			if (game->map.map[((int)(game->player.pos.y / REC_HEIGHT) - 2 ) + y][((int)(game->player.pos.x / REC_WIDTH) - 2) + x] == '1')
 				color = 0x00345234;
 			else
 				color = 0x00983246;
@@ -135,6 +135,7 @@ int	game_loop(t_cub3d	*game)
 	display(game);
 	//draw_map(game);
 	mini_map(game);
+	game->images.Na.frame = game->images.Na.frame->next;
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image, 0, 0);
 	return (0);
 }
