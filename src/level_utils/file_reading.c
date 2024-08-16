@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/08 14:18:45 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/16 10:58:42 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 // STDERR_FILENO
 // read(int fd, void *buf, size_t count);
 
-
 // Checks the file extension. Returns 1 if it is .cub.
 // Otherwise, prints an error message and returns 0.
 bool	extension_is_cub(char *file_name)
@@ -37,6 +36,25 @@ bool	extension_is_cub(char *file_name)
 		|| file_name[--len] != 'c' || file_name[--len] != '.')
 		return (ft_putstr_fd("cub3d: File extension must be .cub\n",
 			STDERR_FILENO), false);
+	return (true);
+}
+
+bool	the_path_is_valid(char *path)
+{
+	// this needs revision
+	int		fd;
+	char	line[10];
+	int		bytes;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (perror("cub3d"), false);
+	bytes = read(fd, line, 9);
+	close(fd);
+	if (bytes <= 0)
+		return (perror("cub3d"), false);
+	if (ft_strncmp(line, "/* XPM */", 9))
+		return (perror("cub3d"), false);
 	return (true);
 }
 

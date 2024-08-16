@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/15 17:18:54 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/16 12:13:41 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,8 @@
 #elif __APPLE__ || __MACH__
 # include "../include/minilibx/mlx.h"
 #endif
-#include <fcntl.h>
 
-bool	the_path_is_valid(char *path)
-{
-	int		fd;
-	char	line[10];
-	int		bytes;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (perror("cub3d"), false);
-	bytes = read(fd, line, 9);
-	close(fd);
-	if (bytes <= 0)
-		return (perror("cub3d"), false);
-	if (ft_strncmp(line, "/* XPM */", 9))
-		return (perror("cub3d"), false);
-	return (true);
-}
-
-t_image	import_image(void *mlx, char *path)
+static t_image	import_image(void *mlx, char *path)
 {
 	t_image	img;
 
@@ -53,30 +34,47 @@ t_image	import_image(void *mlx, char *path)
 	return (img);
 }
 
-bool	create_anim(t_animations *anim, void *mlx, char **paths)
+void	destroy_anim(void *mlx, t_animations *anim)
+{
+	t_frame	*tmp;
+
+	anim->frame->prev->next = NULL;
+	while (anim->frame)
+	{
+		mlx_destroy_image(mlx, anim->frame->texture.image);
+		tmp = anim->frame->next;
+		free(anim->frame);
+		anim->frame = tmp;
+	}
+}
+
+static bool	create_frame(t_frame *frame, void *mlx, char *path)
+{
+	if (!the_path_is_valid(path))
+		return (false);
+	frame = (t_frame *)malloc(sizeof(t_frame));
+	if (!frame)
+		return (perror("cub3d"), false);
+	frame->texture = import_image(mlx, path);
+	if (!frame->texture.image)
+		return (perror("cub3d"), false);
+}
+
+static bool	set_anim(t_animations *anim, void *mlx, char **paths)
 {
 	t_frame	*frame;
 	int		i;
 
-	anim->frame = (t_frame *)malloc(sizeof(t_frame));
-	if (!anim->frame)
-		return (perror("cub3d"), false);
-	anim->frame->texture = import_image(mlx, paths[0]);
-	if (!anim->frame->texture.image)
-		return (perror("cub3d"), false);
+	if (!create_frame(anim->frame, mlx, paths[0]))
+		return (false);
 	frame = anim->frame;
-	i = 1;
-	while (paths[i])
+	i = 0;
+	while (paths[++i])
 	{
-		frame->next = (t_frame *)malloc(sizeof(t_frame));
-		if (!frame->next)
-			return (perror("cub3d"), false);
-		frame->next->texture = import_image(mlx, paths[i]);
-		if (!frame->next->texture.image)
-			return (perror("cub3d"), false);
+		if (!create_frame(frame->next, mlx, paths[i]))
+			return (false);
 		frame->next->prev = frame;
 		frame = frame->next;
-		i++;
 	}
 	anim->frame->prev = frame;
 	frame->next = anim->frame;
@@ -86,12 +84,14 @@ bool	create_anim(t_animations *anim, void *mlx, char **paths)
 
 void	set_game_sprites(t_cub3d *game, t_file *file)
 {
-	if (!create_anim(&game->images.N, game->mlx, file->no))
-		end_program();
-	else if (!create_anim(&game->images.S, game->mlx, file->so))
-		end_program();
-	else if (!create_anim(&game->images.W, game->mlx, file->we))
-		end_program();
-	else if (!create_anim(&game->images.E, game->mlx, file->ea))
-		end_program();
+	// this file needs function descriptions
+	// also needs a check for error messages
+	if (!set_anim(&game->images.N, game->mlx, file->no))
+		end_program(game, 1);
+	else if (!set_anim(&game->images.S, game->mlx, file->so))
+		end_program(game, 1);
+	else if (!set_anim(&game->images.W, game->mlx, file->we))
+		end_program(game, 1);
+	else if (!set_anim(&game->images.E, game->mlx, file->ea))
+		end_program(game, 1);
 }

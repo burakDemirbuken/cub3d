@@ -1,16 +1,18 @@
 memory free
-map check
-kaplama kodu
 sprites ve tema
 norminette
 
 bonus
 fps ve görüntü basma oranı
 circle drawing algorithm
-collision (duvardan geçememe)
 arayüz / user interface
-animasyonlu sprite
+kaplama kodu
+map editor
 
+✅ collision (duvardan geçememe)
+✅ animasyonlu sprite
+
+✅ map check
 ✅ yönü açıya bağlama
 ✅ ekranın genişliğini ve yüksekliğini sabitle
 ✅ duvardan geçmeme olmadan segfault yemesini önlemek lazım

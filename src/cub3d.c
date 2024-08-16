@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/15 17:16:25 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/16 12:29:46 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,53 +19,28 @@
 #endif
 #include <stdlib.h>
 
-// t_image	create_new_image(void *mlx, int width, int height)
-// {
-// 	t_image	img;
-
-// 	ft_memset(&img, 0, sizeof(t_image));
-// 	img.image = mlx_new_image(mlx, width, height);
-// 	if (!img.image)
-// 		return (img);
-// 	img.data = mlx_get_data_addr(img.image, &img.bits_per_pixel,
-// 			&img.line_lenght, &img.endian);
-// 	img.height = height;
-// 	img.width = width;
-// 	return (img);
-// }
-
-// void	set_mlx(t_cub3d *game)
-// {
-// 	game->mlx = mlx_init();
-// 	if (!game->mlx)
-// 		exit(1); //free
-// 	game->win = mlx_new_window(game->mlx,
-// 			WINDOWS_WIDTH, WINDOWS_HEIGHT, "cub3d");
-// 	if (!game->win)
-// 		exit(1); //free
-// 	game->images.background = create_new_image(game->mlx,
-// 			WINDOWS_WIDTH, WINDOWS_HEIGHT);
-// 	if (!game->images.background.image)
-// 		exit(1); //free
-// 	game->images.N = import_image(game->mlx, "jack2.xpm");
-// 	if (!game->images.N.image)
-// 		exit(1); // free
-// 	game->images.S = import_image(game->mlx, "bmo.xpm");
-// 	if (!game->images.S.image)
-// 		exit(1); // free
-// 	game->images.W = import_image(game->mlx, "finn.xpm");
-// 	if (!game->images.W.image)
-// 		exit(1); // free
-// 	game->images.E = import_image(game->mlx, "gunter.xpm");
-// 	if (!game->images.E.image)
-// 		exit(1); // free
-// 	game->player.pos.x = 650;
-// 	game->player.pos.y = 750;
-// 	// game->player.pos.y = player_map_y * REC_HEIGHT - (REC_HEIGHT / 2);
-// 	game->player.angle = 270;
-// 	game->shadow = 0;
-// 	mlx_do_key_autorepeatoff(game->mlx);
-// }
+// Assumes all error messages were printed before calling this function.
+// Frees all allocated memory and exits the program.
+void	end_program(t_cub3d *game, int e)
+{
+	if (game->map.map)
+		free(game->map.map);
+	if (game->images.background.image)
+		mlx_destroy_image(game->mlx, game->images.background.image);
+	if (game->images.N.frame)
+		destroy_anim(game->mlx, &game->images.N);
+	if (game->images.E.frame)
+		destroy_anim(game->mlx, &game->images.E);
+	if (game->images.S.frame)
+		destroy_anim(game->mlx, &game->images.S);
+	if (game->images.W.frame)
+		destroy_anim(game->mlx, &game->images.W);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+		free(game->mlx);
+	exit (e);
+}
 
 int	main(int ac, char **av)
 {
@@ -73,10 +48,8 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		ft_memset(&game, 0, sizeof(t_cub3d));
 		configure_level(&game, av[1]);
-		// ft_memset(&game, 0, sizeof(t_cub3d));
-		// create_map(&game);
-		// set_mlx(&game);
 		// draw_map(&game);
 		// draw_player(&game);
 		// mlx_hook(game.win, 3, 1L << 0, key_up, &game);
@@ -85,16 +58,8 @@ int	main(int ac, char **av)
 		// mlx_mouse_hook(game.win, mouse_click, &game);
 		// mlx_loop_hook(game.mlx, game_loop, &game);
 		// mlx_loop(game.mlx);
+		return (0);
 	}
 	else
-		ft_putstr_fd("Expected a map.\n", 2);
-	// char **path;
-	// path = (char **)malloc(sizeof(char *) * 5);
-	// path[0] = "finn.xpm";
-	// path[1] = "jack2.xpm";
-	// path[2] = "bmo.xpm";
-	// path[3] = "jack.xpm";
-	// path[4] = NULL;
-	// game.images.Na = create_animate(&game, path);
-	// return (1);
+		return (ft_putstr_fd("cub3d: Expected a map.\n", 2), 1);
 }

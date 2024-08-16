@@ -167,32 +167,39 @@ void			draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void			create_map(t_cub3d *game);
 
-/* ------------------------------- LEVEL UTILS -------------------------------*/
+/* ------------------------------ LEVEL UTILS --------------------------------*/
 // configure_level.c
 void			configure_level(t_cub3d *game, char *file_name);
 void			free_file(t_file *file);
 
 // file_reading.c
 bool			extension_is_cub(char *file_name);
+bool			the_path_is_valid(char *file_name);
 char			*read_file(int fd);
+
+// initialize_mlx.c
+bool			initialize_mlx(t_cub3d *game);
 
 // seperate_content.c
 t_file			separate_content(char *f_line);
-
-char			*get_texture(char *str);
-void			print_map(char **map);
-void			set_game_map(t_cub3d *game, t_file *file);
-t_map			get_actual_map(t_tmp_map *tmp_map);
-
-// set_game_sprites.c
-void			set_game_sprites(t_cub3d *game, t_file *file);
 
 // set_elements.c
 int				set_elements(char *content, t_file *file, int *flag);
 int				elements_valid(t_file *file, int i, int map_start,
 					int count, int *flag);
 
-// SHIT HITS THE FAN
+// set_game_map.c
+void			set_game_map(t_cub3d *game, t_file *file);
+
+// set_game_sprites.c
+void			set_game_sprites(t_cub3d *game, t_file *file);
+void			destroy_anim(void *mlx, t_animations *anim);
+
+// delete this
+void			print_map(char **map);
+
+/* ------------------------------ OTHER FILES ------------------------------- */
+// str_arrlen.c
 size_t	str_arrlen(char **arr);
 
 //*	key_hook.c
