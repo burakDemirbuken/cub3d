@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:41:28 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/08 17:19:42 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/17 10:56:14 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void inline	put_pixel_to_image(t_image img, int x, int y, unsigned int color)
 				+ (int)((y * img.line_lenght) + (x * (img.bits_per_pixel / 8))))
 			= color;
 }
-
 
 unsigned int inline	get_pixel_color(t_image img, int x, int y)
 {

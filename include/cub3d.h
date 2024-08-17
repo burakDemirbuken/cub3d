@@ -119,18 +119,12 @@ typedef struct s_frame
    struct s_frame *prev;
 } t_frame;
 
-typedef struct s_animations
-{
-    t_frame *frame;
-    int		frame_count;
-} t_animations;
-
 typedef struct s_images
 {
-	t_animations	N;
-	t_animations	E;
-	t_animations	S;
-	t_animations	W;
+	t_frame	*N;
+	t_frame	*E;
+	t_frame	*S;
+	t_frame	*W;
 	t_image			background;
 } t_images;
 
@@ -167,6 +161,9 @@ void			draw_rectangle(t_image img, int x, int y, int width,
 							int height, bool grid, int color);
 void			create_map(t_cub3d *game);
 
+// cub3d.c
+void			end_program(t_cub3d *game, int e);
+
 /* ------------------------------ LEVEL UTILS --------------------------------*/
 // configure_level.c
 void			configure_level(t_cub3d *game, char *file_name);
@@ -191,9 +188,12 @@ int				elements_valid(t_file *file, int i, int map_start,
 // set_game_map.c
 void			set_game_map(t_cub3d *game, t_file *file);
 
+// set_game_player.c
+void			set_game_player(t_cub3d *game);
+
 // set_game_sprites.c
 void			set_game_sprites(t_cub3d *game, t_file *file);
-void			destroy_anim(void *mlx, t_animations *anim);
+void			destroy_anim(void *mlx, t_frame *anim);
 
 // delete this
 void			print_map(char **map);
@@ -235,11 +235,8 @@ unsigned int	get_pixel_color(t_image img, int x, int y);
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
-//*	create_animate.c
-t_animations	create_animate(t_cub3d *game, char **paths);
-
 //!	dosyaya ayrılacak
 t_ray	ray_throw(t_cub3d *game, double angle);
-t_image	import_image(void *mlx, char *path);
+// t_image	import_image(void *mlx, char *path);
 
 #endif

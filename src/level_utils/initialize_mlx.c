@@ -6,11 +6,17 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/16 12:19:17 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/17 10:52:28 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
+#include "../../include/libft/libft.h"
+#ifdef __linux__
+# include "../include/minilibx_linux/mlx.h"
+#elif __APPLE__ || __MACH__
+# include "../include/minilibx/mlx.h"
+#endif
 
 static t_image	create_new_image(void *mlx, int width, int height)
 {
@@ -42,4 +48,5 @@ bool	initialize_mlx(t_cub3d *game)
 		return (false);
 	game->shadow = false;
 	mlx_do_key_autorepeatoff(game->mlx);
+	return (true);
 }

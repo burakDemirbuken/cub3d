@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/15 17:19:25 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/17 11:40:55 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,23 +101,23 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 
 	if (ray.v_h == 'v' && 90 < ray.angle && ray.angle <= 270)
 	{
-		image = game->images.Na.frame->texture;
+		image = game->images.E->texture;
 		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
 			* image.width / REC_HEIGHT;
 	}
 	else if (ray.v_h == 'v')
 	{
-		image = game->images.W;
+		image = game->images.W->texture;
 		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
 	}
 	else if (0 < ray.angle && ray.angle <= 180)
 	{
-		image = game->images.N;
+		image = game->images.N->texture;
 		*x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
 	}
 	else
 	{
-		image = game->images.S;
+		image = game->images.S->texture;
 		*x = (fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
 	}
 	return (image);

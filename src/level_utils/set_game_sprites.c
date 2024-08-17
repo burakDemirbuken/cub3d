@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/16 12:13:41 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/17 11:51:20 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,51 +34,51 @@ static t_image	import_image(void *mlx, char *path)
 	return (img);
 }
 
-void	destroy_anim(void *mlx, t_animations *anim)
+void	destroy_anim(void *mlx, t_frame *anim)
 {
-	t_frame	*tmp;
+	t_frame *tmp;
 
-	anim->frame->prev->next = NULL;
-	while (anim->frame)
+	anim->prev->next = NULL;
+	while (anim)
 	{
-		mlx_destroy_image(mlx, anim->frame->texture.image);
-		tmp = anim->frame->next;
-		free(anim->frame);
-		anim->frame = tmp;
+		mlx_destroy_image(mlx, anim->texture.image);
+		tmp = anim->next;
+		free(anim);
+		anim = tmp;
 	}
 }
 
-static bool	create_frame(t_frame *frame, void *mlx, char *path)
+static bool	create_frame(t_frame **frame, void *mlx, char *path)
 {
 	if (!the_path_is_valid(path))
 		return (false);
-	frame = (t_frame *)malloc(sizeof(t_frame));
+	*frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!frame)
 		return (perror("cub3d"), false);
-	frame->texture = import_image(mlx, path);
-	if (!frame->texture.image)
+	(*frame)->texture = import_image(mlx, path);
+	if (!(*frame)->texture.image)
 		return (perror("cub3d"), false);
+	return (true);
 }
 
-static bool	set_anim(t_animations *anim, void *mlx, char **paths)
+static bool	set_anim(t_frame **anim, void *mlx, char **paths)
 {
 	t_frame	*frame;
 	int		i;
 
-	if (!create_frame(anim->frame, mlx, paths[0]))
+	if (!create_frame(anim, mlx, paths[0]))
 		return (false);
-	frame = anim->frame;
+	frame = *anim;
 	i = 0;
 	while (paths[++i])
 	{
-		if (!create_frame(frame->next, mlx, paths[i]))
+		if (!create_frame(&frame->next, mlx, paths[i]))
 			return (false);
 		frame->next->prev = frame;
 		frame = frame->next;
 	}
-	anim->frame->prev = frame;
-	frame->next = anim->frame;
-	anim->frame_count = i;
+	(*anim)->prev = frame;
+	frame->next = (*anim);
 	return (true);
 }
 
