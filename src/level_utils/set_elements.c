@@ -6,15 +6,15 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/15 15:02:01 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 18:16:25 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 // typedef t_file
 // typedef t_color
-// str_arrlen(char **arr);
 #include "../include/libft/libft.h"
+// ft_strarrlen(char **arr);
 // ft_strfree(char **str);
 // ft_putstr_fd(const char *s, int fd);
 // ft_atoi(const char *str);
@@ -26,17 +26,15 @@
 int	elements_valid(t_file *file, int i, int map_start, int count, int *flag)
 {
 	if (count != 6)
-		return(ft_putstr_fd("cub3d: Wrong amount of elements.\n",
-			STDERR_FILENO), 0);
+		return(ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
 	if (map_start == i + 1)
-		return (ft_putstr_fd("cub3d: No map found.\n", STDERR_FILENO), 0);
+		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), 0);
 	while (count--)
 		if (flag[count] != 1)
-			return (ft_putstr_fd("cub3d: Wrong amount of elements.\n",
-				STDERR_FILENO), 0);
+			return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
 	if (!file->no || !file->no[0] || !file->so || !file->so[0]
 		|| !file->we || !file->we[0] || !file->ea || !file->ea[0])
-		return (ft_putstr_fd("cub3d: Missing elements.\n", STDERR_FILENO), 0);
+		return (ft_putstr_fd(ERR_ELMISS, STDERR_FILENO), 0);
 	return (1);
 }
 
@@ -47,20 +45,20 @@ static bool	set_color(char *content, t_color *color)
 	int		colors[3];
 
 	if (!content)
-		return (perror("cub3d"), true);
+		return (perror(ERR_CUB3D), true);
 	rgb = ft_split(content, ',');
 	if (!rgb)
-		return (perror("cub3d"), true);
-	if (str_arrlen(rgb) != 3)
-		return (ft_strfree(rgb), ft_putstr_fd("cub3d: Missing colors\n",
-			STDERR_FILENO), true);
+		return (perror(ERR_CUB3D), true);
+	if (ft_strarrlen(rgb) != 3)
+		return (ft_strfree(rgb), ft_putstr_fd(ERR_COLNUM, STDERR_FILENO), true);
 	colors[0] = ft_atoi(rgb[0]);
 	colors[1] = ft_atoi(rgb[1]);
 	colors[2] = ft_atoi(rgb[2]);
 	ft_strfree(rgb);
-	if (!((colors[0] >= 0 && colors[0] < 256) && (colors[1] >= 0 && colors[1] < 256)
+	if (!((colors[0] >= 0 && colors[0] < 256)
+		&& (colors[1] >= 0 && colors[1] < 256)
 		&& (colors[2] >= 0 && colors[2] < 256)))
-		return (ft_putstr_fd("cub3d: Invalid colors\n", STDERR_FILENO), true);
+		return (ft_putstr_fd(ERR_COLINV, STDERR_FILENO), true);
 	*color = rgb_to_color(colors[0], colors[1], colors[2]);
 	free(content);
 	return (false);
@@ -72,7 +70,7 @@ static bool	set_texture_paths(char *content, char ***texture)
 {
 	(*texture) = ft_split(content, ' ');
 	if (!(*texture))
-		return (perror("cub3d"), true);
+		return (perror(ERR_CUB3D), true);
 	return (false);
 }
 

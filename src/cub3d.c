@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/17 11:48:14 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 16:16:45 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "../include/minilibx/mlx.h"
 #endif
 #include <stdlib.h>
+#include <unistd.h>
+// STDERR_FILENO
 
 // Assumes all error messages were printed before calling this function.
 // Frees all allocated memory and exits the program.
@@ -61,5 +63,5 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	else
-		return (ft_putstr_fd("cub3d: Expected a map.\n", 2), 1);
+		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), 1);
 }

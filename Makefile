@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I include/
+CFLAGS = -Wall -Wextra -Werror -O3 -I include/
 
 UNAME_S = $(shell uname -s)
 
@@ -23,7 +23,6 @@ SRC =	src/cub3d.c \
 		src/draw_player.c \
 		src/display.c \
 		src/color.c \
-		src/str_arrlen.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/level_utils/configure_level.c \

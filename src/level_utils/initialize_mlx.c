@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/17 10:52:28 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 15:19:03 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	initialize_mlx(t_cub3d *game)
 	if (!game->mlx)
 		return (false);
 	game->win = mlx_new_window(game->mlx,
-			WINDOWS_WIDTH, WINDOWS_HEIGHT, "cub3d");
+			WINDOWS_WIDTH, WINDOWS_HEIGHT, ERR_CUB3D);
 	if (!game->win)
 		return (false);
 	game->images.background = create_new_image(game->mlx, WINDOWS_WIDTH,

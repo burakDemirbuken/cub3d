@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/15 14:56:27 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 16:33:16 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ static int	inspect_map(t_file *file, char **content)
 				count++;
 			else if (!(content[i][j] == '0' || content[i][j] == '1'
 				|| content[i][j] == ' ' || content[i][j] == '\0'))
-				return (ft_putstr_fd("cub3d: Map has undefined elements.\n",
-					STDERR_FILENO), -1);
+				return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), -1);
 		}
 		if (file->map_width < j)
 			file->map_width = j;
@@ -86,13 +85,13 @@ static bool	copy_content_map(t_file *file, char **content)
 	i = -1;
 	file->map = (char **)ft_calloc(file->map_height + 1, sizeof(char *));
 	if (!file->map)
-		return (perror("cub3d"), 0);
+		return (perror(ERR_CUB3D), 0);
 	i = -1;
 	while (content[++i])
 	{
 		file->map[i] = ft_strdup(content[i]);
 		if (!file->map[i])
-			return (perror("cub3d"), 0);
+			return (perror(ERR_CUB3D), 0);
 	}
 	file->map[i] = NULL;
 	return (1);
@@ -108,10 +107,10 @@ static bool	set_map_half(t_file *file, char **content, int map_start)
 	if (count == -1)
 		return (ft_strfree(content), free_file(file), exit(1), 1);
 	if (count != 1)
-		return (ft_putstr_fd("cub3d: Player starting position undefined.\n",
-			STDERR_FILENO), ft_strfree(content), free_file(file), exit(1), 1);
+		return (ft_putstr_fd(ERR_PUNDEF, STDERR_FILENO),
+			ft_strfree(content), free_file(file), exit(1), 1);
 	if (file->map_height < 3 || file->map_width < 3)
-		return (ft_putstr_fd("cub3d: Map is too small.\n", STDERR_FILENO),
+		return (ft_putstr_fd(ERR_MSMALL, STDERR_FILENO),
 			ft_strfree(content), free_file(file), exit(1), 1);
 	if (!copy_content_map(file, content + map_start))
 		return (ft_strfree(content), free_file(file), exit(1), 1);
@@ -129,7 +128,7 @@ t_file	separate_content(char *line)
 	content = ft_split(line, '\n');
 	free(line);
 	if (!content)
-		return (perror("cub3d"), exit(1), file);
+		return (perror(ERR_CUB3D), exit(1), file);
 	map_start = set_first_half(&file, content);
 	set_map_half(&file, content, map_start);
 	ft_strfree(content);

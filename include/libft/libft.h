@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:43:32 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/06/26 11:08:35 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:14:48 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list			*ft_lstmap(t_list *lst,
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstlast(t_list *lst);
 char			**ft_split(char const *s, char c);
+size_t			ft_strarrlen(char **arr);
 char			*ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));

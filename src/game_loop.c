@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/09 16:57:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:44:52 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_ray	ray_throw(t_cub3d *game, double angle)
 		angle += 360;
 	if (angle > 360)
 		angle -= 360;
-	if (angle == 45.0 || angle == 135.0 || angle == 225.0 || angle == 315.0)
+	if (fmod(angle, 45) == 0)
 		angle += 0.000042;
 	ret.angle = angle;
 	rad = ret.angle * (RAD_CONVERT);

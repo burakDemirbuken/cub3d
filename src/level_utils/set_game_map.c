@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/16 11:01:09 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 16:33:42 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 // typedef t_file
 #include "../include/libft/libft.h"
 
+#include <unistd.h>
+// STDERR_FILENO
+
 static char	*empty_line(int width)
 {
 	char 	*map;
 
 	map = ft_calloc(width + 1, sizeof(char));
 	if (map == NULL)
-		return (perror("cub3d"), NULL);
+		return (perror(ERR_CUB3D), NULL);
 	ft_memset(map, ' ', width);
 	map[width] = '\0';
 	return (map);
@@ -34,7 +37,7 @@ static char	**copy_game_map(t_file *file)
 
 	map = (char **)ft_calloc(file->map_height + 3, sizeof(char *));
 	if (!map)
-		return (perror("cub3d"), free_file(file), exit(1), NULL);
+		return (perror(ERR_CUB3D), free_file(file), exit(1), NULL);
 	map[0] = empty_line(file->map_width + 2);
 	map[file->map_height + 1] = empty_line(file->map_width + 2);
 	map[file->map_height + 2] = NULL;
@@ -58,11 +61,9 @@ static bool	flood_fill(char **map, int y, int x)
 	else if (map[y][x] == ' ')
 		map[y][x] = '1';
 	else if (map[y][x] == '0')
-		return (ft_putstr_fd("cub3d: Map must be surrounded by walls\n", 2),
-			true);
+		return (ft_putstr_fd(ERR_NOWALL, STDERR_FILENO), true);
 	else
-		return (ft_putstr_fd("cub3d: The map has undefined elements\n", 2),
-			true);
+		return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), true);
 	if (flood_fill(map, y, x - 1))
 		return (true);
 	if (flood_fill(map, y - 1, x))

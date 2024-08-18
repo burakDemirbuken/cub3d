@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
+/*   Updated: 2024/08/18 18:16:50 by bkorkut          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= HEADERS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 // ☃
 
-#ifdef __linux__
+# ifdef __linux__
 
 # define KEY_W		119
 # define KEY_A		97
@@ -15,7 +29,7 @@
 # define KEY_G		42
 # define KEY_H		43
 
-#elif __APPLE__ || __MACH__
+# elif __APPLE__ || __MACH__
 
 # define KEY_W		13
 # define KEY_A		0
@@ -27,7 +41,7 @@
 # define KEY_C		8
 # define KEY_G		5
 # define KEY_H		4
-#endif
+# endif
 
 # define	RAD_CONVERT		0.01745329251994329547437\
 16805978692718781530857086181640625
@@ -49,10 +63,27 @@
 # define	PERSPECTIVE	60.0f
 # define	RAY_COUNT	1920
 
-#define BUFFER_SIZE	13
+# define	BUFFER_SIZE	13
 
-#include <stdbool.h>
-#include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
+/* ----------------------------- ERROR MESSAGES ----------------------------- */
+
+# define	ERR_CUB3D	"cub3D"
+# define	ERR_NOMAP	ERR_CUB3D": There is no map\n"
+# define	ERR_MUNDEF	ERR_CUB3D": Map has undefined elements\n"
+# define	ERR_NOWALL	ERR_CUB3D": Map must be surrounded by walls\n"
+# define	ERR_MSMALL	ERR_CUB3D": Map is too small\n"
+# define	ERR_ELMNUM	ERR_CUB3D": Wrong number of elements\n"
+# define	ERR_ELMISS	ERR_CUB3D": Missing elements\n"
+# define	ERR_COLNUM	ERR_CUB3D": Wrong number of colors\n"
+# define	ERR_COLINV	ERR_CUB3D": Invalid colors\n"
+# define	ERR_PUNDEF	ERR_CUB3D": Player starting position is undefined\n"
+# define	ERR_FEXT	ERR_CUB3D": File extension must be .cub\n"
+# define	ERR_FEMT	ERR_CUB3D": File is empty\n"
+
+# include <stdbool.h>
+# include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= STRUCTS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 typedef struct s_vec2
 {
@@ -111,7 +142,6 @@ typedef struct s_image
 	int		bits_per_pixel;
 }	t_image;
 
-
 typedef struct s_frame
 {
    t_image texture;
@@ -125,7 +155,9 @@ typedef struct s_images
 	t_frame	*E;
 	t_frame	*S;
 	t_frame	*W;
-	t_image			background;
+	t_frame	*door;
+	t_image	door_inner_wall;
+	t_image	background;
 } t_images;
 
 typedef struct s_ray
@@ -136,6 +168,7 @@ typedef struct s_ray
 	char	v_h;
 }	t_ray;
 
+/* ------------------------------ GAME STRUCT ------------------------------- */
 typedef struct s_cub3d
 {
 	t_player	player;
@@ -148,12 +181,7 @@ typedef struct s_cub3d
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
-typedef struct s_tmp_map
-{
-
-} t_tmp_map;
-
-/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-= END OF STRUCTS =-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= FUNCTIONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
 //*	create_map.c
 void			draw_map(t_cub3d *game);
@@ -199,9 +227,6 @@ void			destroy_anim(void *mlx, t_frame *anim);
 void			print_map(char **map);
 
 /* ------------------------------ OTHER FILES ------------------------------- */
-// str_arrlen.c
-size_t	str_arrlen(char **arr);
-
 //*	key_hook.c
 int				key_down(int keycode, t_cub3d *game);
 int				key_up(int keycode, t_cub3d *game);

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/17 11:55:16 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/18 15:19:03 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_file parse_file(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("cub3d");
+		perror(ERR_CUB3D);
 		exit(1);
 	}
 	line = read_file(fd);
