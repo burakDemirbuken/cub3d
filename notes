@@ -1,14 +1,4 @@
-memory free
-sprites ve tema
-norminette
-
-bonus
-fps ve görüntü basma oranı
-circle drawing algorithm
-arayüz / user interface
-kaplama kodu
-map editor
-
+DONE:
 ✅ collision (duvardan geçememe)
 ✅ animasyonlu sprite
 
@@ -16,3 +6,34 @@ map editor
 ✅ yönü açıya bağlama
 ✅ ekranın genişliğini ve yüksekliğini sabitle
 ✅ duvardan geçmeme olmadan segfault yemesini önlemek lazım
+
+✅ Bind shadow activity to a key.
+✅ Bind mouse visibility and control activity to a key.
+
+
+TO DO LIST:
+Create doors.
+Create a minimap.
+Bind object / door interaction to a key.
+
+OPTIMIZE / FIX:
+Try to optimize printing shadows over the colours instead of multiplying with.
+Optimize shadow intensity calculation for rows.
+Try to optimize shadow intensity calculation for the half circles.
+	The intensity of bottom and top are the same, combine if they are separate.
+Optimize rays by doing the angle calculation at the initialization phase.
+Exiting by X button, the program stays open.
+
+
+FURTHER TRY LIST:
+Create an user interface.
+Bind frame rate to time (fps fix).
+Print interactable objects button / level tutorials on screen?
+Kaplamaları yer ve tavana da ekle
+Minimap'i yuvarlak yap
+Add a map editor for the user.
+
+
+LAST CHECKS
+Leak ckeck with error exits!
+norminette

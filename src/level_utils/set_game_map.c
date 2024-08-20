@@ -6,14 +6,14 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 16:33:42 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:48:52 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 // typedef t_cub3d
 // typedef t_file
-#include "../include/libft/libft.h"
+#include "../includes/libft/libft.h"
 
 #include <unistd.h>
 // STDERR_FILENO
@@ -60,7 +60,7 @@ static bool	flood_fill(char **map, int y, int x)
 		return (false);
 	else if (map[y][x] == ' ')
 		map[y][x] = '1';
-	else if (map[y][x] == '0')
+	else if (map[y][x] == '0' || map[y][x] == '2')
 		return (ft_putstr_fd(ERR_NOWALL, STDERR_FILENO), true);
 	else
 		return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), true);

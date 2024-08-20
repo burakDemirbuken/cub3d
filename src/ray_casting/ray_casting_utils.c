@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/07/24 16:52:00 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:14:47 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 #include <math.h>
 
 double	distance(t_vec2 point1, t_vec2 point2)

@@ -6,16 +6,16 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 15:19:03 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:22:18 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-#include "../../include/libft/libft.h"
+#include "../../includes/cub3d.h"
+#include "../../includes/libft/libft.h"
 #ifdef __linux__
-# include "../include/minilibx_linux/mlx.h"
+# include "../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-# include "../include/minilibx/mlx.h"
+# include "../includes/minilibx/mlx.h"
 #endif
 
 static t_image	create_new_image(void *mlx, int width, int height)
@@ -47,6 +47,7 @@ bool	initialize_mlx(t_cub3d *game)
 	if (!game->images.background.image)
 		return (false);
 	game->shadow = false;
+	game->mouse_control = false;
 	mlx_do_key_autorepeatoff(game->mlx);
 	return (true);
 }

@@ -6,13 +6,13 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 16:33:16 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:45:39 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 // typedef t_file
-#include "../include/libft/libft.h"
+#include "../includes/libft/libft.h"
 // ft_memset(void *b, int c, size_t len);
 // ft_split(const char *s, char c);
 #include <unistd.h>
@@ -67,7 +67,8 @@ static int	inspect_map(t_file *file, char **content)
 				|| content[i][j] == 'W' || content[i][j] == 'E')
 				count++;
 			else if (!(content[i][j] == '0' || content[i][j] == '1'
-				|| content[i][j] == ' ' || content[i][j] == '\0'))
+				|| content[i][j] == '2' || content[i][j] == ' '
+				|| content[i][j] == '\0'))
 				return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), -1);
 		}
 		if (file->map_width < j)

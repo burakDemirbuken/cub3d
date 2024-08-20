@@ -6,11 +6,11 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 23:10:02 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/15 12:56:04 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:13:34 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 #include <math.h>
 #include <stdlib.h>
 

@@ -6,11 +6,11 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:22:05 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/16 12:29:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:13:06 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	set_game_player(t_cub3d *game)
 {

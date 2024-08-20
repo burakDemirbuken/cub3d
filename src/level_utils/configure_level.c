@@ -6,17 +6,17 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 15:19:03 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:38 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 // typedef t_file
 // typedef t_cub3d
 // extension_is_cub(char *file_name);
 // read_file(char *file_name);
 // seperate_content(char *content);
-#include "../include/libft/libft.h"
+#include "../includes/libft/libft.h"
 // ft_strfree(char *str);
 #include <fcntl.h>
 // O_RDONLY
@@ -68,6 +68,8 @@ static void	process_data(t_cub3d *game, t_file *file)
 	print_map(game->map.map);
 	set_game_player(game);
 	initialize_mlx(game);
+	game->floor = file->f;
+	game->ceiling = file->c;
 	set_game_sprites(game, file);
 }
 

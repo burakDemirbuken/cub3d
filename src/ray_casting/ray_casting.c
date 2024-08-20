@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/02 14:18:21 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:14:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 #include <math.h>
 
 static bool	inside_map(t_cub3d *game, t_vec2 ret)

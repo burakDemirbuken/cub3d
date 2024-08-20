@@ -1,28 +1,30 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -I include/
+CFLAGS = -Wall -Wextra -Werror -O3 -I includes/
 
 UNAME_S = $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
-	MLX_PATH = ./include/minilibx_linux/
+	MLX_PATH = ./includes/minilibx_linux/
 	MLX = -L$(MLX_PATH) -lmlx -lX11 -lXext -lm -lz
 else ifeq ($(UNAME_S), Darwin)
-	MLX_PATH = ./include/minilibx/
+	MLX_PATH = ./includes/minilibx/
 	MLX = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
 endif
 
-LIBFT = include/libft/libft.a
+LIBFT = includes/libft/libft.a
 
-SRC =	src/cub3d.c \
-		src/cub3d_utils.c \
+SRC =	src/game_loop/main.c \
+		src/game_loop/cub3d_utils.c \
+		src/game_loop/key_hook.c \
+		src/game_loop/game_loop.c \
+		src/game_loop/update_player_status.c \
+		src/game_loop/display.c \
+		src/game_loop/print_floor_ceiling.c \
+		src/game_loop/color.c \
 		src/create_map.c \
-		src/key_hook.c \
-		src/game_loop.c \
 		src/draw_player.c \
-		src/display.c \
-		src/color.c \
 		src/ray_casting/ray_casting.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/level_utils/configure_level.c \
@@ -34,25 +36,24 @@ SRC =	src/cub3d.c \
 		src/level_utils/set_game_map.c \
 		src/level_utils/set_game_player.c \
 		src/level_utils/set_game_sprites.c \
-		src/update_player_status.c \
 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C include/libft/
+	make -C includes/libft/
 	make -C $(MLX_PATH)
 	$(CC) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
-	make clean -C include/libft/
+	make clean -C includes/libft/
 	make clean -C $(MLX_PATH)
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C include/libft/
+	make fclean -C includes/libft/
 
 re: fclean all
 

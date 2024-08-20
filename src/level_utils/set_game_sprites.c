@@ -6,19 +6,19 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 16:55:12 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:21:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../includes/cub3d.h"
 // typedef t_cub3d
 // typedef t_file
-#include "libft/libft.h"
+#include "../../includes/libft/libft.h"
 #include <stdlib.h>
 #ifdef __linux__
-# include "../include/minilibx_linux/mlx.h"
+# include "../../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-# include "../include/minilibx/mlx.h"
+# include "../../includes/minilibx/mlx.h"
 #endif
 
 static t_image	import_image(void *mlx, char *path)

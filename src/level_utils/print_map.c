@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checks.c                                       :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:07:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/06 16:36:25 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:50 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // 6 elements come before the map
 // All six elements need to be peresent
 
-#include "../../include/cub3d.h"
-#include "../../include/libft/libft.h"
+#include "../../includes/cub3d.h"
+#include "../../includes/libft/libft.h"
 
 void	print_map(char **map)
 {

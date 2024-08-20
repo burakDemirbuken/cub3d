@@ -6,11 +6,11 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:20:52 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/08 12:43:40 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:13:30 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 #include <stdlib.h>
 
 void	draw_rectangle(t_image img, int x, int y, int width, int height,

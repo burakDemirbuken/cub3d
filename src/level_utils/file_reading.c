@@ -6,17 +6,17 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 16:33:06 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft/libft.h"
+#include "../../includes/libft/libft.h"
 // ft_strlen(char *str);
 // ft_putstr_fd(char *str, int fd);
 // ft_strdup(char *str);
 // ft_strjoin(char *str1, char *str2);
 // get_next_line(int fd, char **line);
-#include "../../include/cub3d.h"
+#include "../../includes/cub3d.h"
 // <stdbool.h>
 #include <fcntl.h>
 // O_RDONLY

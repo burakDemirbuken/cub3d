@@ -6,14 +6,14 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/18 18:16:25 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:59 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../includes/cub3d.h"
 // typedef t_file
 // typedef t_color
-#include "../include/libft/libft.h"
+#include "../includes/libft/libft.h"
 // ft_strarrlen(char **arr);
 // ft_strfree(char **str);
 // ft_putstr_fd(const char *s, int fd);
