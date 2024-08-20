@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:13:54 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 20:35:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,75 +19,74 @@
 /* -------------------------------- KEYS ------------------------------------ */
 # ifdef __linux__
 
-# define KEY_W		119
-# define KEY_A		97
-# define KEY_S		115
-# define KEY_D		100
-# define KEY_ESC	65307
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
-# define KEY_C		99
-# define KEY_G		42
-# define KEY_H		43
+#  define KEY_W		119
+#  define KEY_A		97
+#  define KEY_S		115
+#  define KEY_D		100
+#  define KEY_ESC	65307
+#  define KEY_LEFT	65361
+#  define KEY_RIGHT	65363
+#  define KEY_C		99
+#  define KEY_G		42
+#  define KEY_H		43
 // defin M for mouse
 // define N for hide mouse
 // define Q for object interaction
 
 # elif __APPLE__ || __MACH__
 
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
-# define KEY_ESC	53
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
-# define KEY_C		8
-# define KEY_G		5
-# define KEY_H		4
-# define KEY_M		46
-# define KEY_N		45
-# define KEY_Q		12
+#  define KEY_W		13
+#  define KEY_A		0
+#  define KEY_S		1
+#  define KEY_D		2
+#  define KEY_ESC	53
+#  define KEY_LEFT	123
+#  define KEY_RIGHT	124
+#  define KEY_C		8
+#  define KEY_G		5
+#  define KEY_H		4
+#  define KEY_M		46
+#  define KEY_N		45
+#  define KEY_Q		12
 # endif
 
 /* -------------------------------- OTHER ----------------------------------- */
 
-# define	RAD_CONVERT		0.01745329251994329547437\
-16805978692718781530857086181640625
-# define	WINDOWS_WIDTH	1920
-# define	WINDOWS_HEIGHT	1080
+# define RAD_ANG	0.0174532925199432954743716805978692718781530857086181640625
+# define WINDOWS_WIDTH	1920
+# define WINDOWS_HEIGHT	1080
 
 // ekrandaki bir dikdörtgenin uzunluğu ve genişliği
-# define	REC_HEIGHT	100
-# define	REC_WIDTH	100
+# define REC_HEIGHT	100
+# define REC_WIDTH	100
 
-# define	MOVE_SPEED	6
+# define MOVE_SPEED	6
 
 // haritanın uzunluğu ve genişliği
-# define	MAP_HEIGHT	20
-# define	MAP_WIDTH	20
+# define MAP_HEIGHT	20
+# define MAP_WIDTH	20
 
-# define	WALL_SIZE	150
+# define WALL_SIZE	150
 
-# define	PERSPECTIVE	60.0f
-# define	RAY_COUNT	1920
+# define PERSPECTIVE	60.0f
+# define RAY_COUNT	1920
 
-# define	BUFFER_SIZE	13
+# define BUFFER_SIZE	13
 
 /* ----------------------------- ERROR MESSAGES ----------------------------- */
 
-# define	ERR_CUB3D	"cub3D"
-# define	ERR_NOMAP	ERR_CUB3D": There is no map\n"
-# define	ERR_MUNDEF	ERR_CUB3D": Map has undefined elements\n"
-# define	ERR_NOWALL	ERR_CUB3D": Map must be surrounded by walls\n"
-# define	ERR_MSMALL	ERR_CUB3D": Map is too small\n"
-# define	ERR_ELMNUM	ERR_CUB3D": Wrong number of elements\n"
-# define	ERR_ELMISS	ERR_CUB3D": Missing elements\n"
-# define	ERR_COLNUM	ERR_CUB3D": Wrong number of colors\n"
-# define	ERR_COLINV	ERR_CUB3D": Invalid colors\n"
-# define	ERR_PUNDEF	ERR_CUB3D": Player starting position is undefined\n"
-# define	ERR_FEXT	ERR_CUB3D": File extension must be .cub\n"
-# define	ERR_FEMT	ERR_CUB3D": File is empty\n"
+# define ERR_CUB3D	"cub3D"
+# define ERR_NOMAP	ERR_CUB3D": There is no map\n"
+# define ERR_MUNDEF	ERR_CUB3D": Map has undefined elements\n"
+# define ERR_NOWALL	ERR_CUB3D": Map must be surrounded by walls\n"
+# define ERR_MSMALL	ERR_CUB3D": Map is too small\n"
+# define ERR_ELMNUM	ERR_CUB3D": Wrong number of elements\n"
+# define ERR_ELMISS	ERR_CUB3D": Missing elements\n"
+# define ERR_COLNUM	ERR_CUB3D": Wrong number of colors\n"
+# define ERR_COLINV	ERR_CUB3D": Invalid colors\n"
+# define ERR_PUNDEF	ERR_CUB3D": Player starting position is undefined\n"
+# define ERR_FEXT	ERR_CUB3D": File extension must be .cub\n"
+# define ERR_FEMT	ERR_CUB3D": File is empty\n"
 
 # include <stdbool.h>
 # include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -153,27 +152,28 @@ typedef struct s_image
 
 typedef struct s_frame
 {
-   t_image texture;
-   struct s_frame *next;
-   struct s_frame *prev;
-} t_frame;
+	t_image			texture;
+	struct s_frame	*next;
+	struct s_frame	*prev;
+}	t_frame;
 
 typedef struct s_images
 {
-	t_frame	*N;
-	t_frame	*E;
-	t_frame	*S;
-	t_frame	*W;
+	t_frame	*n;
+	t_frame	*e;
+	t_frame	*s;
+	t_frame	*w;
 	t_frame	*door;
 	t_image	door_inner_wall;
 	t_image	background;
-} t_images;
+}	t_images;
 
 typedef struct s_ray
 {
 	t_vec2	pos;
 	double	dis;
-	double	angle;
+	double	persp_angle;
+	double	relat_angle;
 	char	v_h;
 }	t_ray;
 
@@ -198,7 +198,7 @@ typedef struct s_cub3d
 //*	create_map.c
 void			draw_map(t_cub3d *game);
 void			draw_rectangle(t_image img, int x, int y, int width,
-							int height, bool grid, int color);
+					int height, bool grid, int color);
 void			create_map(t_cub3d *game);
 
 // cub3d.c
@@ -242,6 +242,9 @@ void			print_map(char **map);
 // print_floor_ceiling.c
 void			print_floor_ceiling(t_cub3d *game);
 
+// initialize_rays.c
+void	initialize_rays(t_cub3d *game);
+
 /* ------------------------------ OTHER FILES ------------------------------- */
 //*	key_hook.c
 int				key_down(int keycode, t_cub3d *game);
@@ -260,7 +263,7 @@ t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
 
 //*	ray_calculator_utils.c
 double			get_offset(t_vec2 p_pos, double rad, char v_h);
-double			distance(t_vec2 point1,t_vec2  point2);
+double			distance(t_vec2 point1, t_vec2 point2);
 
 //*	display.c
 void			display(t_cub3d *game);
@@ -271,14 +274,14 @@ t_color			hex_to_color(unsigned int hex);
 t_color			blackout(t_color color, double ratio);
 
 //* cub3d_utils.c
-void 			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
+void			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
 unsigned int	get_pixel_color(t_image img, int x, int y);
 
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
 //!	dosyaya ayrılacak
-t_ray	ray_throw(t_cub3d *game, double angle);
+void			ray_throw(t_cub3d *game, int i);
 // t_image	import_image(void *mlx, char *path);
 
 #endif

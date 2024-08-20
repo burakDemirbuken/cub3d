@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:24:31 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 20:40:33 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /*
  *	t_ray ray_throw(t_cub3d *game, double angle)
  *	typedef struct s_cub3d t_cub3d
- *	RAD_CONVERT	0.0174532925199432954743716805978692718781530857086181640625
+ *	RAD_ANG	0.0174532925199432954743716805978692718781530857086181640625
  *	REC_HEIGHT	100
  *	REC_WIDTH	100
  *	WINDOWS_HEIGHT	1080
@@ -55,7 +55,8 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 			rad += 2 * M_PI;
 		if (rad > 2 * M_PI)
 			rad -= 2 * M_PI;
-		ray = ray_throw(game, rad * (double)(180 / M_PI));
+		ray.relat_angle = rad;
+		ray_throw(game, rad * (double)(180 / M_PI));
 		if (ray.dis <= MOVE_SPEED)
 		{
 			difference = 10;
@@ -99,7 +100,7 @@ void	update_player_status(t_cub3d *game)
 {
 	double	rad;
 
-	rad = (game->player.angle) * (RAD_CONVERT);
+	rad = (game->player.angle) * (RAD_ANG);
 	player_move(game, game->player.is_press_w, rad);
 	player_move(game, game->player.is_press_d, rad + M_PI_2);
 	player_move(game, game->player.is_press_s, rad - M_PI);

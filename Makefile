@@ -25,8 +25,10 @@ SRC =	src/game_loop/main.c \
 		src/game_loop/color.c \
 		src/create_map.c \
 		src/draw_player.c \
-		src/ray_casting/ray_casting.c \
+		src/ray_casting/initialize_rays.c \
 		src/ray_casting/ray_casting_utils.c \
+		src/ray_casting/ray_casting.c \
+		src/ray_casting/ray_throw.c \
 		src/level_utils/configure_level.c \
 		src/level_utils/file_reading.c \
 		src/level_utils/initialize_mlx.c \

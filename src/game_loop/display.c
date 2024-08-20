@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:51 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 20:35:04 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,25 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 {
 	t_image	image;
 
-	if (ray.v_h == 'v' && 90 < ray.angle && ray.angle <= 270)
+	if (ray.v_h == 'v' && 90 < ray.relat_angle && ray.relat_angle <= 270)
 	{
-		image = game->images.E->texture;
+		image = game->images.e->texture;
 		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
 			* image.width / REC_HEIGHT;
 	}
 	else if (ray.v_h == 'v')
 	{
-		image = game->images.W->texture;
+		image = game->images.w->texture;
 		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
 	}
-	else if (0 < ray.angle && ray.angle <= 180)
+	else if (0 < ray.relat_angle && ray.relat_angle <= 180)
 	{
-		image = game->images.N->texture;
+		image = game->images.n->texture;
 		*x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
 	}
 	else
 	{
-		image = game->images.S->texture;
+		image = game->images.s->texture;
 		*x = (fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
 	}
 	return (image);
@@ -97,9 +97,10 @@ static void	print_walls(t_cub3d *game)
 	a = 0;
 	while (i < RAY_COUNT)
 	{
-		game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
-		a += PERSPECTIVE / RAY_COUNT;
-		angle_diff = (game->player.angle - game->rays[i].angle) * RAD_CONVERT;
+		//game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
+		// a += PERSPECTIVE / RAY_COUNT;
+		ray_throw(game, i);
+		angle_diff = (game->player.angle - game->rays[i].relat_angle) * RAD_ANG;
 			dis = cos(angle_diff) * game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 100)

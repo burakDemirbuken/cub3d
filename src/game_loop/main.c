@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:12 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/20 20:34:15 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	end_program(t_cub3d *game, int e)
 		free(game->map.map);
 	if (game->images.background.image)
 		mlx_destroy_image(game->mlx, game->images.background.image);
-	if (game->images.N)
-		destroy_anim(game->mlx, game->images.N);
-	if (game->images.E)
-		destroy_anim(game->mlx, game->images.E);
-	if (game->images.S)
-		destroy_anim(game->mlx, game->images.S);
-	if (game->images.W)
-		destroy_anim(game->mlx, game->images.W);
+	if (game->images.n)
+		destroy_anim(game->mlx, game->images.n);
+	if (game->images.e)
+		destroy_anim(game->mlx, game->images.e);
+	if (game->images.s)
+		destroy_anim(game->mlx, game->images.s);
+	if (game->images.w)
+		destroy_anim(game->mlx, game->images.w);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -52,6 +52,7 @@ int	main(int ac, char **av)
 	{
 		ft_memset(&game, 0, sizeof(t_cub3d));
 		configure_level(&game, av[1]);
+		initialize_rays(&game);
 		mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 		mlx_hook(game.win, 2, 1L << 1, key_down, &game);
 		mlx_hook(game.win, 4, 1L << 2, mouse_down, &game);
