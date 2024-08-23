@@ -12,6 +12,7 @@ DONE:
 
 
 TO DO LIST:
+Turn angle to radian in the entirety of the code.
 Create doors.
 Create a minimap.
 Bind object / door interaction to a key.

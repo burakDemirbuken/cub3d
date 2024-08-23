@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:21:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/23 14:58:28 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ void	set_game_sprites(t_cub3d *game, t_file *file)
 	door[12] = "./textures/door_12.xpm";
 	door[13] = NULL;
 
-	if (!set_anim(&game->images.N, game->mlx, file->no))
+	if (!set_anim(&game->images.n, game->mlx, file->no))
 		end_program(game, 1);
-	else if (!set_anim(&game->images.S, game->mlx, file->so))
+	else if (!set_anim(&game->images.s, game->mlx, file->so))
 		end_program(game, 1);
-	else if (!set_anim(&game->images.W, game->mlx, file->we))
+	else if (!set_anim(&game->images.w, game->mlx, file->we))
 		end_program(game, 1);
-	else if (!set_anim(&game->images.E, game->mlx, file->ea))
+	else if (!set_anim(&game->images.e, game->mlx, file->ea))
 		end_program(game, 1);
 	else if (!set_anim(&game->images.door, game->mlx, door))
 		end_program(game, 1);
