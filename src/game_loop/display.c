@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 20:35:04 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:18:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // fmod();
 
 //	isim değişecek
-static void inline	wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
+static void inline	print_wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
 {
 	int		i;
 	t_color	color;
@@ -77,13 +77,18 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 	else
 	{
 		image = game->images.s->texture;
-		*x = (fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
+		*x = fmod(ray.pos.x, REC_WIDTH) * image.width / REC_WIDTH;
 	}
 	return (image);
 }
 
+		//game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
+		// a += PERSPECTIVE / RAY_COUNT;
+		// angle_diff = (game->player.angle - game->rays[i].relat_angle) * RAD_ANG;
+		// dis = cos(angle_diff) * game->rays[i].dis;
 static void	print_walls(t_cub3d *game)
 {
+	// "wich image" stays the same if the ray hits the same wall.. optimize?
 	double	wall_size;
 	int		i;
 	int		wall_top;
@@ -91,24 +96,20 @@ static void	print_walls(t_cub3d *game)
 	double	x;
 	double	a;
 	t_image	image;
-	double	angle_diff;
 
 	i = 0;
 	a = 0;
 	while (i < RAY_COUNT)
 	{
-		//game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
-		// a += PERSPECTIVE / RAY_COUNT;
-		ray_throw(game, i);
-		angle_diff = (game->player.angle - game->rays[i].relat_angle) * RAD_ANG;
-			dis = cos(angle_diff) * game->rays[i].dis;
+		ray_throw(game, &game->rays[i]);
+		dis = cos(game->rays[i].persp_angle * RAD_ANG) * game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 100)
 			wall_size = 100;
 		wall_size *= WALL_SIZE;
 		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
 		image = which_image(game, &x, game->rays[i]);
-		wall(game, image, wall_size, i, x, wall_top);
+		print_wall(game, image, wall_size, i, x, wall_top);
 		i++;
 	}
 }

@@ -1,3 +1,6 @@
+IMPORTANT!!
+update_player_status does not work properly, needs to be adjusted to the new ray throw still.
+
 DONE:
 ✅ collision (duvardan geçememe)
 ✅ animasyonlu sprite
@@ -12,6 +15,8 @@ DONE:
 
 
 TO DO LIST:
+Add mouse and key sensitivity into the header.
+Change the math defines to exclude math.h defined variables, and shorten them
 Turn angle to radian in the entirety of the code.
 Create doors.
 Create a minimap.

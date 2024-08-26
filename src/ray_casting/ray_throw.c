@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 19:31:32 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 20:28:30 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:18:19 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 // tan();
 
 // t_ray	ray_throw(t_cub3d *game, double angle)
-void	ray_throw(t_cub3d *game, int i)
+void	ray_throw(t_cub3d *game, t_ray *ray)
 {
-	t_ray	*ray;
 	double	horizontal_ray_distance;
 	double	vertical_ray_distance;
 	t_vec2	horizontal_ray_pos;
@@ -28,7 +27,6 @@ void	ray_throw(t_cub3d *game, int i)
 	double	tan_a;
 	double	rad;
 
-	ray = &game->rays[i];
 	ray->relat_angle = ray->persp_angle + game->player.angle;
 	if (ray->relat_angle < 0)
 		ray->relat_angle += 360;

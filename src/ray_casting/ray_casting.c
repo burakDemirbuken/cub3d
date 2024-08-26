@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:14:43 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:27:15 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static bool	inside_map(t_cub3d *game, t_vec2 ret)
 
 static void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
 {
-	if (rad > M_PI_2 && rad < 3 * M_PI_2)
+	if (rad > MATH_PI_2 && rad < MATH_3PI_2)
 		ret->x -= add.x;
 	else
 		ret->x += add.x;
-	if (rad > 0 && rad < M_PI)
+	if (rad > 0 && rad < MATH_PI)
 		ret->y += add.y;
 	else
 		ret->y -= add.y;
@@ -47,7 +47,7 @@ static bool	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 {
 	if (v_h == 'v')
 	{
-		if (M_PI_2 < rad && rad < 3 * M_PI_2)
+		if (MATH_PI_2 < rad && rad < MATH_3PI_2)
 		{
 			if (game->map.map[((int)point.y / REC_HEIGHT)]
 				[((int)point.x / REC_WIDTH) - 1] == '1')
@@ -59,7 +59,7 @@ static bool	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 	}
 	else if (v_h == 'h')
 	{
-		if (rad > 0 && rad < M_PI)
+		if (rad > 0 && rad < MATH_PI)
 		{
 			if (game->map.map[((int)point.y / REC_HEIGHT)]
 				[((int)point.x / REC_WIDTH)] == '1')
@@ -78,8 +78,8 @@ t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a)
 	t_vec2	ret;
 
 	ret = game->player.pos;
-	if (rad == M_PI_2 || rad == 3 * M_PI_2)
-		return (ret.y = __FLT_MAX__, ret);
+	if (rad == 0 || rad == MATH_PI)
+		return (ret.x = __FLT_MAX__, ret);
 	ray_x.x = get_offset(game->player.pos, rad, 'v');
 	ray_x.y = ray_x.x * tan_a;
 	if (ray_x.y < 0)
@@ -105,8 +105,8 @@ t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a)
 	t_vec2	ret;
 
 	ret = game->player.pos;
-	if (rad == 0 || rad == M_PI)
-		return (ret.x = __FLT_MAX__, ret);
+	if (rad == MATH_PI_2 || rad == MATH_3PI_2)
+		return (ret.y = __FLT_MAX__, ret);
 	ray_y.y = get_offset(game->player.pos, rad, 'h');
 	ray_y.x = ray_y.y / tan_a;
 	if (ray_y.x < 0.0f)

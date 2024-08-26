@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 20:40:33 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:25:21 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
  */
 #include <math.h>
 /*
- *	M_PI_2	1.57079632679489661923132169163975144
- *	M_PI	3.14159265358979323846264338327950288
  *	double cos(double)
  *	double cos(double)
  *	double fabs(double)
@@ -52,11 +50,11 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 		new_pos.x += cos(rad) * MOVE_SPEED;
 		new_pos.y += sin(rad) * MOVE_SPEED;
 		if (rad < 0)
-			rad += 2 * M_PI;
-		if (rad > 2 * M_PI)
-			rad -= 2 * M_PI;
+			rad += MATH_2PI;
+		if (rad > MATH_2PI)
+			rad -= MATH_2PI;
 		ray.relat_angle = rad;
-		ray_throw(game, rad * (double)(180 / M_PI));
+		ray_throw(game, &ray);// rad * (double)(180 / MATH_PI));
 		if (ray.dis <= MOVE_SPEED)
 		{
 			difference = 10;
@@ -102,9 +100,9 @@ void	update_player_status(t_cub3d *game)
 
 	rad = (game->player.angle) * (RAD_ANG);
 	player_move(game, game->player.is_press_w, rad);
-	player_move(game, game->player.is_press_d, rad + M_PI_2);
-	player_move(game, game->player.is_press_s, rad - M_PI);
-	player_move(game, game->player.is_press_a, rad - M_PI_2);
+	player_move(game, game->player.is_press_d, rad + MATH_PI_2);
+	player_move(game, game->player.is_press_s, rad - MATH_PI);
+	player_move(game, game->player.is_press_a, rad - MATH_PI_2);
 	if (game->player.is_press_p_rotation)
 	{
 		game->player.angle += 2.5;

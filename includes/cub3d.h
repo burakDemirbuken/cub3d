@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 20:35:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:17:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define CUB3D_H
 // ☃
 
-/* -------------------------------- KEYS ------------------------------------ */
+/* ------------------------------ KEYCODES ---------------------------------- */
 # ifdef __linux__
 
 #  define KEY_W		119
@@ -29,7 +29,7 @@
 #  define KEY_C		99
 #  define KEY_G		42
 #  define KEY_H		43
-// defin M for mouse
+// define M for mouse
 // define N for hide mouse
 // define Q for object interaction
 
@@ -50,9 +50,31 @@
 #  define KEY_Q		12
 # endif
 
+/* ----------------------------- MATH DEFINES ------------------------------  */
+
+# define MATH_2PI	6.283185307179586476925286766559005768394338798750211641949
+# define MATH_3PI_2	4.712388980384689857693965074919254326295754099062658162829
+# define MATH_PI	3.141592653589793238462643383279502884197169399375105820974
+# define MATH_PI_2	1.570796326794896619231321691639751442098584699687552910487
+# define RAD_ANG	0.0174532925199432954743716805978692718781530857086181640625
+
+/* ----------------------------- ERROR MESSAGES ----------------------------- */
+
+# define ERR_CUB3D	"cub3D"
+# define ERR_NOMAP	"cub3D: There is no map\n"
+# define ERR_MUNDEF	"cub3D: Map has undefined elements\n"
+# define ERR_NOWALL	"cub3D: Map must be surrounded by walls\n"
+# define ERR_MSMALL	"cub3D: Map is too small\n"
+# define ERR_ELMNUM	"cub3D: Wrong number of elements\n"
+# define ERR_ELMISS	"cub3D: Missing elements\n"
+# define ERR_COLNUM	"cub3D: Wrong number of colors\n"
+# define ERR_COLINV	"cub3D: Invalid colors\n"
+# define ERR_PUNDEF	"cub3D: Player starting position is undefined\n"
+# define ERR_FEXT	"cub3D: File extension must be .cub\n"
+# define ERR_FEMT	"cub3D: File is empty\n"
+
 /* -------------------------------- OTHER ----------------------------------- */
 
-# define RAD_ANG	0.0174532925199432954743716805978692718781530857086181640625
 # define WINDOWS_WIDTH	1920
 # define WINDOWS_HEIGHT	1080
 
@@ -68,25 +90,11 @@
 
 # define WALL_SIZE	150
 
-# define PERSPECTIVE	60.0f
-# define RAY_COUNT	1920
+# define PERSPECTIVE	60.0f // PI / 3
+# define PERSP			1.047197551196597746154214461093167628065723133125305149181
+# define RAY_COUNT		1920
 
 # define BUFFER_SIZE	13
-
-/* ----------------------------- ERROR MESSAGES ----------------------------- */
-
-# define ERR_CUB3D	"cub3D"
-# define ERR_NOMAP	ERR_CUB3D": There is no map\n"
-# define ERR_MUNDEF	ERR_CUB3D": Map has undefined elements\n"
-# define ERR_NOWALL	ERR_CUB3D": Map must be surrounded by walls\n"
-# define ERR_MSMALL	ERR_CUB3D": Map is too small\n"
-# define ERR_ELMNUM	ERR_CUB3D": Wrong number of elements\n"
-# define ERR_ELMISS	ERR_CUB3D": Missing elements\n"
-# define ERR_COLNUM	ERR_CUB3D": Wrong number of colors\n"
-# define ERR_COLINV	ERR_CUB3D": Invalid colors\n"
-# define ERR_PUNDEF	ERR_CUB3D": Player starting position is undefined\n"
-# define ERR_FEXT	ERR_CUB3D": File extension must be .cub\n"
-# define ERR_FEMT	ERR_CUB3D": File is empty\n"
 
 # include <stdbool.h>
 # include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
@@ -243,7 +251,7 @@ void			print_map(char **map);
 void			print_floor_ceiling(t_cub3d *game);
 
 // initialize_rays.c
-void	initialize_rays(t_cub3d *game);
+void			initialize_rays(t_cub3d *game);
 
 /* ------------------------------ OTHER FILES ------------------------------- */
 //*	key_hook.c
@@ -258,8 +266,10 @@ int				game_loop(t_cub3d	*game);
 void			draw_player(t_cub3d *game);
 
 //*	ray_calculator.c
-t_vec2			vertical_ray_calculator(t_cub3d *game, double rad, double tan_a);
-t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a);
+t_vec2			vertical_ray_calculator(t_cub3d *game, double rad,
+					double tan_a);
+t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad,
+					double tan_a);
 
 //*	ray_calculator_utils.c
 double			get_offset(t_vec2 p_pos, double rad, char v_h);
@@ -274,14 +284,15 @@ t_color			hex_to_color(unsigned int hex);
 t_color			blackout(t_color color, double ratio);
 
 //* cub3d_utils.c
-void			put_pixel_to_image(t_image img, int x, int y, unsigned int color);
+void			put_pixel_to_image(t_image img, int x, int y,
+					unsigned int color);
 unsigned int	get_pixel_color(t_image img, int x, int y);
 
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
 //!	dosyaya ayrılacak
-void			ray_throw(t_cub3d *game, int i);
+void			ray_throw(t_cub3d *game, t_ray *ray);
 // t_image	import_image(void *mlx, char *path);
 
 #endif
