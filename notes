@@ -1,23 +1,5 @@
-IMPORTANT!!
-update_player_status does not work properly, needs to be adjusted to the new ray throw still.
-
-DONE:
-✅ collision (duvardan geçememe)
-✅ animasyonlu sprite
-
-✅ map check
-✅ yönü açıya bağlama
-✅ ekranın genişliğini ve yüksekliğini sabitle
-✅ duvardan geçmeme olmadan segfault yemesini önlemek lazım
-
-✅ Bind shadow activity to a key.
-✅ Bind mouse visibility and control activity to a key.
-
-
 TO DO LIST:
-Add mouse and key sensitivity into the header.
-Change the math defines to exclude math.h defined variables, and shorten them
-Turn angle to radian in the entirety of the code.
+Raycasting should get the distance for doors too
 Create doors.
 Create a minimap.
 Bind object / door interaction to a key.
@@ -27,8 +9,11 @@ Try to optimize printing shadows over the colours instead of multiplying with.
 Optimize shadow intensity calculation for rows.
 Try to optimize shadow intensity calculation for the half circles.
 	The intensity of bottom and top are the same, combine if they are separate.
-Optimize rays by doing the angle calculation at the initialization phase.
+
+LAST CHECKS
 Exiting by X button, the program stays open.
+Leak ckeck with error exits!
+norminette
 
 
 FURTHER TRY LIST:
@@ -39,7 +24,3 @@ Kaplamaları yer ve tavana da ekle
 Minimap'i yuvarlak yap
 Add a map editor for the user.
 
-
-LAST CHECKS
-Leak ckeck with error exits!
-norminette

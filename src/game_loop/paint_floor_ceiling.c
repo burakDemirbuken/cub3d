@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_floor_ceiling.c                              :+:      :+:    :+:   */
+/*   paint_floor_ceiling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:49:08 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:24:55 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 17:45:28 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void inline	print_gradian_vertical(t_cub3d *game, t_image img, int y, t_c
 	}
 }
 
-void inline	print_floor_ceiling(t_cub3d *game)
+void inline	paint_floor_ceiling(t_cub3d *game)
 {
 	int				i;
 	t_color			color;

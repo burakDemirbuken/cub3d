@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/28 15:52:22 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 18:27:34 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,28 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 	return (image);
 }
 
-		//game->rays[i] =  ray_throw(game, game->player.angle + a - (PERSPECTIVE / 2.0));
-		// a += PERSPECTIVE / RAY_COUNT;
-		// angle_diff = (game->player.angle - game->rays[i].relat_angle) * RAD_ANG;
-		// dis = cos(angle_diff) * game->rays[i].dis;
-static void	print_walls(t_cub3d *game)
+static void	set_relative_ray_angle(t_ray *ray, double player_angle)
+{
+	ray->relat_angle = ray->persp_angle + player_angle;
+	if (ray->relat_angle < 0)
+		ray->relat_angle += MATH_2PI;
+	if (ray->relat_angle > MATH_2PI)
+		ray->relat_angle -= MATH_2PI;
+	if (fmod(ray->relat_angle, M_PI_2 / 2) == 0)
+		ray->relat_angle += RAD_ANG * 0.000042;
+}
+
+// get wall / door distance
+// scale said slice
+// determine which image to use
+// paint slice
+
+void	render_scene(t_cub3d *game)
 {
 	// "wich image" stays the same if the ray hits the same wall.. optimize?
 	double	wall_size;
 	int		i;
 	int		wall_top;
-	double	dis;
 	double	x;
 	double	a;
 	t_image	image;
@@ -100,14 +111,11 @@ static void	print_walls(t_cub3d *game)
 	a = 0;
 	while (i < RAY_COUNT)
 	{
-		game->rays[i].relat_angle = game->rays[i].persp_angle + game->player.angle;
-		if (game->rays[i].relat_angle < 0)
-			game->rays[i].relat_angle += MATH_2PI;
-		if (game->rays[i].relat_angle > MATH_2PI)
-			game->rays[i].relat_angle -= MATH_2PI;
-		ray_throw(game, &game->rays[i]);
-		dis = cos(game->rays[i].persp_angle) * game->rays[i].dis;
-		wall_size = (WINDOWS_HEIGHT / dis);
+		set_relative_ray_angle(&game->rays[i], game->player.angle);
+		cast_ray(game, &game->rays[i]);
+		// scale_texture_slice();
+		// paint_texture_slice();
+		wall_size = (WINDOWS_HEIGHT / game->rays[i].dis);
 		if (wall_size > 100)
 			wall_size = 100;
 		wall_size *= WALL_SIZE;
@@ -116,11 +124,4 @@ static void	print_walls(t_cub3d *game)
 		print_wall(game, image, wall_size, i, x, wall_top);
 		i++;
 	}
-}
-
-//isim değişikliği olucka
-void	display(t_cub3d *game)
-{
-	print_floor_ceiling(game);
-	print_walls(game);
 }

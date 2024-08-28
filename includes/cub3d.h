@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/28 15:25:00 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 18:16:31 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,8 @@ void			destroy_anim(void *mlx, t_frame *anim);
 void			print_map(char **map);
 
 // -----------------------------------------------------------------------------
-// print_floor_ceiling.c
-void			print_floor_ceiling(t_cub3d *game);
+// paint_floor_ceiling.c
+void			paint_floor_ceiling(t_cub3d *game);
 
 // initialize_rays.c
 void			initialize_rays(t_cub3d *game);
@@ -273,7 +273,7 @@ double			get_offset(t_vec2 p_pos, double rad, char v_h);
 double			distance(t_vec2 point1, t_vec2 point2);
 
 //*	display.c
-void			display(t_cub3d *game);
+void			render_scene(t_cub3d *game);
 
 //*	color.c
 t_color			rgb_to_color(int r, int g, int b);
@@ -289,7 +289,7 @@ unsigned int	get_pixel_color(t_image img, int x, int y);
 void			update_player_status(t_cub3d *game);
 
 //!	dosyaya ayrılacak
-void			ray_throw(t_cub3d *game, t_ray *ray);
+void			cast_ray(t_cub3d *game, t_ray *ray);
 // t_image	import_image(void *mlx, char *path);
 
 #endif

@@ -20,15 +20,15 @@ SRC =	src/game_loop/main.c \
 		src/game_loop/key_hook.c \
 		src/game_loop/game_loop.c \
 		src/game_loop/update_player_status.c \
-		src/game_loop/display.c \
-		src/game_loop/print_floor_ceiling.c \
+		src/game_loop/render_scene.c \
+		src/game_loop/paint_floor_ceiling.c \
 		src/game_loop/color.c \
 		src/create_map.c \
 		src/draw_player.c \
 		src/ray_casting/initialize_rays.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/ray_casting/ray_casting.c \
-		src/ray_casting/ray_throw.c \
+		src/ray_casting/cast_ray.c \
 		src/level_utils/configure_level.c \
 		src/level_utils/file_reading.c \
 		src/level_utils/initialize_mlx.c \

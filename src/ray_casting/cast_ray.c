@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_throw.c                                        :+:      :+:    :+:   */
+/*   cast_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 19:31:32 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/28 15:45:39 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 18:15:03 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 #include <math.h>
 // tan();
 
-// t_ray	ray_throw(t_cub3d *game, double angle)
-void	ray_throw(t_cub3d *game, t_ray *ray)
+void	cast_ray(t_cub3d *game, t_ray *ray)
 {
 	double	h_dis;
 	double	v_dis;
@@ -26,11 +25,6 @@ void	ray_throw(t_cub3d *game, t_ray *ray)
 	t_vec2	vertical_ray_pos;
 	double	tan_a;
 
-	// this is in radians now..?
-	// if (fmod(ray->relat_angle, 45) == 0)
-		// ray->relat_angle += 0.000042;
-	if (fmod(ray->relat_angle, M_PI_2 / 2) == 0)
-		ray->relat_angle += RAD_ANG * 0.000042;
 	tan_a = tan(ray->relat_angle);
 	horizontal_ray_pos = horizontal_ray_calculator(game, ray->relat_angle, tan_a);
 	vertical_ray_pos = vertical_ray_calculator(game, ray->relat_angle, tan_a);
@@ -48,4 +42,5 @@ void	ray_throw(t_cub3d *game, t_ray *ray)
 		ray->dis = h_dis;
 		ray->v_h = 'h';
 	}
+	ray->dis *= cos(ray->persp_angle);
 }

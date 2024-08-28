@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/28 15:48:18 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 18:16:31 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 #include "../../includes/cub3d.h"
 /*
- *	t_ray ray_throw(t_cub3d *game, double angle)
+ *	t_ray cast_ray(t_cub3d *game, double angle)
  *	typedef struct s_cub3d t_cub3d
  *	RAD_ANG	0.0174532925199432954743716805978692718781530857086181640625
  *	REC_HEIGHT	100
@@ -54,7 +54,7 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 		if (rad > MATH_2PI)
 			rad -= MATH_2PI;
 		ray.relat_angle = rad;
-		ray_throw(game, &ray);
+		cast_ray(game, &ray);
 		if (ray.dis <= MOVE_SPEED)
 		{
 			difference = 10;
