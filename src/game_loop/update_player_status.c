@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:25:21 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 15:48:18 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 		if (rad > MATH_2PI)
 			rad -= MATH_2PI;
 		ray.relat_angle = rad;
-		ray_throw(game, &ray);// rad * (double)(180 / MATH_PI));
+		ray_throw(game, &ray);
 		if (ray.dis <= MOVE_SPEED)
 		{
 			difference = 10;
@@ -87,8 +87,8 @@ static void	mouse_control(t_cub3d *game)
 		mlx_mouse_get_pos(game->win, &x, &y);
 		if (20 < y && y < WINDOWS_HEIGHT)
 		{
-			game->player.angle += (x - WINDOWS_WIDTH / 2) / 10;
-			game->player.angle = fmod(game->player.angle, 360);
+			game->player.angle += RAD_ANG * ((x - WINDOWS_WIDTH / 2) / 10);
+			game->player.angle = fmod(game->player.angle, MATH_2PI);
 			mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
 		}
 	}
@@ -96,24 +96,21 @@ static void	mouse_control(t_cub3d *game)
 
 void	update_player_status(t_cub3d *game)
 {
-	double	rad;
-
-	rad = (game->player.angle) * (RAD_ANG);
-	player_move(game, game->player.is_press_w, rad);
-	player_move(game, game->player.is_press_d, rad + MATH_PI_2);
-	player_move(game, game->player.is_press_s, rad - MATH_PI);
-	player_move(game, game->player.is_press_a, rad - MATH_PI_2);
+	player_move(game, game->player.is_press_w, game->player.angle);
+	player_move(game, game->player.is_press_d, game->player.angle + M_PI_2);
+	player_move(game, game->player.is_press_s, game->player.angle - M_PI);
+	player_move(game, game->player.is_press_a, game->player.angle - M_PI_2);
 	if (game->player.is_press_p_rotation)
 	{
-		game->player.angle += 2.5;
-		if (game->player.angle >= 360)
-			game->player.angle -= 360;
+		game->player.angle += RAD_ANG * 2.5;
+		if (game->player.angle >= MATH_2PI)
+			game->player.angle -= MATH_2PI;
 	}
 	if (game->player.is_press_n_rotation)
 	{
-		game->player.angle -= 2.5;
+		game->player.angle -= RAD_ANG * 2.5;
 		if (game->player.angle < 0)
-			game->player.angle += 360;
+			game->player.angle += MATH_2PI;
 	}
 	if (game->player.pos.y < 11.0)
 		game->player.pos.y = 11.0;

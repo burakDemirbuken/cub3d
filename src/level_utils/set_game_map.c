@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:48:52 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 15:00:15 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	set_game_map(t_cub3d *game, t_file *file)
 {
 	// this file needs funct. descriptions.
 	game->map.map = copy_game_map(file);
-	game->map.height = file->map_height;
-	game->map.width = file->map_width;
+	game->map.height = file->map_height + 2;
+	game->map.width = file->map_width + 2;
 	if (flood_fill(game->map.map, 0, 0))
 	{
 		ft_strfree(game->map.map);

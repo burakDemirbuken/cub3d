@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/26 18:18:43 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/28 15:52:22 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  *	WINDOWS_HEIGHT	1080
  *	RAY_COUNT		1920
  *	WALL_SIZE		150
- *	PERSPECTIVE		60.0f
 */
 #include <math.h>
 // fmod();
@@ -58,7 +57,7 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 {
 	t_image	image;
 
-	if (ray.v_h == 'v' && 90 < ray.relat_angle && ray.relat_angle <= 270)
+	if (ray.v_h == 'v' && M_PI_2 < ray.relat_angle && ray.relat_angle <= MATH_3PI_2)
 	{
 		image = game->images.e->texture;
 		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
@@ -69,7 +68,7 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 		image = game->images.w->texture;
 		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
 	}
-	else if (0 < ray.relat_angle && ray.relat_angle <= 180)
+	else if (0 < ray.relat_angle && ray.relat_angle <= M_PI)
 	{
 		image = game->images.n->texture;
 		*x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
@@ -101,8 +100,13 @@ static void	print_walls(t_cub3d *game)
 	a = 0;
 	while (i < RAY_COUNT)
 	{
+		game->rays[i].relat_angle = game->rays[i].persp_angle + game->player.angle;
+		if (game->rays[i].relat_angle < 0)
+			game->rays[i].relat_angle += MATH_2PI;
+		if (game->rays[i].relat_angle > MATH_2PI)
+			game->rays[i].relat_angle -= MATH_2PI;
 		ray_throw(game, &game->rays[i]);
-		dis = cos(game->rays[i].persp_angle * RAD_ANG) * game->rays[i].dis;
+		dis = cos(game->rays[i].persp_angle) * game->rays[i].dis;
 		wall_size = (WINDOWS_HEIGHT / dis);
 		if (wall_size > 100)
 			wall_size = 100;
