@@ -1,78 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*   ray_caster.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:15:30 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/28 15:12:34 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/29 15:28:30 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include <math.h>
 
-static bool	inside_map(t_cub3d *game, t_vec2 ret)
-{
-	if ((int)ret.x > (game->map.width * REC_WIDTH) - 1 || (int)ret.x < 1
-		|| ret.y < 1 || ret.y > (game->map.height * REC_HEIGHT) - 1)
-	{
-		if ((int)ret.x > (game->map.width * REC_WIDTH) - 1)
-			ret.x = (game->map.width * REC_WIDTH) - 1;
-		if ((int)ret.x < 1)
-			ret.x = 1;
-		if (ret.y < 1)
-			ret.y = 1;
-		if (ret.y > (game->map.height * REC_HEIGHT) - 1)
-			ret.y = (game->map.height * REC_HEIGHT) - 1;
-		return (false);
-	}
-	return (true);
-}
-
-static void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
-{
-	if (rad > M_PI_2 && rad < MATH_3PI_2)
-		ret->x -= add.x;
-	else
-		ret->x += add.x;
-	if (rad > 0 && rad < M_PI)
-		ret->y += add.y;
-	else
-		ret->y -= add.y;
-}
-
-static bool	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
-{
-	if (v_h == 'v')
-	{
-		if (M_PI_2 < rad && rad < MATH_3PI_2)
-		{
-			if (game->map.map[((int)point.y / REC_HEIGHT)]
-				[((int)point.x / REC_WIDTH) - 1] == '1')
-				return (true);
-		}
-		else if (game->map.map[((int)point.y / REC_HEIGHT)]
-			[((int)point.x / REC_WIDTH)] == '1')
-			return (true);
-	}
-	else if (v_h == 'h')
-	{
-		if (rad > 0 && rad < M_PI)
-		{
-			if (game->map.map[((int)point.y / REC_HEIGHT)]
-				[((int)point.x / REC_WIDTH)] == '1')
-				return (true);
-		}
-		else if (game->map.map[((int)point.y / REC_HEIGHT) - 1]
-			[((int)point.x / REC_WIDTH)] == '1')
-			return (true);
-	}
-	return (false);
-}
-
-t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a)
+static t_vec2	get_vertical_hit(t_cub3d *game, double rad, double tan_a)
 {
 	t_vec2	ray_x;
 	t_vec2	ret;
@@ -99,7 +40,7 @@ t_vec2	vertical_ray_calculator(t_cub3d *game, double rad, double tan_a)
 	return (ret);
 }
 
-t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a)
+static t_vec2	get_horizontal_hit(t_cub3d *game, double rad, double tan_a)
 {
 	t_vec2	ray_y;
 	t_vec2	ret;
@@ -124,4 +65,32 @@ t_vec2	horizontal_ray_calculator(t_cub3d *game, double rad, double tan_a)
 			ray_y.x *= -1;
 	}
 	return (ret);
+}
+
+void	ray_caster(t_cub3d *game, t_ray *ray)
+{
+	double	h_dis;
+	double	v_dis;
+	t_vec2	h_hit_pos;
+	t_vec2	v_hit_pos;
+	double	tan_a;
+
+	tan_a = tan(ray->relat_angle);
+	h_hit_pos = get_horizontal_hit(game, ray->relat_angle, tan_a);
+	v_hit_pos = get_vertical_hit(game, ray->relat_angle, tan_a);
+	h_dis = distance(game->player.pos, h_hit_pos);
+	v_dis = distance(game->player.pos, v_hit_pos);
+	if (h_dis > v_dis)
+	{
+		ray->pos = v_hit_pos;
+		ray->dis = v_dis;
+		ray->v_h = 'v';
+	}
+	else
+	{
+		ray->pos = h_hit_pos;
+		ray->dis = h_dis;
+		ray->v_h = 'h';
+	}
+	ray->dis *= cos(ray->persp_angle);
 }

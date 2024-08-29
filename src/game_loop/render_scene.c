@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/28 18:27:34 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/29 15:28:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	render_scene(t_cub3d *game)
 	while (i < RAY_COUNT)
 	{
 		set_relative_ray_angle(&game->rays[i], game->player.angle);
-		cast_ray(game, &game->rays[i]);
+		ray_caster(game, &game->rays[i]);
 		// scale_texture_slice();
 		// paint_texture_slice();
 		wall_size = (WINDOWS_HEIGHT / game->rays[i].dis);

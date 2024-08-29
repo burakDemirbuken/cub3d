@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/28 18:16:31 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/08/29 15:33:55 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,15 +262,15 @@ int				game_loop(t_cub3d	*game);
 //*	draw_player.c
 void			draw_player(t_cub3d *game);
 
-//*	ray_calculator.c
-t_vec2			vertical_ray_calculator(t_cub3d *game, double rad,
-					double tan_a);
-t_vec2			horizontal_ray_calculator(t_cub3d *game, double rad,
-					double tan_a);
-
-//*	ray_calculator_utils.c
+//*	ray_casting_utils.c
 double			get_offset(t_vec2 p_pos, double rad, char v_h);
 double			distance(t_vec2 point1, t_vec2 point2);
+bool			inside_map(t_cub3d *game, t_vec2 ret);
+void			ret_add(t_vec2 *ret, t_vec2 add, double rad);
+bool			hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h);
+
+//*	ray_caster.c
+void			ray_caster(t_cub3d *game, t_ray *ray);
 
 //*	display.c
 void			render_scene(t_cub3d *game);
@@ -288,8 +288,6 @@ unsigned int	get_pixel_color(t_image img, int x, int y);
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
-//!	dosyaya ayrılacak
-void			cast_ray(t_cub3d *game, t_ray *ray);
 // t_image	import_image(void *mlx, char *path);
 
 #endif

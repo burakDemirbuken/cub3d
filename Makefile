@@ -2,7 +2,7 @@ NAME = cub3d
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3 -I includes/
-
+# 03 flag
 UNAME_S = $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
@@ -27,8 +27,7 @@ SRC =	src/game_loop/main.c \
 		src/draw_player.c \
 		src/ray_casting/initialize_rays.c \
 		src/ray_casting/ray_casting_utils.c \
-		src/ray_casting/ray_casting.c \
-		src/ray_casting/cast_ray.c \
+		src/ray_casting/ray_caster.c \
 		src/level_utils/configure_level.c \
 		src/level_utils/file_reading.c \
 		src/level_utils/initialize_mlx.c \
