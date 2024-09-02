@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/29 15:28:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/02 14:14:29 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,24 @@ static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 {
 	t_image	image;
 
-	if (ray.v_h == 'v' && M_PI_2 < ray.relat_angle && ray.relat_angle <= MATH_3PI_2)
+	if (ray.v_h == 'v')
 	{
-		image = game->images.e->texture;
-		*x = (REC_HEIGHT - fmod(ray.pos.y, REC_HEIGHT))
-			* image.width / REC_HEIGHT;
-	}
-	else if (ray.v_h == 'v')
-	{
-		image = game->images.w->texture;
+		if (ray.hit == '2')
+			image = game->images.door->texture;
+		else if (ray.hit == 'E')
+			image = game->images.e->texture;
+		else
+			image = game->images.w->texture;
 		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
-	}
-	else if (0 < ray.relat_angle && ray.relat_angle <= M_PI)
-	{
-		image = game->images.n->texture;
-		*x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH)) * image.width / REC_WIDTH;
 	}
 	else
 	{
-		image = game->images.s->texture;
+		if (ray.hit == '2')
+			image = game->images.door->texture;
+		else if (ray.hit == 'N')
+			image = game->images.n->texture;
+		else
+			image = game->images.s->texture;
 		*x = fmod(ray.pos.x, REC_WIDTH) * image.width / REC_WIDTH;
 	}
 	return (image);
@@ -92,14 +91,8 @@ static void	set_relative_ray_angle(t_ray *ray, double player_angle)
 		ray->relat_angle += RAD_ANG * 0.000042;
 }
 
-// get wall / door distance
-// scale said slice
-// determine which image to use
-// paint slice
-
 void	render_scene(t_cub3d *game)
 {
-	// "wich image" stays the same if the ray hits the same wall.. optimize?
 	double	wall_size;
 	int		i;
 	int		wall_top;

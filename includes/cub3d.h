@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/29 15:33:55 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:41:33 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,15 @@
 # define ERR_FEXT	"cub3D: File extension must be .cub\n"
 # define ERR_FEMT	"cub3D: File is empty\n"
 
-/* -------------------------------- OTHER ----------------------------------- */
+/* ------------------------------ WALL HITS --------------------------------- */
 
+#define WALL_N		'N'
+#define WALL_S		'S'
+#define WALL_W		'W'
+#define WALL_E		'E'
+#define DOOR		'2'
+
+/* -------------------------------- OTHER ----------------------------------- */
 # define WINDOWS_WIDTH	1920
 # define WINDOWS_HEIGHT	1080
 
@@ -180,6 +187,7 @@ typedef struct s_ray
 	double	persp_angle;
 	double	relat_angle;
 	char	v_h;
+	char	hit;
 }	t_ray;
 
 /* ------------------------------ GAME STRUCT ------------------------------- */
@@ -267,7 +275,7 @@ double			get_offset(t_vec2 p_pos, double rad, char v_h);
 double			distance(t_vec2 point1, t_vec2 point2);
 bool			inside_map(t_cub3d *game, t_vec2 ret);
 void			ret_add(t_vec2 *ret, t_vec2 add, double rad);
-bool			hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h);
+char			hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h);
 
 //*	ray_caster.c
 void			ray_caster(t_cub3d *game, t_ray *ray);
