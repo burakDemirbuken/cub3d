@@ -53,6 +53,7 @@ static t_vec2	get_horizontal_hit(t_cub3d *game, double rad, char *hit, double ta
 	ray_y.x = ray_y.y / tan_a;
 	if (ray_y.x < 0.0f)
 		ray_y.x *= -1;
+	printf("ray_y.x: %f, ray.y: %f\n", ray_y.x, ray_y.y);
 	while (42)
 	{
 		ret_add(&ret, ray_y, rad);

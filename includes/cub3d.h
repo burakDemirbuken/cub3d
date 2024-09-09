@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/02 12:41:33 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/02 15:14:24 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ typedef struct s_cub3d
 	void		*win;
 	bool		shadow;
 	bool		mouse_control;
+	bool		interact;
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 

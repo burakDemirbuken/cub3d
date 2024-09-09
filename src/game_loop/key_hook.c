@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:34 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/09 11:08:16 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	key_down(int keycode, t_cub3d *game)
 		printf("player y: %f\n", game->player.pos.y);
 		printf("player angle: %f\n", game->player.angle);
 	}
-	// else if (keycode == KEY_M)
-	// 	game->mouse_control = !game->mouse_control;
 	return (0);
 }
 
@@ -76,31 +74,9 @@ int	mouse_down(int keycode, int x, int y, t_cub3d *game)
 		else
 			mlx_mouse_show();
 	}
-	return (0);
-}
-
-/* int	mouse_click(int keycode, int x, int y, t_cub3d *game)
-{
 	if (keycode == 1)
 	{
-		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDTH * REC_WIDTH))
-		{
-			if (game->is_click == false)
-			{
-				game->is_click = true;
-				game->click.y = y / REC_HEIGHT;
-				game->click.x = x / REC_WIDTH;
-				game->map.map[y / REC_HEIGHT][x / REC_WIDTH] = 0x0000FF00;
-			}
-			else
-			{
-				game->is_click = false;
-				bresenham_line(game, game->click.x, game->click.y, x / REC_WIDTH, y / REC_HEIGHT, 0x00202020);
-			}
-		}
+		game->interact = true;
 	}
-	if (keycode == 2)
-		if (!(x < 0 || y > MAP_HEIGHT * REC_HEIGHT || y < 0 || x > MAP_WIDTH * REC_WIDTH))
-			game->map.map[y / REC_HEIGHT][x / REC_WIDTH] = 0x00252525;
 	return (0);
-} */
+}

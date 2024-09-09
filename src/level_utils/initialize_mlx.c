@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:22:18 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:19:48 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	initialize_mlx(t_cub3d *game)
 		return (false);
 	game->shadow = false;
 	game->mouse_control = false;
+	game->interact = false;
 	mlx_do_key_autorepeatoff(game->mlx);
 	return (true);
 }
