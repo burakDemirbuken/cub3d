@@ -16,6 +16,7 @@ endif
 LIBFT = includes/libft/libft.a
 
 SRC =	src/game_loop/main.c \
+		src/game_loop/minimap.c \
 		src/game_loop/cub3d_utils.c \
 		src/game_loop/key_hook.c \
 		src/game_loop/game_loop.c \
@@ -23,8 +24,6 @@ SRC =	src/game_loop/main.c \
 		src/game_loop/render_scene.c \
 		src/game_loop/paint_floor_ceiling.c \
 		src/game_loop/color.c \
-		src/create_map.c \
-		src/draw_player.c \
 		src/ray_casting/initialize_rays.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/ray_casting/ray_caster.c \

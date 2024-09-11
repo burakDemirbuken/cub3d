@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/02 12:41:33 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/11 12:39:26 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ typedef struct s_images
 	t_frame	*door;
 	t_image	door_inner_wall;
 	t_image	background;
+	t_image	minimap;
 }	t_images;
 
 typedef struct s_ray
@@ -203,16 +204,11 @@ typedef struct s_cub3d
 	void		*win;
 	bool		shadow;
 	bool		mouse_control;
+	long double	second;
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= FUNCTIONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-
-//*	create_map.c
-void			draw_map(t_cub3d *game);
-void			draw_rectangle(t_image img, int x, int y, int width,
-					int height, bool grid, int color);
-void			create_map(t_cub3d *game);
 
 // cub3d.c
 void			end_program(t_cub3d *game, int e);
@@ -267,9 +263,6 @@ int				mouse_down(int keycode, int x, int y, t_cub3d *game);
 //* game_loop.c
 int				game_loop(t_cub3d	*game);
 
-//*	draw_player.c
-void			draw_player(t_cub3d *game);
-
 //*	ray_casting_utils.c
 double			get_offset(t_vec2 p_pos, double rad, char v_h);
 double			distance(t_vec2 point1, t_vec2 point2);
@@ -296,6 +289,7 @@ unsigned int	get_pixel_color(t_image img, int x, int y);
 //*	update_player_status.c
 void			update_player_status(t_cub3d *game);
 
-// t_image	import_image(void *mlx, char *path);
+
+void	mini_map(t_cub3d *game);
 
 #endif

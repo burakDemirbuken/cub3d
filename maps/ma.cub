@@ -1,0 +1,14 @@
+NO ./textures/bmo.xpm  ./textures/jack.xpm   ./textures/jack2.xpm  ./textures/jack.xpm
+SO ./textures/finn.xpm
+WE ./textures/gunter.xpm
+
+
+
+EA ./textures/jack.xpm
+
+F 220,100,0
+C 225,30,0
+
+111
+1N1
+111

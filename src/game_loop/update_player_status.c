@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_status.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/29 15:29:10 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:38:40 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	mouse_control(t_cub3d *game)
 		{
 			game->player.angle += RAD_ANG * ((x - WINDOWS_WIDTH / 2) / 10);
 			game->player.angle = fmod(game->player.angle, MATH_2PI);
-			mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
+			mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, WINDOWS_HEIGHT / 2);
 		}
 	}
 }

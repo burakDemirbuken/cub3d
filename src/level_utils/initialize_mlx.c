@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_mlx.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:22:18 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:18:41 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ bool	initialize_mlx(t_cub3d *game)
 	game->images.background = create_new_image(game->mlx, WINDOWS_WIDTH,
 			WINDOWS_HEIGHT);
 	if (!game->images.background.image)
+		return (false);
+	game->images.minimap = create_new_image(game->mlx, 250, 250);
+	if (!game->images.minimap.image)
 		return (false);
 	game->shadow = false;
 	game->mouse_control = false;
