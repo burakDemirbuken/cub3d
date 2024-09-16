@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/09/16 16:04:02 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 17:34:07 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 			x -= 1;
 		else if (ray.v_h == 'h' && !(game->player.angle > 0 && game->player.angle <= M_PI))
 			y -= 1;
-		if (ray.hit == '2' && ray.dis < 100)
+		if (ray.hit == '2' && ray.dis < 100
+			&& !(y == game->player.pos.y / REC_WIDTH
+			&& x == game->player.pos.x / REC_WIDTH))
 		{
 			game->map.map[y][x] = '3';
 			if (game->track_door[0] != -1)

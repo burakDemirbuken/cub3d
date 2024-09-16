@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/28 15:00:15 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 17:16:38 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static bool	flood_fill(char **map, int y, int x)
 {
 	if (y < 0 || x < 0 || map[y] == NULL || map[y][x] == '\0')
 		return (false);
-	else if (map[y][x] == '1')
+	else if (map[y][x] == '1' || map[y][x] == 'M')
 		return (false);
 	else if (map[y][x] == ' ')
-		map[y][x] = '1';
+		map[y][x] = 'M';
 	else if (map[y][x] == '0' || map[y][x] == '2')
 		return (ft_putstr_fd(ERR_NOWALL, STDERR_FILENO), true);
 	else
@@ -76,13 +76,28 @@ static bool	flood_fill(char **map, int y, int x)
 void	set_game_map(t_cub3d *game, t_file *file)
 {
 	// this file needs funct. descriptions.
+	int	i;
+	int	j;
+
 	game->map.map = copy_game_map(file);
 	game->map.height = file->map_height + 2;
 	game->map.width = file->map_width + 2;
-	if (flood_fill(game->map.map, 0, 0))
+	i = 0;
+	while (game->map.map[i])
 	{
-		ft_strfree(game->map.map);
-		free_file(file);
-		exit (1);
+		j = 0;
+		while (game->map.map[i][j])
+		{
+			if (game->map.map[i][j] == ' ')
+				if (flood_fill(game->map.map, i, j))
+				{
+					ft_strfree(game->map.map);
+					free_file(file);
+					exit (1);
+				}
+			j++;
+		}
+		i++;
 	}
+	print_map(game->map.map);
 }

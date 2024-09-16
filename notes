@@ -1,8 +1,6 @@
 
 Betül:
-map okumada iç boşlukları doldur.
-doldurulan boşlukların işaretini değiştir.
-kapı açılıp kapanması
+kapı içindeyken kapanmamasını kontrol ext
 norm
 leak
 
@@ -10,5 +8,6 @@ leak
 Burak:
 animasyon ekle next->
 duvar çarpışma algoritası test
+boşluklu map gelince duvarların kalkmaması lazım / kaldırılabilir ve kaldırılamayan duvarın ayrılması lazım
 norminette
 free
