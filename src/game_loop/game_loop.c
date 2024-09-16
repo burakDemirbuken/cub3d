@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/16 14:05:27 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:02:46 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	game_loop(t_cub3d	*game)
 	char a[12];
 
 	update_player_status(game);
-	update_door(game);
 	paint_floor_ceiling(game);
+	track_door(game);
 	render_scene(game);
 	start = my_system_time();
 	sprintf(a, "FPS: %.2Lf", 1 / (start - game->second));

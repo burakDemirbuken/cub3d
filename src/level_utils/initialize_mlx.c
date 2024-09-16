@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/16 14:03:54 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:09:30 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ bool	initialize_mlx(t_cub3d *game)
 		return (false);
 	game->shadow = false;
 	game->mouse_control = false;
-	game->interact = false;
+	game->track_door[0] = -1;
+	game->track_door[1] = -1;
+	game->door_time = -1;
 	mlx_do_key_autorepeatoff(game->mlx);
 	return (true);
 }

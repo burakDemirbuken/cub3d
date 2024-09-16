@@ -1,36 +1,14 @@
-TO DO LIST:
-Raycasting should get the distance for doors too
-Create doors.
-Bind object / door interaction to a key.
-
-OPTIMIZE / FIX:
-Try to optimize printing shadows over the colours instead of multiplying with.
-Optimize shadow intensity calculation for rows.
-Try to optimize shadow intensity calculation for the half circles.
-	The intensity of bottom and top are the same, combine if they are separate.
-
-LAST CHECKS
-Exiting by X button, the program stays open.
-Leak ckeck with error exits!
-norminette
-
-
-FURTHER TRY LIST:
-Create an user interface.
-Bind frame rate to time (fps fix).
-Print interactable objects button / level tutorials on screen?
-Kaplamaları yer ve tavana da ekle
-Add a map editor for the user.
 
 Betül:
 map okumada iç boşlukları doldur.
 doldurulan boşlukların işaretini değiştir.
-nesne eklemesi
+kapı açılıp kapanması
+norm
+leak
+
 
 Burak:
 animasyon ekle next->
-duvar çarpışma algoritası
-nesne eklemesi
+duvar çarpışma algoritası test
 norminette
 free
-minimap karakter nereye bakıyor kardeşim?

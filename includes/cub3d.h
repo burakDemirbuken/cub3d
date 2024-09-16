@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/16 14:07:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:08:10 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,8 @@ typedef struct s_cub3d
 	void		*win;
 	bool		shadow;
 	bool		mouse_control;
-	bool		interact;
+	int			track_door[2];
+	long double	door_time;
 	long double	second;
 	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
@@ -297,5 +298,8 @@ void			update_player_status(t_cub3d *game);
 
 
 void	mini_map(t_cub3d *game);
+
+void	track_door(t_cub3d *game);
+long double       my_system_time(void);
 
 #endif

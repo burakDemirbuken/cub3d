@@ -24,6 +24,7 @@ SRC =	src/game_loop/main.c \
 		src/game_loop/render_scene.c \
 		src/game_loop/paint_floor_ceiling.c \
 		src/game_loop/color.c \
+		src/game_loop/track_door.c \
 		src/ray_casting/initialize_rays.c \
 		src/ray_casting/ray_casting_utils.c \
 		src/ray_casting/ray_caster.c \
