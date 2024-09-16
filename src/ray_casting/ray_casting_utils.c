@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/09 14:10:59 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:03:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	 ret_add(t_vec2 *ret, t_vec2 add, double rad)
 		ret->y -= add.y;
 }
 
+
+//! değişken isimlendirmeleri karmaşık
 char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 {
 	int	xy[2];
@@ -90,13 +92,13 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '1')
 	{
 		if (v_h == 'v' && xy_adjust[0])
-			return ('E');
-		else if (v_h == 'v' && !xy_adjust[0])
 			return ('W');
+		else if (v_h == 'v' && !xy_adjust[0])
+			return ('E');
 		else if (v_h == 'h' && xy_adjust[1])
-			return ('S');
-		else if (v_h == 'h' && !xy_adjust[1])
 			return ('N');
+		else if (v_h == 'h' && !xy_adjust[1])
+			return ('S');
 	}
 	return ('0');
 }

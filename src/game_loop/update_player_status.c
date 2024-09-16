@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_status.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/29 15:29:10 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 13:49:47 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 	if (key)
 	{
 		new_pos = game->player.pos;
+		if (rad <= 0)
+			rad += MATH_2PI;
+		if (rad >= MATH_2PI)
+			rad -= MATH_2PI;
+		if (fmod(rad, M_PI_2) == 0)
+			rad += 0.0000042;
 		new_pos.x += cos(rad) * MOVE_SPEED;
 		new_pos.y += sin(rad) * MOVE_SPEED;
-		if (rad < 0)
-			rad += MATH_2PI;
-		if (rad > MATH_2PI)
-			rad -= MATH_2PI;
 		ray.relat_angle = rad;
 		ray_caster(game, &ray);
 		if (ray.dis <= MOVE_SPEED)
@@ -89,7 +91,7 @@ static void	mouse_control(t_cub3d *game)
 		{
 			game->player.angle += RAD_ANG * ((x - WINDOWS_WIDTH / 2) / 10);
 			game->player.angle = fmod(game->player.angle, MATH_2PI);
-			mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, y);
+			mlx_mouse_move(game->win, WINDOWS_WIDTH / 2, WINDOWS_HEIGHT / 2);
 		}
 	}
 }
@@ -121,4 +123,6 @@ void	update_player_status(t_cub3d *game)
 	if (game->player.pos.x < 11.0)
 		game->player.pos.x = 11.0;
 	mouse_control(game);
+	if (game->player.angle < 0)
+		game->player.angle = MATH_2PI + game->player.angle;
 }

@@ -1,7 +1,6 @@
 TO DO LIST:
 Raycasting should get the distance for doors too
 Create doors.
-Create a minimap.
 Bind object / door interaction to a key.
 
 OPTIMIZE / FIX:
@@ -21,6 +20,17 @@ Create an user interface.
 Bind frame rate to time (fps fix).
 Print interactable objects button / level tutorials on screen?
 Kaplamaları yer ve tavana da ekle
-Minimap'i yuvarlak yap
 Add a map editor for the user.
 
+Betül:
+map okumada iç boşlukları doldur.
+doldurulan boşlukların işaretini değiştir.
+nesne eklemesi
+
+Burak:
+animasyon ekle next->
+duvar çarpışma algoritası
+nesne eklemesi
+norminette
+free
+minimap karakter nereye bakıyor kardeşim?

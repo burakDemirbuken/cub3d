@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paint_floor_ceiling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:49:08 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/28 17:45:28 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/13 15:47:19 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 // double cos(double)
 
-static void inline	print_gradian_vertical(t_cub3d *game, t_image img, int y, t_color color)
+static void	print_gradian_vertical(t_cub3d *game, t_image img, int y, t_color color)
 {
 	double		i;
 	t_color t_color;
@@ -31,7 +31,7 @@ static void inline	print_gradian_vertical(t_cub3d *game, t_image img, int y, t_c
 	}
 }
 
-void inline	paint_floor_ceiling(t_cub3d *game)
+void	paint_floor_ceiling(t_cub3d *game)
 {
 	int				i;
 	t_color			color;

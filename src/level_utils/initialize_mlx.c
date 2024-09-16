@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/02 17:19:48 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/16 14:03:54 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ bool	initialize_mlx(t_cub3d *game)
 	game->images.background = create_new_image(game->mlx, WINDOWS_WIDTH,
 			WINDOWS_HEIGHT);
 	if (!game->images.background.image)
+		return (false);
+	game->images.minimap = create_new_image(game->mlx, 250, 250);
+	if (!game->images.minimap.image)
 		return (false);
 	game->shadow = false;
 	game->mouse_control = false;
