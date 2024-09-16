@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/11 12:45:45 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:33:14 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@
  *	WALL_SIZE		150
 */
 #include <math.h>
-// fmod();
+/*
+ *	double fmod(double, double)
+ */
 
-//	isim değişecek
-static void inline	print_wall(t_cub3d *game, t_image image, double wall_size, /* -> */int a/* <- isim değişecek */, double x, double wall_top)
+static void	print_wall(t_cub3d *game, t_image image, double wall_size, int ray_index, double x, double wall_top)
 {
 	int		i;
 	t_color	color;
@@ -34,26 +35,26 @@ static void inline	print_wall(t_cub3d *game, t_image image, double wall_size, /*
 
 	i = 0;
 	ratio = image.height / wall_size;
-	ratio_color = game->rays[a].dis / 420;
+	ratio_color = game->rays[ray_index].dis / 420;
 	while (i < wall_size)
 	{
-		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0 && WINDOWS_WIDTH > a && a >= 0)
+		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0 && WINDOWS_WIDTH > ray_index && ray_index >= 0)
 		{
 			if (game->shadow)
 			{
 				color = hex_to_color(get_pixel_color(image, x, i * ratio));
 				color = blackout(color, ratio_color);
-				put_pixel_to_image(game->images.background, a, wall_top + i, color.hex);
+				put_pixel_to_image(game->images.background, ray_index, wall_top + i, color.hex);
 			}
 			else
-				put_pixel_to_image(game->images.background, a, wall_top + i,
+				put_pixel_to_image(game->images.background, ray_index, wall_top + i,
 					get_pixel_color(image, x, i * ratio));
 		}
 		i++;
 	}
 }
 
-static inline t_image	which_image(t_cub3d *game, double *x, t_ray ray)
+static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 {
 	t_image	image;
 

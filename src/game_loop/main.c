@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/28 17:37:27 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/13 20:33:42 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av)
 		initialize_rays(&game);
 		mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 		mlx_hook(game.win, 2, 1L << 1, key_down, &game);
-		mlx_hook(game.win, 4, 1L << 2, mouse_down, &game);
+		mlx_hook(game.win, 4, 1L << 2, mouse_hook, &game);
 		mlx_loop_hook(game.mlx, game_loop, &game);
 		mlx_loop(game.mlx);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/11 12:51:56 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:39:34 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 			}
 			if (grid && (i_w == width - 1 || i_w == 0
 				|| i_h == height - 1 || i_h == 0))
-				put_pixel_to_image(img,x + i_w, y + i_h ,0x00303030);
+				put_pixel_to_image(img, x + i_w, y + i_h, 0x00303030);
 			else
-				put_pixel_to_image(img,x + i_w, y + i_h , color);
+				put_pixel_to_image(img, x + i_w, y + i_h, color);
 			i_w++;
 		}
 		i_h++;
@@ -84,17 +84,17 @@ void	mini_map(t_cub3d *game)
 				&& 0 < y && y < game->map.height - 1)
 			{
 				if (game->map.map[y][x] == '1')
-					color = 0x25743224;
+					color = 0x10743224;
 				else if (game->map.map[y][x] == '2')
-					color = 0x25435231;
+					color = 0x10435231;
 				else
-					color = 0x25236412;
+					color = 0x10236412;
 				draw_rectangle(game->images.minimap, (map_height * 25) - offset.x,
 					(map_width * 25) - offset.y, 25, 25, true, color);
 			}
 			else
 				draw_rectangle(game->images.minimap, (map_height * 25) - offset.x,
-						(map_width * 25) - offset.y, 25, 25, false, 0x25000000);
+						(map_width * 25) - offset.y, 25, 25, false, 0x10000000);
 			map_width++;
 		}
 		map_height++;
@@ -102,4 +102,5 @@ void	mini_map(t_cub3d *game)
 	draw_circle(game, 125, 125, 125);
 	draw_rectangle(game->images.minimap, (game->images.minimap.width / 2) - 1,
 		(game->images.minimap.height / 2) - 1 , 3, 3, false, 0x00FF0000);
+	draw_rectangle(game->images.background, WINDOWS_WIDTH / 2 - 2, WINDOWS_HEIGHT / 2 - 2, 5, 5, false, 0x00ffffff);
 }

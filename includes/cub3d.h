@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/11 12:39:26 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:44:03 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@
 # define ERR_FEMT	"cub3D: File is empty\n"
 
 /* ------------------------------ WALL HITS --------------------------------- */
+
+
+
+//!
 
 #define WALL_N		'N'
 #define WALL_S		'S'
@@ -165,6 +169,7 @@ typedef struct s_image
 typedef struct s_frame
 {
 	t_image			texture;
+	int				frame_speed;
 	struct s_frame	*next;
 	struct s_frame	*prev;
 }	t_frame;
@@ -258,7 +263,7 @@ void			initialize_rays(t_cub3d *game);
 //*	key_hook.c
 int				key_down(int keycode, t_cub3d *game);
 int				key_up(int keycode, t_cub3d *game);
-int				mouse_down(int keycode, int x, int y, t_cub3d *game);
+int				mouse_hook(int keycode, int x, int y, t_cub3d *game);
 
 //* game_loop.c
 int				game_loop(t_cub3d	*game);
