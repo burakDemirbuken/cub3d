@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reading.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:43:37 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 19:29:16 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ bool	the_path_is_valid(char *path)
 	char	line[10];
 	int		bytes;
 	// this needs revision
-
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (perror(ERR_CUB3D), false);

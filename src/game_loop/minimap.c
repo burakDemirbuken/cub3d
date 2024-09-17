@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 18:00:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 20:31:51 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+#include "../../includes/libft/libft.h"
 #include <math.h>
 
 void	draw_rectangle(t_image img, int x, int y, int width, int height,
@@ -82,8 +83,8 @@ void	mini_map(t_cub3d *game)
 		while (map_width < 11)
 		{
 			x = ((int)(game->player.pos.x / REC_WIDTH)) + map_width - 5;
-			if (0 < x && x < game->map.width - 1
-				&& 0 < y && y < game->map.height - 1)
+			if (0 <= x && x < game->map.width && 0 <= y && y < game->map.height
+				&& ft_strchr("0123",game->map.map[y][x]) != NULL)
 			{
 				if (game->map.map[y][x] == '1')
 					color = 0x10743224;
@@ -96,7 +97,7 @@ void	mini_map(t_cub3d *game)
 			}
 			else
 				draw_rectangle(game->images.minimap, (map_height * 25) - offset.x,
-						(map_width * 25) - offset.y, 25, 25, false, 0x10000000);
+					(map_width * 25) - offset.y, 25, 25, false, 0x10000000);
 			map_width++;
 		}
 		map_height++;

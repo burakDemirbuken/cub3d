@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/17 17:53:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 20:28:59 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
 //! değişken isimlendirmeleri karmaşık
 char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 {
-	int	xy[2];
-	int	xy_adjust[2];
+	int		xy[2];
+	int		xy_adjust[2];
 
 	xy[0] = (int)point.x / REC_WIDTH;
 	xy[1] = (int)point.y / REC_HEIGHT;
@@ -88,7 +88,8 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 		xy_adjust[1] = -1;
 	if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '2')
 		return ('2');
-	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '1')
+	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '1'
+			|| game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == 'M')
 	{
 		if (v_h == 'v' && xy_adjust[0])
 			return ('W');
