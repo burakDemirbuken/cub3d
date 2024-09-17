@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:45:39 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:45:37 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	inspect_map(t_file *file, char **content)
 			file->map_width = j;
 	}
 	file->map_height = i;
-	return(count);
+	return (count);
 }
 
 // Copies the map off of file content to the file struct.

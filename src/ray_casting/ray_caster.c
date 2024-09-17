@@ -13,7 +13,8 @@
 #include "../includes/cub3d.h"
 #include <math.h>
 
-static t_vec2	get_vertical_hit(t_cub3d *game, double rad, char *hit, double tan_a)
+static t_vec2	get_vertical_hit(t_cub3d *game, double rad,
+					char *hit, double tan_a)
 {
 	t_vec2	ray_x;
 	t_vec2	ret;
@@ -41,7 +42,8 @@ static t_vec2	get_vertical_hit(t_cub3d *game, double rad, char *hit, double tan_
 	return (ret);
 }
 
-static t_vec2	get_horizontal_hit(t_cub3d *game, double rad, char *hit, double tan_a)
+static t_vec2	get_horizontal_hit(t_cub3d *game, double rad,
+					char *hit, double tan_a)
 {
 	t_vec2	ray_y;
 	t_vec2	ret;

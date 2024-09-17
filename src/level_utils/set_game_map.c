@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/16 17:16:38 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:46:49 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 static char	*empty_line(int width)
 {
-	char 	*map;
+	char	*map;
 
 	map = ft_calloc(width + 1, sizeof(char));
 	if (map == NULL)

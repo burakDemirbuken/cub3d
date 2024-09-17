@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/23 14:58:28 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:48:14 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_image	import_image(void *mlx, char *path)
 
 void	destroy_anim(void *mlx, t_frame *anim)
 {
-	t_frame *tmp;
+	t_frame	*tmp;
 
 	anim->prev->next = NULL;
 	while (anim)

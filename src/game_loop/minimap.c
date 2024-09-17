@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/14 12:39:34 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:00:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 				|| i_h + y < 0 || i_h + y > WINDOWS_HEIGHT - 1)
 			{
 				i_w++;
-				continue;
+				continue ;
 			}
 			if (grid && (i_w == width - 1 || i_w == 0
-				|| i_h == height - 1 || i_h == 0))
+					|| i_h == height - 1 || i_h == 0))
 				put_pixel_to_image(img, x + i_w, y + i_h, 0x00303030);
 			else
 				put_pixel_to_image(img, x + i_w, y + i_h, color);
@@ -41,8 +41,9 @@ void	draw_rectangle(t_image img, int x, int y, int width, int height,
 		i_h++;
 	}
 }
+
 //!
-void draw_circle(t_cub3d *game, int x, int y,int radius)
+void	draw_circle(t_cub3d *game, int x, int y, int radius)
 {
 	int	cy;
 	int	cx;
@@ -54,7 +55,8 @@ void draw_circle(t_cub3d *game, int x, int y,int radius)
 		while (cx <= radius)
 		{
 			if (!(cx * cx + cy * cy < radius * radius))
-				put_pixel_to_image(game->images.minimap, cx + x, cy + y, 0xFF000000);
+				put_pixel_to_image(game->images.minimap,
+					cx + x, cy + y, 0xFF000000);
 			cx++;
 		}
 		cy++;
@@ -63,12 +65,12 @@ void draw_circle(t_cub3d *game, int x, int y,int radius)
 
 void	mini_map(t_cub3d *game)
 {
-	t_vec2	offset;
+	t_vec2			offset;
 	unsigned int	color;
-	int		map_height;
-	int		map_width;
-	int		x;
-	int		y;
+	int				map_height;
+	int				map_width;
+	int				x;
+	int				y;
 
 	map_height = 0;
 	offset.x = fmod(game->player.pos.y, REC_WIDTH) / 4;
@@ -101,6 +103,6 @@ void	mini_map(t_cub3d *game)
 	}
 	draw_circle(game, 125, 125, 125);
 	draw_rectangle(game->images.minimap, (game->images.minimap.width / 2) - 1,
-		(game->images.minimap.height / 2) - 1 , 3, 3, false, 0x00FF0000);
+		(game->images.minimap.height / 2) - 1, 3, 3, false, 0x00FF0000);
 	draw_rectangle(game->images.background, WINDOWS_WIDTH / 2 - 2, WINDOWS_HEIGHT / 2 - 2, 5, 5, false, 0x00ffffff);
 }

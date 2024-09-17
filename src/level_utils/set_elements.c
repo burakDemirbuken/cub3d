@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:12:59 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:46:26 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 int	elements_valid(t_file *file, int i, int map_start, int count, int *flag)
 {
 	if (count != 6)
-		return(ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
+		return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
 	if (map_start == i + 1)
 		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), 0);
 	while (count--)
@@ -56,8 +56,8 @@ static bool	set_color(char *content, t_color *color)
 	colors[2] = ft_atoi(rgb[2]);
 	ft_strfree(rgb);
 	if (!((colors[0] >= 0 && colors[0] < 256)
-		&& (colors[1] >= 0 && colors[1] < 256)
-		&& (colors[2] >= 0 && colors[2] < 256)))
+			&& (colors[1] >= 0 && colors[1] < 256)
+			&& (colors[2] >= 0 && colors[2] < 256)))
 		return (ft_putstr_fd(ERR_COLINV, STDERR_FILENO), true);
 	*color = rgb_to_color(colors[0], colors[1], colors[2]);
 	free(content);
@@ -87,8 +87,8 @@ int	set_elements(char *content, t_file *file, int *flag)
 	else if (!ft_strncmp(content, "EA", 2))
 		return (flag[3]++, set_texture_paths(content + 2, &(file->ea)));
 	else if (content[0] == 'F')
-		return(flag[4]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
+		return (flag[4]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
 	else if (content[0] == 'C')
-		return(flag[5]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
+		return (flag[5]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
 	return (0);
 }

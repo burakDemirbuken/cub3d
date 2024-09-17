@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_status.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/16 13:49:47 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:54:30 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifdef __linux__
-	#include "../../includes/minilibx_linux/mlx.h"
+# include "../../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-	#include "../../includes/minilibx/mlx.h"
+# include "../../includes/minilibx/mlx.h"
 #endif
 /*
  *	int mlx_mouse_get_pos(void *win_ptr, int *x, int *y)

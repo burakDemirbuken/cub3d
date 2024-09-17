@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:12:43 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:43:37 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ bool	extension_is_cub(char *file_name)
 
 bool	the_path_is_valid(char *path)
 {
-	// this needs revision
 	int		fd;
 	char	line[10];
 	int		bytes;
+	// this needs revision
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -62,7 +62,7 @@ bool	the_path_is_valid(char *path)
 char	*read_file(int fd)
 {
 	int		bytes;
-	char 	buffer[2];
+	char	buffer[2];
 	char	*line;
 	char	*tmp;
 

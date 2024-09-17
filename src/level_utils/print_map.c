@@ -6,19 +6,16 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:07:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:12:50 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:45:06 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// 6 elements come before the map
-// All six elements need to be peresent
 
 #include "../../includes/cub3d.h"
 #include "../../includes/libft/libft.h"
 
 void	print_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i])

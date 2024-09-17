@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   configure_level.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/09 17:12:13 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:42:49 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_file(t_file *file)
 		ft_strfree(file->ea);
 }
 
-static t_file parse_file(char *file_name)
+static t_file	parse_file(char *file_name)
 {
 	int		fd;
 	char	*line;

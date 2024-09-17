@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/14 17:33:14 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:56:27 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,25 @@ static void	print_wall(t_cub3d *game, t_image image, double wall_size, int ray_i
 	double	ratio;
 	double	ratio_color;
 
-	i = 0;
+	i = -1;
 	ratio = image.height / wall_size;
 	ratio_color = game->rays[ray_index].dis / 420;
-	while (i < wall_size)
+	while (++i < wall_size)
 	{
-		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0 && WINDOWS_WIDTH > ray_index && ray_index >= 0)
+		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0
+			&& WINDOWS_WIDTH > ray_index && ray_index >= 0)
 		{
 			if (game->shadow)
 			{
 				color = hex_to_color(get_pixel_color(image, x, i * ratio));
 				color = blackout(color, ratio_color);
-				put_pixel_to_image(game->images.background, ray_index, wall_top + i, color.hex);
+				put_pixel_to_image(game->images.background, ray_index,
+					wall_top + i, color.hex);
 			}
 			else
-				put_pixel_to_image(game->images.background, ray_index, wall_top + i,
-					get_pixel_color(image, x, i * ratio));
+				put_pixel_to_image(game->images.background, ray_index,
+					wall_top + i, get_pixel_color(image, x, i * ratio));
 		}
-		i++;
 	}
 }
 
@@ -107,8 +108,6 @@ void	render_scene(t_cub3d *game)
 	{
 		set_relative_ray_angle(&game->rays[i], game->player.angle);
 		ray_caster(game, &game->rays[i]);
-		// scale_texture_slice();
-		// paint_texture_slice();
 		wall_size = (WINDOWS_HEIGHT / game->rays[i].dis);
 		if (wall_size > 100)
 			wall_size = 100;
