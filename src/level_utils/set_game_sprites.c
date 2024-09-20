@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:36:03 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:26:06 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	destroy_anim(void *mlx, t_frame *anim)
 
 static bool	create_frame(t_frame **frame, void *mlx, char *path)
 {
-	if (!the_path_is_valid(path))
-		return (false);
 	*frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!frame)
 		return (perror(ERR_CUB3D), false);
@@ -84,8 +82,7 @@ static bool	set_anim(t_frame **anim, void *mlx, char **paths)
 
 void	set_game_sprites(t_cub3d *game, t_file *file)
 {
-	// this file needs function descriptions
-	// also needs a check for error messages
+	// Needs check for error messages
 	if (!set_anim(&game->images.n, game->mlx, file->no))
 		end_program(game, 1);
 	else if (!set_anim(&game->images.s, game->mlx, file->so))

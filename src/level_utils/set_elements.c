@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:46:26 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:31:56 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 // STDERR_FILENO
 
 // Checks if there is an error in the elements.
-int	elements_valid(t_file *file, int i, int map_start, int count, int *flag)
+int	elements_valid(t_file *file, bool no_map, int count, int *flag)
 {
 	if (count != 6)
 		return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
-	if (map_start == i + 1)
+	if (no_map)
 		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), 0);
 	while (count--)
 		if (flag[count] != 1)

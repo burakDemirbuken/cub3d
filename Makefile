@@ -31,7 +31,6 @@ SRC =	src/game_loop/main.c \
 		src/level_utils/configure_level.c \
 		src/level_utils/file_reading.c \
 		src/level_utils/initialize_mlx.c \
-		src/level_utils/print_map.c \
 		src/level_utils/separate_content.c \
 		src/level_utils/set_elements.c \
 		src/level_utils/set_game_map.c \

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:43:29 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:31:08 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	set_first_half(t_file *file, char **content)
 			count++;
 		}
 	}
-	if (!elements_valid(file, i, map_start, count, flag))
+	if (!elements_valid(file, (i + 1 == map_start), count, flag))
 		return (ft_strfree(content), free_file(file), exit(1), -1);
 	return (map_start);
 }

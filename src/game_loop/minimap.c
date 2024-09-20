@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:56:42 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:16:46 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	mini_map(t_cub3d *game)
 				else if (game->map.map[y][x] == '2')
 					color = 0x10435231;
 				else if (game->map.map[y][x] == '3')
-					color = 0x10434786;
+					color = 0x10204693;
 				else
 					color = 0x10236412;
 				draw_rectangle(game->images.minimap, (map_height * 25) - offset.x,

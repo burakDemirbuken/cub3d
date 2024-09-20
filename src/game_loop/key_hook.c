@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:52:16 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:54:17 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,49 @@ int	key_up(int keycode, t_cub3d *game)
 	return (0);
 }
 
+int	mouse_left(int x, int y, t_cub3d *game)
+{
+	t_ray	ray;
+
+	ray = game->rays[(int)(RAY_COUNT / 2)];
+	y = (ray.pos.y / REC_WIDTH);
+	x = (ray.pos.x / REC_WIDTH);
+	if (ray.v_h == 'v' && M_PI_2 < game->player.angle
+		&& game->player.angle <= MATH_3PI_2)
+		x -= 1;
+	else if (ray.v_h == 'h'
+		&& !(game->player.angle > 0 && game->player.angle <= M_PI)) // kısaltıl.
+		y -= 1;
+	if (ray.hit == DOOR && ray.dis < 150 && game->door_time == -1)
+	{
+		game->map.map[y][x] = '3';
+		game->track_door[0] = y;
+		game->track_door[1] = x;
+		game->door_time = my_system_time();
+	}
+	else if (game->map.map[y][x] == '1' && game->map.map[y + 1][x] != 'M'
+		&& game->map.map[y - 1][x] != 'M' && game->map.map[y][x + 1] != 'M'
+		&& game->map.map[y][x - 1] != 'M')
+		game->map.map[y][x] = '0';
+}
+
+int	mouse_right(int x, int y, t_cub3d *game)
+{
+	t_ray	ray;
+
+	ray = game->rays[(int)(RAY_COUNT / 2)];
+	y = (ray.pos.y / REC_WIDTH);
+	x = (ray.pos.x / REC_WIDTH);
+	if (ray.v_h == 'v' && !(M_PI_2 < game->player.angle
+			&& game->player.angle <= MATH_3PI_2))
+		x -= 1;
+	else if (ray.v_h == 'h'
+		&& (game->player.angle > 0 && game->player.angle <= M_PI))
+		y -= 1;
+	if (ray.dis > REC_HEIGHT && game->map.map[y][x] == '0')
+		game->map.map[y][x] = '1';
+}
+
 int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 {
 	t_ray	ray;
@@ -77,51 +120,8 @@ int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 			mlx_mouse_show();
 	}
 	if (keycode == 2)
-	{
-		ray = game->rays[(int)(RAY_COUNT / 2)];
-		y = (ray.pos.y / REC_WIDTH);
-		x = (ray.pos.x / REC_WIDTH);
-		if (ray.v_h == 'v' && M_PI_2 < game->player.angle
-			&& game->player.angle <= MATH_3PI_2)
-			x -= 1;
-		else if (ray.v_h == 'h'
-			&& !(game->player.angle > 0 && game->player.angle <= M_PI)) // kısaltılabilinir
-			y -= 1;
-		if (ray.hit == DOOR && ray.dis < 150 && game->door_time == -1)
-		{
-			game->map.map[y][x] = '3';
-			game->track_door[0] = y;
-			game->track_door[1] = x;
-			game->door_time = my_system_time();
-		}
-		if (game->map.map[y][x] != '2' && game->map.map[y + 1][x] != 'M'
-			&& game->map.map[y - 1][x] != 'M' && game->map.map[y][x + 1] != 'M'
-			&& game->map.map[y][x - 1] != 'M')
-			game->map.map[y][x] = '0';
-	}
+		mouse_right(x, y, game);
 	if (keycode == 1)
-	{
-		ray = game->rays[(int)(RAY_COUNT / 2)];
-		y = (ray.pos.y / REC_WIDTH);
-		x = (ray.pos.x / REC_WIDTH);
-		if (ray.v_h == 'v' && !(M_PI_2 < game->player.angle
-				&& game->player.angle <= MATH_3PI_2))
-			x -= 1;
-		else if (ray.v_h == 'h'
-			&& (game->player.angle > 0 && game->player.angle <= M_PI))
-			y -= 1;
-		if (ray.dis > REC_HEIGHT && game->map.map[y][x] == '0')
-			game->map.map[y][x] = '1';
-	}
+		mouse_left(x, y, game);
 	return (0);
 }
-
-/* int	mouse_click(int keycode, int x, int y, t_cub3d *game)
-{
-	if (keycode == 1)
-	{
-		game->interact = true;
-	}
-	return (0);
-}
-*/

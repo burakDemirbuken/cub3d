@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:52:52 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:32:21 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,6 @@ void			free_file(t_file *file);
 
 // file_reading.c
 bool			extension_is_cub(char *file_name);
-bool			the_path_is_valid(char *file_name);
 char			*read_file(int fd);
 
 // initialize_mlx.c
@@ -232,8 +231,7 @@ t_file			separate_content(char *f_line);
 
 // set_elements.c
 int				set_elements(char *content, t_file *file, int *flag);
-int				elements_valid(t_file *file, int i, int map_start,
-					int count, int *flag);
+int				elements_valid(t_file *file, bool no_map, int count, int *flag);
 
 // set_game_map.c
 void			set_game_map(t_cub3d *game, t_file *file);
@@ -244,9 +242,6 @@ void			set_game_player(t_cub3d *game);
 // set_game_sprites.c
 void			set_game_sprites(t_cub3d *game, t_file *file);
 void			destroy_anim(void *mlx, t_frame *anim);
-
-// delete this
-void			print_map(char **map);
 
 // -----------------------------------------------------------------------------
 // paint_floor_ceiling.c
