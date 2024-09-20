@@ -73,31 +73,27 @@ static t_vec2	get_horizontal_hit(t_cub3d *game, double rad,
 
 void	ray_caster(t_cub3d *game, t_ray *ray)
 {
-	double	h_dis;
-	double	v_dis;
-	t_vec2	h_hit_pos;
-	t_vec2	v_hit_pos;
-	char	h_hit;
-	char	v_hit;
+	t_ray	vert;
+	t_ray	hor;
 	double	tan_a;
 
 	tan_a = tan(ray->relat_angle);
-	h_hit_pos = get_horizontal_hit(game, ray->relat_angle, &h_hit, tan_a);
-	v_hit_pos = get_vertical_hit(game, ray->relat_angle, &v_hit, tan_a);
-	h_dis = distance(game->player.pos, h_hit_pos);
-	v_dis = distance(game->player.pos, v_hit_pos);
-	if (h_dis > v_dis)
+	hor.pos = get_horizontal_hit(game, ray->relat_angle, &hor.hit, tan_a);
+	vert.pos = get_vertical_hit(game, ray->relat_angle, &vert.hit, tan_a);
+	hor.dis = distance(game->player.pos, hor.pos);
+	vert.dis = distance(game->player.pos, vert.pos);
+	if (hor.dis > vert.dis)
 	{
-		ray->pos = v_hit_pos;
-		ray->dis = v_dis;
-		ray->hit = v_hit;
+		ray->pos = vert.pos;
+		ray->dis = vert.dis;
+		ray->hit = vert.hit;
 		ray->v_h = 'v';
 	}
 	else
 	{
-		ray->pos = h_hit_pos;
-		ray->dis = h_dis;
-		ray->hit = h_hit;
+		ray->pos = hor.pos;
+		ray->dis = hor.dis;
+		ray->hit = hor.hit;
 		ray->v_h = 'h';
 	}
 	ray->dis *= cos(ray->persp_angle);

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:30:07 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:51:21 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static bool	flood_fill(char **map, int y, int x)
 	return (flood_fill(map, y + 1, x));
 }
 
+//! 92 değiştirdim
 void	set_game_map(t_cub3d *game, t_file *file)
 {
 	// this file needs funct. descriptions.
@@ -88,13 +89,12 @@ void	set_game_map(t_cub3d *game, t_file *file)
 		j = 0;
 		while (game->map.map[i][j])
 		{
-			if (game->map.map[i][j] == ' ')
-				if (flood_fill(game->map.map, i, j))
-				{
-					ft_strfree(game->map.map);
-					free_file(file);
-					exit (1);
-				}
+			if (game->map.map[i][j] == ' ' && flood_fill(game->map.map, i, j))
+			{
+				ft_strfree(game->map.map);
+				free_file(file);
+				exit (1);
+			}
 			j++;
 		}
 		i++;

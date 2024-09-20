@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/13 20:33:42 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:28:23 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	end_program(t_cub3d *game, int e)
 	exit (e);
 }
 
+//! çarpıya basıldığında düzgün bir şekilde kapatılması.
 int	main(int ac, char **av)
 {
 	t_cub3d	game;
