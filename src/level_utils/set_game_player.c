@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:22:05 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/11 12:42:16 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:44:39 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	set_game_player(t_cub3d *game)
 	{
 		j = -1;
 		while (game->map.map[i][++j])
-			if (game->map.map[i][j] == 'N' || game->map.map[i][j] == 'S'
-				|| game->map.map[i][j] == 'W' || game->map.map[i][j] == 'E')
+			if (game->map.map[i][j] == NORTH || game->map.map[i][j] == SOUTH
+				|| game->map.map[i][j] == WEST || game->map.map[i][j] == EAST)
 			{
 				game->player.pos.x = j * REC_WIDTH + (REC_WIDTH / 2);
 				game->player.pos.y = i * REC_HEIGHT + (REC_HEIGHT / 2);
-				if (game->map.map[i][j] == 'N')
+				if (game->map.map[i][j] == NORTH)
 					game->player.angle = M_PI_2;
-				else if (game->map.map[i][j] == 'E')
+				else if (game->map.map[i][j] == EAST)
 					game->player.angle = MATH_2PI;
-				else if (game->map.map[i][j] == 'S')
+				else if (game->map.map[i][j] == SOUTH)
 					game->player.angle = MATH_3PI_2;
-				else if (game->map.map[i][j] == 'W')
+				else if (game->map.map[i][j] == WEST)
 					game->player.angle = M_PI;
 				return ;
 			}

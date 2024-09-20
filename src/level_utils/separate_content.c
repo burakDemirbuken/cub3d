@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:45:37 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:43:29 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ static int	inspect_map(t_file *file, char **content)
 		j = -1;
 		while (content[i][++j])
 		{
-			if (content[i][j] == 'N' || content[i][j] == 'S'
-				|| content[i][j] == 'W' || content[i][j] == 'E')
+			if (content[i][j] == NORTH || content[i][j] == SOUTH
+				|| content[i][j] == WEST || content[i][j] == EAST)
 				count++;
 			else if (!(content[i][j] == '0' || content[i][j] == '1'
-				|| content[i][j] == '2' || content[i][j] == ' '
+				|| content[i][j] == DOOR || content[i][j] == ' '
 				|| content[i][j] == '\0'))
 				return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), -1);
 		}

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:41:28 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:55 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:02:11 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 /*
  *	typedef struct s_image t_image
  */
+
 
 void inline	put_pixel_to_image(t_image img, int x, int y, unsigned int color)
 {

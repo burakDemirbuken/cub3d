@@ -6,13 +6,14 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 17:17:27 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:59 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:55:42 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 // typedef t_color
 
+// Creates a color based on the given rgb values.
 t_color	rgb_to_color(int r, int g, int b)
 {
 	t_color	color;
@@ -24,6 +25,7 @@ t_color	rgb_to_color(int r, int g, int b)
 	return (color);
 }
 
+// Creates a color based on the given hex value.
 t_color	hex_to_color(unsigned int hex)
 {
 	t_color	color;
@@ -35,6 +37,7 @@ t_color	hex_to_color(unsigned int hex)
 	return (color);
 }
 
+// It dims the given color by the given ratio.
 t_color inline	blackout(t_color color, double ratio)
 {
 	double	intensity;

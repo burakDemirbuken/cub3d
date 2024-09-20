@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/16 16:08:10 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:40:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,10 @@
 
 /* ------------------------------ WALL HITS --------------------------------- */
 
-
-
-//!
-
-#define WALL_N		'N'
-#define WALL_S		'S'
-#define WALL_W		'W'
-#define WALL_E		'E'
+#define NORTH		'N'
+#define SOUTH		'S'
+#define WEST		'W'
+#define EAST		'E'
 #define DOOR		'2'
 
 /* -------------------------------- OTHER ----------------------------------- */
@@ -180,8 +176,7 @@ typedef struct s_images
 	t_frame	*e;
 	t_frame	*s;
 	t_frame	*w;
-	t_frame	*door;
-	t_image	door_inner_wall;
+	t_image	door;
 	t_image	background;
 	t_image	minimap;
 }	t_images;
@@ -212,7 +207,6 @@ typedef struct s_cub3d
 	int			track_door[2];
 	long double	door_time;
 	long double	second;
-	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= FUNCTIONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

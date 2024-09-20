@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/17 17:56:27 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:42:21 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 
 	if (ray.v_h == 'v')
 	{
-		if (ray.hit == '2')
-			image = game->images.door->texture;
-		else if (ray.hit == 'E')
+		if (ray.hit == DOOR)
+			image = game->images.door;
+		else if (ray.hit == EAST)
 			image = game->images.e->texture;
 		else
 			image = game->images.w->texture;
@@ -71,9 +71,9 @@ static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 	}
 	else
 	{
-		if (ray.hit == '2')
-			image = game->images.door->texture;
-		else if (ray.hit == 'N')
+		if (ray.hit == DOOR)
+			image = game->images.door;
+		else if (ray.hit == NORTH)
 			image = game->images.n->texture;
 		else
 			image = game->images.s->texture;
