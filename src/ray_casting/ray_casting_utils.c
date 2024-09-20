@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/17 20:28:59 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:15:21 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 		xy_adjust[1] = -1;
 	if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '2')
 		return ('2');
-	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '1'
-			|| game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == 'M')
+	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] != '0')
 	{
 		if (v_h == 'v' && xy_adjust[0])
 			return ('W');
