@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/17 18:04:44 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 09:57:55 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	game_loop(t_cub3d	*game)
 	paint_floor_ceiling(game);
 	track_door(game);
 	render_scene(game);
+	mini_map(game);
 	start = my_system_time();
 	// sprintf needs to go?
 	sprintf(a, "FPS: %.2Lf", 1 / (start - game->second));
 	game->second = start;
-	mini_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image,
 		0, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.minimap.image,

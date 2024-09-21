@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 19:51:58 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 10:19:48 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,11 @@
 
 /* ------------------------------ WALL HITS --------------------------------- */
 
-
-
-//!
-
-#define WALL_N		'N'
-#define WALL_S		'S'
-#define WALL_W		'W'
-#define WALL_E		'E'
-#define DOOR		'2'
+# define NORTH		'N'
+# define SOUTH		'S'
+# define WEST		'W'
+# define EAST		'E'
+# define DOOR		'2'
 
 /* -------------------------------- OTHER ----------------------------------- */
 # define WINDOWS_WIDTH	1920
@@ -180,8 +176,7 @@ typedef struct s_images
 	t_frame	*e;
 	t_frame	*s;
 	t_frame	*w;
-	t_frame	*door;
-	t_image	door_inner_wall;
+	t_image	door;
 	t_image	background;
 	t_image	minimap;
 }	t_images;
@@ -197,6 +192,7 @@ typedef struct s_ray
 }	t_ray;
 
 /* ------------------------------ GAME STRUCT ------------------------------- */
+
 typedef struct s_cub3d
 {
 	t_player	player;
@@ -212,22 +208,26 @@ typedef struct s_cub3d
 	int			track_door[2];
 	long double	door_time;
 	long double	second;
-	//t_player	player2; EĞLENCELİ
 }	t_cub3d;
 
-/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= FUNCTIONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SOURCE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
-// cub3d.c
+// main.c
 void			end_program(t_cub3d *game, int e);
 
-/* ------------------------------ LEVEL UTILS --------------------------------*/
+//*	key_hook.c
+int				key_down(int keycode, t_cub3d *game);
+int				key_up(int keycode, t_cub3d *game);
+int				mouse_hook(int keycode, int x, int y, t_cub3d *game);
+
+/* ----------------------------- CONFIGURE LEVEL -----------------------------*/
+
 // configure_level.c
 void			configure_level(t_cub3d *game, char *file_name);
 void			free_file(t_file *file);
 
 // file_reading.c
 bool			extension_is_cub(char *file_name);
-bool			the_path_is_valid(char *file_name);
 char			*read_file(int fd);
 
 // initialize_mlx.c
@@ -238,8 +238,7 @@ t_file			separate_content(char *f_line);
 
 // set_elements.c
 int				set_elements(char *content, t_file *file, int *flag);
-int				elements_valid(t_file *file, int i, int map_start,
-					int count, int *flag);
+int				elements_valid(t_file *file, bool no_map, int count, int *flag);
 
 // set_game_map.c
 void			set_game_map(t_cub3d *game, t_file *file);
@@ -251,24 +250,44 @@ void			set_game_player(t_cub3d *game);
 void			set_game_sprites(t_cub3d *game, t_file *file);
 void			destroy_anim(void *mlx, t_frame *anim);
 
-// delete this
-void			print_map(char **map);
+/* -------------------------------- GAME LOOP --------------------------------*/
 
-// -----------------------------------------------------------------------------
+// game_loop.c
+int				game_loop(t_cub3d	*game);
+long double		my_system_time(void);
+
+// color_utils.c
+t_color			rgb_to_color(int r, int g, int b);
+t_color			hex_to_color(unsigned int hex);
+t_color			blackout(t_color color, double ratio);
+
+// minimap.c
+void			mini_map(t_cub3d *game);
+
 // paint_floor_ceiling.c
 void			paint_floor_ceiling(t_cub3d *game);
+
+// render_scene.c
+void			render_scene(t_cub3d *game);
+
+// render_utils.c
+void			put_pixel_to_image(t_image img, int x, int y,
+					unsigned int color);
+unsigned int	get_pixel_color(t_image img, int x, int y);
+
+// track_door.c
+void			track_door(t_cub3d *game);
+
+// update_player_status.c
+void			update_player_status(t_cub3d *game);
+
+/* ------------------------------- RAY CASTING ------------------------------ */
 
 // initialize_rays.c
 void			initialize_rays(t_cub3d *game);
 
-/* ------------------------------ OTHER FILES ------------------------------- */
-//*	key_hook.c
-int				key_down(int keycode, t_cub3d *game);
-int				key_up(int keycode, t_cub3d *game);
-int				mouse_hook(int keycode, int x, int y, t_cub3d *game);
-
-//* game_loop.c
-int				game_loop(t_cub3d	*game);
+//*	ray_caster.c
+void			ray_caster(t_cub3d *game, t_ray *ray);
 
 //*	ray_casting_utils.c
 double			get_offset(t_vec2 p_pos, double rad, char v_h);
@@ -276,30 +295,5 @@ double			distance(t_vec2 point1, t_vec2 point2);
 bool			inside_map(t_cub3d *game, t_vec2 ret);
 void			ret_add(t_vec2 *ret, t_vec2 add, double rad);
 char			hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h);
-
-//*	ray_caster.c
-void			ray_caster(t_cub3d *game, t_ray *ray);
-
-//*	display.c
-void			render_scene(t_cub3d *game);
-
-//*	color.c
-t_color			rgb_to_color(int r, int g, int b);
-t_color			hex_to_color(unsigned int hex);
-t_color			blackout(t_color color, double ratio);
-
-//* cub3d_utils.c
-void			put_pixel_to_image(t_image img, int x, int y,
-					unsigned int color);
-unsigned int	get_pixel_color(t_image img, int x, int y);
-
-//*	update_player_status.c
-void			update_player_status(t_cub3d *game);
-
-
-void	mini_map(t_cub3d *game);
-
-void	track_door(t_cub3d *game);
-long double       my_system_time(void);
 
 #endif

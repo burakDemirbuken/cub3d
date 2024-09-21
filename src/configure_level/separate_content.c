@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:45:37 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 08:17:25 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	set_first_half(t_file *file, char **content)
 
 	i = -1;
 	count = 6;
+	map_start = 0;
 	while (count)
 		flag[--count] = 0;
 	while (content[++i])
@@ -44,7 +45,7 @@ static int	set_first_half(t_file *file, char **content)
 			count++;
 		}
 	}
-	if (!elements_valid(file, i, map_start, count, flag))
+	if (!elements_valid(file, (i + 1 == map_start), count, flag))
 		return (ft_strfree(content), free_file(file), exit(1), -1);
 	return (map_start);
 }
@@ -63,11 +64,11 @@ static int	inspect_map(t_file *file, char **content)
 		j = -1;
 		while (content[i][++j])
 		{
-			if (content[i][j] == 'N' || content[i][j] == 'S'
-				|| content[i][j] == 'W' || content[i][j] == 'E')
+			if (content[i][j] == NORTH || content[i][j] == SOUTH
+				|| content[i][j] == WEST || content[i][j] == EAST)
 				count++;
 			else if (!(content[i][j] == '0' || content[i][j] == '1'
-				|| content[i][j] == '2' || content[i][j] == ' '
+				|| content[i][j] == DOOR || content[i][j] == ' '
 				|| content[i][j] == '\0'))
 				return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), -1);
 		}

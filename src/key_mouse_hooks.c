@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   key_mouse_hooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 19:37:33 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:17:33 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 #ifdef __linux__
-# include "../../includes/minilibx_linux/mlx.h"
+# include "../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-# include "../../includes/minilibx/mlx.h"
+# include "../includes/minilibx/mlx.h"
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -64,10 +64,51 @@ int	key_up(int keycode, t_cub3d *game)
 	return (0);
 }
 
-int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
+static void	mouse_left(int x, int y, t_cub3d *game)
 {
 	t_ray	ray;
 
+	ray = game->rays[(int)(RAY_COUNT / 2)];
+	y = (ray.pos.y / REC_WIDTH);
+	x = (ray.pos.x / REC_WIDTH);
+	if (ray.v_h == 'v' && M_PI_2 < game->player.angle
+		&& game->player.angle <= MATH_3PI_2)
+		x -= 1;
+	else if (ray.v_h == 'h'
+		&& !(game->player.angle > 0 && game->player.angle <= M_PI)) // kısaltıl.
+		y -= 1;
+	if (ray.hit == DOOR && ray.dis < 150 && game->door_time == -1)
+	{
+		game->map.map[y][x] = '3';
+		game->track_door[0] = y;
+		game->track_door[1] = x;
+		game->door_time = my_system_time();
+	}
+	else if (game->map.map[y][x] == '1' && game->map.map[y + 1][x] != 'M'
+		&& game->map.map[y - 1][x] != 'M' && game->map.map[y][x + 1] != 'M'
+		&& game->map.map[y][x - 1] != 'M')
+		game->map.map[y][x] = '0';
+}
+
+static void	mouse_right(int x, int y, t_cub3d *game)
+{
+	t_ray	ray;
+
+	ray = game->rays[(int)(RAY_COUNT / 2)];
+	y = (ray.pos.y / REC_WIDTH);
+	x = (ray.pos.x / REC_WIDTH);
+	if (ray.v_h == 'v' && !(M_PI_2 < game->player.angle
+			&& game->player.angle <= MATH_3PI_2))
+		x -= 1;
+	else if (ray.v_h == 'h'
+		&& (game->player.angle > 0 && game->player.angle <= M_PI))
+		y -= 1;
+	if (ray.dis > REC_HEIGHT && game->map.map[y][x] == '0')
+		game->map.map[y][x] = '1';
+}
+
+int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
+{
 	if (keycode == 3)
 	{
 		game->mouse_control = !game->mouse_control;
@@ -76,52 +117,9 @@ int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 		else
 			mlx_mouse_show();
 	}
-	if (keycode == 2)
-	{
-		ray = game->rays[(int)(RAY_COUNT / 2)];
-		y = (ray.pos.y / REC_WIDTH);
-		x = (ray.pos.x / REC_WIDTH);
-		if (ray.v_h == 'v' && M_PI_2 < game->player.angle
-			&& game->player.angle <= MATH_3PI_2)
-			x -= 1;
-		else if (ray.v_h == 'h'
-			&& !(game->player.angle > 0 && game->player.angle <= M_PI)) // kısaltılabilinir
-			y -= 1;
-		if (ray.hit == '2' && ray.dis < 150 && game->door_time == -1)
-		{
-			game->map.map[y][x] = '3';
-			game->track_door[0] = y;
-			game->track_door[1] = x;
-			game->door_time = my_system_time();
-		}
-		if (game->map.map[y][x] != '2' && game->map.map[y + 1][x] != 'M'
-			&& game->map.map[y - 1][x] != 'M' && game->map.map[y][x + 1] != 'M'
-			&& game->map.map[y][x - 1] != 'M')
-			game->map.map[y][x] = '0';
-	}
-	if (keycode == 1)
-	{
-		ray = game->rays[(int)(RAY_COUNT / 2)];
-		y = (ray.pos.y / REC_WIDTH);
-		x = (ray.pos.x / REC_WIDTH);
-		if (ray.v_h == 'v' && !(M_PI_2 < game->player.angle
-				&& game->player.angle <= MATH_3PI_2))
-			x -= 1;
-		else if (ray.v_h == 'h'
-			&& (game->player.angle > 0 && game->player.angle <= M_PI))
-			y -= 1;
-		if (ray.dis > REC_HEIGHT && game->map.map[y][x] == '0')
-			game->map.map[y][x] = '1';
-	}
+	else if (keycode == 1)
+		mouse_right(x, y, game);
+	else if (keycode == 2)
+		mouse_left(x, y, game);
 	return (0);
 }
-
-/* int	mouse_click(int keycode, int x, int y, t_cub3d *game)
-{
-	if (keycode == 1)
-	{
-		game->interact = true;
-	}
-	return (0);
-}
-*/

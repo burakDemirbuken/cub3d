@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 17:17:27 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:42:47 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:07:07 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 // typedef t_color
 
+// Creates a color based on the given rgb values.
 t_color	rgb_to_color(int r, int g, int b)
 {
 	t_color	color;
@@ -24,6 +25,7 @@ t_color	rgb_to_color(int r, int g, int b)
 	return (color);
 }
 
+// Creates a color based on the given hex value.
 t_color	hex_to_color(unsigned int hex)
 {
 	t_color	color;
@@ -35,6 +37,7 @@ t_color	hex_to_color(unsigned int hex)
 	return (color);
 }
 
+// It dims the given color by the given ratio.
 t_color	blackout(t_color color, double ratio)
 {
 	double	intensity;

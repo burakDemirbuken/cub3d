@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reading.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 19:29:16 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:26:16 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,6 @@ bool	extension_is_cub(char *file_name)
 	if (len <= 4 || file_name[--len] != 'b' || file_name[--len] != 'u'
 		|| file_name[--len] != 'c' || file_name[--len] != '.')
 		return (ft_putstr_fd(ERR_FEXT, STDERR_FILENO), false);
-	return (true);
-}
-
-bool	the_path_is_valid(char *path)
-{
-	int		fd;
-	char	line[10];
-	int		bytes;
-	// this needs revision
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (perror(ERR_CUB3D), false);
-	bytes = read(fd, line, 9);
-	close(fd);
-	if (bytes <= 0)
-		return (perror(ERR_CUB3D), false);
-	if (ft_strncmp(line, "/* XPM */", 9))
-		return (perror(ERR_CUB3D), false);
 	return (true);
 }
 

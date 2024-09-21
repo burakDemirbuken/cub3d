@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/20 20:50:16 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:18:32 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #elif __APPLE__ || __MACH__
 # include "../../includes/minilibx/mlx.h"
 #endif
+# include "../../includes/libft/libft.h"
 /*
  *	int mlx_mouse_get_pos(void *win_ptr, int *x, int *y)
  *	int mlx_mouse_hide()
@@ -46,25 +47,25 @@ static inline t_vec2	collision(t_cub3d *game, t_vec2 pos)
 
 	x = (int)(pos.x / REC_WIDTH);
 	y = (int)(pos.y / REC_HEIGHT);
-	if (game->player.pos.x < pos.x && game->map.map[y][x + 1] != '0')
+	if (game->player.pos.x < pos.x && ft_strchr("03",game->map.map[y][x + 1]) == 0)
 	{
 		offset = get_offset(pos, 0.0, 'v');
 		if (offset < 20)
 			pos.x -= 20 - offset;
 	}
-	else if (game->player.pos.x >= pos.x && game->map.map[y][x - 1] != '0')
+	else if (game->player.pos.x >= pos.x && ft_strchr("03",game->map.map[y][x - 1]) == 0)
 	{
 		offset = get_offset(pos, M_PI, 'v');
 		if (offset < 20)
 			pos.x += 20 - offset;
 	}
-	if (game->player.pos.y < pos.y && game->map.map[y + 1][x] != '0')
+	if (game->player.pos.y < pos.y && ft_strchr("03",game->map.map[y + 1][x]) == 0)
 	{
 		offset = get_offset(pos, M_PI_2, 'h');
 		if (offset < 20)
 			pos.y -= 20 - offset;
 	}
-	else if (game->player.pos.y >= pos.y && game->map.map[y - 1][x] != '0')
+	else if (game->player.pos.y >= pos.y && ft_strchr("03",game->map.map[y - 1][x]) == 0)
 	{
 		offset = get_offset(pos, MATH_3PI_2, 'h');
 		if (offset < 20)
@@ -97,7 +98,7 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 			new_pos.y += sin(rad) * MOVE_SPEED;
 		}
 		new_pos = collision(game, new_pos);
-		if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_HEIGHT)] == '0')
+		if (ft_strchr("03", game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_HEIGHT)]) != 0)
 			game->player.pos = new_pos;
 	}
 }

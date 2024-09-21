@@ -6,16 +6,16 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/20 16:35:42 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:06:13 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
-#include "../../includes/libft/libft.h"
+#include "../includes/cub3d.h"
+#include "../includes/libft/libft.h"
 #ifdef __linux__
-# include "../../includes/minilibx_linux/mlx.h"
+# include "../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-# include "../../includes/minilibx/mlx.h"
+# include "../includes/minilibx/mlx.h"
 #endif
 #include <stdlib.h>
 #include <unistd.h>

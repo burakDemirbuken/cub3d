@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:22:05 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 19:59:51 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:50:45 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 
 static void	set_player_angle(t_cub3d *game, int i, int j)
 {
-	if (game->map.map[i][j] == 'N')
+	if (game->map.map[i][j] == NORTH)
 		game->player.angle = M_PI_2;
-	else if (game->map.map[i][j] == 'E')
+	else if (game->map.map[i][j] == EAST)
 		game->player.angle = MATH_2PI;
-	else if (game->map.map[i][j] == 'S')
+	else if (game->map.map[i][j] == SOUTH)
 		game->player.angle = MATH_3PI_2;
-	else if (game->map.map[i][j] == 'W')
+	else if (game->map.map[i][j] == WEST)
 		game->player.angle = M_PI;
 }
 

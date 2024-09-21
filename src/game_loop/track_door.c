@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:04:32 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:10:27 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:29:34 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	track_door(t_cub3d *game)
 	{
 		if (my_system_time() - game->door_time > 1)
 		{
-			game->map.map[game->track_door[0]][game->track_door[1]] = '2';
+			game->map.map[game->track_door[0]][game->track_door[1]] = DOOR;
 			game->track_door[0] = -1;
 			game->track_door[1] = -1;
 			game->door_time = -1;

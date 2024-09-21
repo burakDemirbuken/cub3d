@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:48:14 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:26:06 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	destroy_anim(void *mlx, t_frame *anim)
 
 static bool	create_frame(t_frame **frame, void *mlx, char *path)
 {
-	if (!the_path_is_valid(path))
-		return (false);
 	*frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!frame)
 		return (perror(ERR_CUB3D), false);
@@ -84,25 +82,7 @@ static bool	set_anim(t_frame **anim, void *mlx, char **paths)
 
 void	set_game_sprites(t_cub3d *game, t_file *file)
 {
-	// this file needs function descriptions
-	// also needs a check for error messages
-	char *door[14];
-	char *door_wall = "./textures/doors_inner_wall.xpm";
-	door[0] = "./textures/door_00.xpm";
-	door[1] = "./textures/door_01.xpm";
-	door[2] = "./textures/door_02.xpm";
-	door[3] = "./textures/door_03.xpm";
-	door[4] = "./textures/door_04.xpm";
-	door[5] = "./textures/door_05.xpm";
-	door[6] = "./textures/door_06.xpm";
-	door[7] = "./textures/door_07.xpm";
-	door[8] = "./textures/door_08.xpm";
-	door[9] = "./textures/door_09.xpm";
-	door[10] = "./textures/door_10.xpm";
-	door[11] = "./textures/door_11.xpm";
-	door[12] = "./textures/door_12.xpm";
-	door[13] = NULL;
-
+	// Needs check for error messages
 	if (!set_anim(&game->images.n, game->mlx, file->no))
 		end_program(game, 1);
 	else if (!set_anim(&game->images.s, game->mlx, file->so))
@@ -111,9 +91,7 @@ void	set_game_sprites(t_cub3d *game, t_file *file)
 		end_program(game, 1);
 	else if (!set_anim(&game->images.e, game->mlx, file->ea))
 		end_program(game, 1);
-	else if (!set_anim(&game->images.door, game->mlx, door))
-		end_program(game, 1);
-	game->images.door_inner_wall = import_image(game->mlx, door_wall);
-	if (!game->images.door_inner_wall.image)
+	game->images.door = import_image(game->mlx, "./textures/door.xpm");
+	if (!game->images.door.image)
 		end_program(game, 1);
 }

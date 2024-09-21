@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/20 20:37:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:08:56 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,18 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 		x -= 1;
 	else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
 		y -= 1;
-	if (game->map.map[y][x] == '2')
+	if (game->map.map[y][x] == DOOR)
 		return ('2');
 	else if (game->map.map[y][x] == '1')
 	{
 		if (v_h == 'v' && M_PI_2 < rad && rad <= MATH_3PI_2)
-			return ('W');
+			return (WEST);
 		else if (v_h == 'v' && !(M_PI_2 < rad && rad <= MATH_3PI_2))
-			return ('E');
+			return (EAST);
 		else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
-			return ('N');
+			return (NORTH);
 		else if (v_h == 'h' && (0 < rad && rad <= M_PI))
-			return ('S');
+			return (SOUTH);
 	}
 	return ('0');
 }
