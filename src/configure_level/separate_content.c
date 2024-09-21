@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:31:08 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 08:17:25 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	set_first_half(t_file *file, char **content)
 
 	i = -1;
 	count = 6;
+	map_start = 0;
 	while (count)
 		flag[--count] = 0;
 	while (content[++i])

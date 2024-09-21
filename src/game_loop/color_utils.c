@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 17:17:27 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 14:55:42 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 08:13:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_color	hex_to_color(unsigned int hex)
 }
 
 // It dims the given color by the given ratio.
-t_color inline	blackout(t_color color, double ratio)
+t_color	blackout(t_color color, double ratio)
 {
 	double	intensity;
 

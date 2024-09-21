@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   key_mouse_hooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:54:17 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 10:11:17 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 #ifdef __linux__
-# include "../../includes/minilibx_linux/mlx.h"
+# include "../includes/minilibx_linux/mlx.h"
 #elif __APPLE__ || __MACH__
-# include "../../includes/minilibx/mlx.h"
+# include "../includes/minilibx/mlx.h"
 #endif
 #include <stdlib.h>
 #include <math.h>
@@ -64,7 +64,7 @@ int	key_up(int keycode, t_cub3d *game)
 	return (0);
 }
 
-int	mouse_left(int x, int y, t_cub3d *game)
+static void	mouse_left(int x, int y, t_cub3d *game)
 {
 	t_ray	ray;
 
@@ -90,7 +90,7 @@ int	mouse_left(int x, int y, t_cub3d *game)
 		game->map.map[y][x] = '0';
 }
 
-int	mouse_right(int x, int y, t_cub3d *game)
+static void	mouse_right(int x, int y, t_cub3d *game)
 {
 	t_ray	ray;
 
@@ -109,8 +109,6 @@ int	mouse_right(int x, int y, t_cub3d *game)
 
 int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 {
-	t_ray	ray;
-
 	if (keycode == 3)
 	{
 		game->mouse_control = !game->mouse_control;
@@ -119,9 +117,9 @@ int	mouse_hook(int keycode, int x, int y, t_cub3d *game)
 		else
 			mlx_mouse_show();
 	}
-	if (keycode == 2)
+	else if (keycode == 2)
 		mouse_right(x, y, game);
-	if (keycode == 1)
+	else if (keycode == 1)
 		mouse_left(x, y, game);
 	return (0);
 }

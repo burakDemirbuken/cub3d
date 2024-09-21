@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/20 15:52:03 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 09:35:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,36 +26,46 @@
  *	double fmod(double, double)
  */
 
-static void	print_wall(t_cub3d *game, t_image image, double wall_size, int ray_index, double x, double wall_top)
+static unsigned int	darken_pix_color(t_image image, double x, double y,
+						double shadow)
+{
+	t_color	color;
+
+	color = hex_to_color(get_pixel_color(image, x, y));
+	color = blackout(color, shadow);
+	return (color.hex);
+}
+
+static void	print_slice(t_cub3d *game, t_image img, int x, double pix_x)
 {
 	int		i;
-	t_color	color;
 	double	ratio;
-	double	ratio_color;
+	double	shadow;
+	double	slice_size;
+	double	slice_top;
 
+	slice_size = (WINDOWS_HEIGHT / game->rays[x].dis) * WALL_SIZE;
+	slice_size = fmin(slice_size, 15000);
+	slice_top = (WINDOWS_HEIGHT - slice_size) / 2;
+	ratio = img.height / slice_size;
+	shadow = game->rays[x].dis / 420;
 	i = -1;
-	ratio = image.height / wall_size;
-	ratio_color = game->rays[ray_index].dis / 420;
-	while (++i < wall_size)
+	while (++i < slice_size)
 	{
-		if (WINDOWS_HEIGHT > wall_top + i && wall_top + i >= 0
-			&& WINDOWS_WIDTH > ray_index && ray_index >= 0)
+		if (WINDOWS_HEIGHT > slice_top + i && slice_top + i >= 0
+			&& WINDOWS_WIDTH > x && x >= 0)
 		{
 			if (game->shadow)
-			{
-				color = hex_to_color(get_pixel_color(image, x, i * ratio));
-				color = blackout(color, ratio_color);
-				put_pixel_to_image(game->images.background, ray_index,
-					wall_top + i, color.hex);
-			}
+				put_pixel_to_image(game->images.background, x, slice_top + i,
+					darken_pix_color(img, pix_x, i * ratio, shadow));
 			else
-				put_pixel_to_image(game->images.background, ray_index,
-					wall_top + i, get_pixel_color(image, x, i * ratio));
+				put_pixel_to_image(game->images.background, x, slice_top + i,
+					get_pixel_color(img, pix_x, i * ratio));
 		}
 	}
 }
 
-static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
+static t_image	which_image(t_cub3d *game, double *pix_x, t_ray ray)
 {
 	t_image	image;
 
@@ -67,7 +77,7 @@ static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 			image = game->images.e->texture;
 		else
 			image = game->images.w->texture;
-		*x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
+		*pix_x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
 	}
 	else
 	{
@@ -77,7 +87,7 @@ static t_image	which_image(t_cub3d *game, double *x, t_ray ray)
 			image = game->images.n->texture;
 		else
 			image = game->images.s->texture;
-		*x = fmod(ray.pos.x, REC_WIDTH) * image.width / REC_WIDTH;
+		*pix_x = fmod(ray.pos.x, REC_WIDTH) * image.width / REC_WIDTH;
 	}
 	return (image);
 }
@@ -95,26 +105,17 @@ static void	set_relative_ray_angle(t_ray *ray, double player_angle)
 
 void	render_scene(t_cub3d *game)
 {
-	double	wall_size;
 	int		i;
-	int		wall_top;
-	double	x;
-	double	a;
+	double	pix_x;
 	t_image	image;
 
 	i = 0;
-	a = 0;
 	while (i < RAY_COUNT)
 	{
 		set_relative_ray_angle(&game->rays[i], game->player.angle);
 		ray_caster(game, &game->rays[i]);
-		wall_size = (WINDOWS_HEIGHT / game->rays[i].dis);
-		if (wall_size > 100)
-			wall_size = 100;
-		wall_size *= WALL_SIZE;
-		wall_top = (WINDOWS_HEIGHT - wall_size) / 2;
-		image = which_image(game, &x, game->rays[i]);
-		print_wall(game, image, wall_size, i, x, wall_top);
+		image = which_image(game, &pix_x, game->rays[i]);
+		print_slice(game, image, i, pix_x);
 		i++;
 	}
 }
