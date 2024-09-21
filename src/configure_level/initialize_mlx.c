@@ -6,17 +6,13 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:31:21 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:58:50 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "../../includes/libft/libft.h"
-#ifdef __linux__
-# include "../includes/minilibx_linux/mlx.h"
-#elif __APPLE__ || __MACH__
-# include "../includes/minilibx/mlx.h"
-#endif
+#include "../includes/minilibx/mlx.h"
 
 static t_image	create_new_image(void *mlx, int width, int height)
 {

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:10:35 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:59:15 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,6 @@
 // ☃
 
 /* ------------------------------ KEYCODES ---------------------------------- */
-# ifdef __linux__
-
-#  define KEY_W		119
-#  define KEY_A		97
-#  define KEY_S		115
-#  define KEY_D		100
-#  define KEY_ESC	65307
-#  define KEY_LEFT	65361
-#  define KEY_RIGHT	65363
-#  define KEY_C		99
-#  define KEY_G		42
-#  define KEY_H		43
-// define M for mouse
-// define N for hide mouse
-// define Q for object interaction
-
-# elif __APPLE__ || __MACH__
 
 #  define KEY_W		13
 #  define KEY_A		0
@@ -48,7 +31,6 @@
 #  define KEY_M		46
 #  define KEY_N		45
 #  define KEY_Q		12
-# endif
 
 /* ----------------------------- MATH DEFINES ------------------------------  */
 
@@ -78,6 +60,8 @@
 # define WEST		'W'
 # define EAST		'E'
 # define DOOR		'2'
+# define WALL		'1'
+# define EMPTY		'0'
 
 /* -------------------------------- OTHER ----------------------------------- */
 # define WINDOWS_WIDTH	1920
@@ -98,12 +82,15 @@
 # define PERSPECTIVE	60.0f
 # define RAY_COUNT		1920
 
-# define BUFFER_SIZE	13
-
 # include <stdbool.h>
-# include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= STRUCTS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+typedef struct s_int_vec2
+{
+	int	x;
+	int	y;
+}	t_int_vec2;
 
 typedef struct s_vec2
 {
@@ -208,6 +195,7 @@ typedef struct s_cub3d
 	int			track_door[2];
 	long double	door_time;
 	long double	second;
+	long double	frame_second;
 }	t_cub3d;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SOURCE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
@@ -215,7 +203,7 @@ typedef struct s_cub3d
 // main.c
 void			end_program(t_cub3d *game, int e);
 
-//*	key_hook.c
+//*	key_mouse_hooks.c
 int				key_down(int keycode, t_cub3d *game);
 int				key_up(int keycode, t_cub3d *game);
 int				mouse_hook(int keycode, int x, int y, t_cub3d *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 09:35:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 11:48:24 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ static void	set_relative_ray_angle(t_ray *ray, double player_angle)
 	ray->relat_angle = ray->persp_angle + player_angle;
 	if (ray->relat_angle < 0)
 		ray->relat_angle += MATH_2PI;
-	if (ray->relat_angle > MATH_2PI)
+	if (ray->relat_angle >= MATH_2PI)
 		ray->relat_angle -= MATH_2PI;
 	if (fmod(ray->relat_angle, M_PI_2 / 2) == 0)
-		ray->relat_angle += RAD_ANG * 0.000042;
+		ray->relat_angle += RAD_ANG * 0.00042;
 }
 
 void	render_scene(t_cub3d *game)

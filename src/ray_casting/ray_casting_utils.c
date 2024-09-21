@@ -6,11 +6,12 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 11:08:56 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 11:51:42 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include "../includes/libft/libft.h"
 #include <math.h>
 
 double	distance(t_vec2 point1, t_vec2 point2)
@@ -72,7 +73,6 @@ void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
 		ret->y -= add.y;
 }
 
-//! değişken isimlendirmeleri karmaşık
 char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 {
 	int	y;
@@ -85,8 +85,8 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 	else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
 		y -= 1;
 	if (game->map.map[y][x] == DOOR)
-		return ('2');
-	else if (game->map.map[y][x] == '1')
+		return (DOOR);
+	else if (ft_strchr("1M", game->map.map[y][x]) != 0)
 	{
 		if (v_h == 'v' && M_PI_2 < rad && rad <= MATH_3PI_2)
 			return (WEST);

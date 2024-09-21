@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:11:10 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:58:38 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 // ft_strtrim(char *s, char *set);
 #include <unistd.h>
 // STDERR_FILENO
+#include <stdio.h>
+
 
 // Checks if there is an error in the elements.
 bool	elements_valid(t_file *file, bool no_map, int count, int *flag)

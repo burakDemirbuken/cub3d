@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:57:54 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:58:31 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 #include <unistd.h>
 // STDERR_FILENO
+#include <stdio.h>
+
 
 static char	*empty_line(int width)
 {

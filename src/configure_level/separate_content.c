@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:32:39 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:58:44 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 // ft_split(const char *s, char c);
 #include <unistd.h>
 // STDERR_FILENO
+#include <stdio.h>
+
 
 // Sets the elements that are not the map.
 // Returns the index of the first map element.

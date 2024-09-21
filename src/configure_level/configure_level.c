@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:28:42 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:57:35 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <unistd.h>
 // STDERR_FILENO
 #include <stdlib.h>
+#include <stdio.h>
 
 void	free_file(t_file *file)
 {
@@ -71,6 +72,7 @@ static void	process_data(t_cub3d *game, t_file *file)
 		free_file(file);
 		exit(1);
 	}
+	game->frame_second = my_system_time();
 	game->floor = file->f;
 	game->ceiling = file->c;
 	set_game_sprites(game, file);
