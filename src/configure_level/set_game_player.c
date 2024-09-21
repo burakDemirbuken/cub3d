@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 12:22:05 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 15:50:45 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:44:46 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+/*
+ *	typedef struct s_cub3d t_cub3d
+ *	# define NORTH		'N'
+ *	# define SOUTH		'S'
+ *	# define WEST		'W'
+ *	# define EAST		'E'
+ *	# define REC_HEIGHT	100
+ *	# define REC_WIDTH	100
+ */
 #include "../../includes/libft/libft.h"
+/*
+ *	char *ft_strchr(const char *s, int c)
+ */
 #include <math.h>
+/*
+ *	M_PI_2	1.57079632679489661923132169163975144
+ *	M_PI 	3.14159265358979323846264338327950288
+ */
 
 static void	set_player_angle(t_cub3d *game, int i, int j)
 {

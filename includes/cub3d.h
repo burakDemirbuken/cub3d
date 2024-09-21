@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:59:15 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:26:36 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 /* ----------------------------- ERROR MESSAGES ----------------------------- */
 
 # define ERR_CUB3D	"cub3D"
-# define ERR_NOMAP	"cub3D: There is no map\n"
+# define ERR_NOMAP	"cub3D: Invalid input\n"
 # define ERR_MUNDEF	"cub3D: Map has undefined elements\n"
 # define ERR_NOWALL	"cub3D: Map must be surrounded by walls\n"
 # define ERR_MSMALL	"cub3D: Map is too small\n"
@@ -217,6 +217,8 @@ void			free_file(t_file *file);
 // file_reading.c
 bool			extension_is_cub(char *file_name);
 char			*read_file(int fd);
+bool			the_path_is_valid(char *path);
+
 
 // initialize_mlx.c
 bool			initialize_mlx(t_cub3d *game);

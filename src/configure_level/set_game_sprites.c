@@ -3,21 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_sprites.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:22 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 21:44:56 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-// typedef t_cub3d
-// typedef t_file
-#include "../../includes/libft/libft.h"
-#include <stdlib.h>
-#include "../../includes/minilibx/mlx.h"
-#include <stdio.h>
+/*
+ *	typedef struct s_image t_image
+ *	typedef struct s_frame t_frame
+ *	ERR_CUB3D "cub3D"
+ *	void	free_file(t_file *file)
+ *	bool	the_path_is_valid(char *path)
+ *	void	end_program(t_cub3d *game, int e)
+ *	#include <stdbool.h>
+ 	-	#define bool _Bool
+ 	-	#define true 1
+ 	-	#define false 0
 
+ */
+#include "../../includes/libft/libft.h"
+/*
+ *	#include <stdlib.h>
+	-	void	free(void *)
+	-	void	*malloc(size_t __size)
+
+ */
+#include <stdlib.h>
+/*
+ *	void	perror(const char *)
+ */
+#include "../../includes/minilibx/mlx.h"
+/*
+ *	char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
+ 									int *size_line, int *endian)
+ *	void	*mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width,
+ 									int *height)
+ *	int mlx_destroy_image(void *mlx_ptr, void *img_ptr)
+ */
+#include <stdio.h>
 
 static t_image	import_image(void *mlx, char *path)
 {
@@ -48,6 +74,8 @@ void	destroy_anim(void *mlx, t_frame *anim)
 
 static bool	create_frame(t_frame **frame, void *mlx, char *path)
 {
+	if (!the_path_is_valid(path))
+		return (false);
 	*frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!frame)
 		return (perror(ERR_CUB3D), false);
@@ -86,7 +114,6 @@ static bool	set_anim(t_frame **anim, void *mlx, char **paths)
 void	set_game_sprites(t_cub3d *game, t_file *file)
 {
 	// Needs check for error messages
-	// Needs to checck for paths too
 	if (!set_anim(&game->images.n, game->mlx, file->no))
 		return (free_file(file), end_program(game, 1));
 	else if (!set_anim(&game->images.s, game->mlx, file->so))

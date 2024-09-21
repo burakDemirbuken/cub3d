@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   set_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:38 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 20:38:14 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+// rgb_to_color(int r, int g, int b)
+// <stdbool.h>
+// |-->	bool _Bool
+// |-->	true
+// |--> false
 // typedef t_file
 // typedef t_color
 #include "../includes/libft/libft.h"
@@ -19,10 +24,12 @@
 // ft_putstr_fd(const char *s, int fd);
 // ft_atoi(const char *str);
 // ft_strtrim(char *s, char *set);
+// ft_split(const char *s, char c)
+// ft_strncmp(const char *s1, const char *s2, size_t n)
 #include <unistd.h>
 // STDERR_FILENO
 #include <stdio.h>
-
+// perror(const char *)
 
 // Checks if there is an error in the elements.
 bool	elements_valid(t_file *file, bool no_map, int count, int *flag)

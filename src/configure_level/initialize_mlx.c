@@ -3,16 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_mlx.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:06:12 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:50 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:24:24 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+/*
+ *	# include <stdbool.h>
+	- 
+ *	typedef struct s_image t_image
+ *
+ */
 #include "../../includes/libft/libft.h"
+/*
+ *	void	*ft_memset(void *b, int c, size_t len)
+ */
 #include "../includes/minilibx/mlx.h"
+/*
+ *	void	*mlx_init()
+ *	int		mlx_do_key_autorepeatoff(void *mlx_ptr)
+ *	void	*mlx_new_image(void *mlx_ptr, int width, int height)
+ *	int		mlx_destroy_window(void *mlx_ptr, void *win_ptr)
+ *	char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
+ 				int *size_line, int *endian)
+ */
 
 static t_image	create_new_image(void *mlx, int width, int height)
 {

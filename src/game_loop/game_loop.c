@@ -3,19 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:12 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 21:15:04 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+/*
+ *	typedef struct s_cub3d t_cub3d
+ *	void	update_player_status(t_cub3d *game)
+ *	void	paint_floor_ceiling(t_cub3d *game)
+ *	void	track_door(t_cub3d *game)
+ *	void	render_scene(t_cub3d *game)
+ *	void	mini_map(t_cub3d *game)
+ */
 #include "../../includes/minilibx/mlx.h"
+/*
+ *	int	mlx_put_image_to_window(void *mlx_ptr, void *win_ptr,
+ 									void *img_ptr, int x, int y)
+ *	int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y,
+ 									int color, char *string)
+ */
 #include "libft/libft.h"
+/*
+ *	size_t ft_strlcpy(char *dest, const char *src, size_t dstsize)
+ */
 #include <sys/time.h>
-#include <unistd.h>
-#include <stdio.h>
+/*
+ *	struct timeval
+ *	int gettimeofday(struct timeval *__restrict__, void *__restrict__)
+ */
 
 long double	my_system_time(void)
 {
@@ -26,6 +45,7 @@ long double	my_system_time(void)
 	return ((long double)time_value.tv_sec
 		+ ((long double)time_value.tv_usec / 1000000.0));
 }
+
 void	next_frame(t_cub3d *game)
 {
 	if (!(my_system_time() - game->frame_second > 0.1))
@@ -37,20 +57,30 @@ void	next_frame(t_cub3d *game)
 	game->frame_second = my_system_time();
 }
 
-int	game_loop(t_cub3d	*game)
+void	get_fps(t_cub3d *game, char *fps)
 {
 	long double	start;
-	char		fps[12];
+	int			fps_value;
+
+	start = my_system_time();
+	ft_strlcpy(fps, "FPS: ", 6);
+	fps_value = (int)(1 / (start - game->second));
+	fps[5] = (fps_value / 10) + '0';
+	fps[6] = (fps_value % 10) + '0';
+	fps[7] = 0;
+	game->second = start;
+}
+
+int	game_loop(t_cub3d	*game)
+{
+	char	fps[8];
 
 	update_player_status(game);
 	paint_floor_ceiling(game);
 	track_door(game);
 	render_scene(game);
 	mini_map(game);
-	start = my_system_time();
-	// sprintf needs to go?
-	sprintf(fps, "FPS: %.2Lf", 1 / (start - game->second));
-	game->second = start;
+	get_fps(game, fps);
 	next_frame(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image,
 		0, 0);

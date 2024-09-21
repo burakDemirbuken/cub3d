@@ -3,22 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:31 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:42:24 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 // typedef t_cub3d
 // typedef t_file
+// ERR_CUB3D "cub3D"
+// free_file(t_file *file)
 #include "../includes/libft/libft.h"
-
+// ft_calloc(size_t count, size_t size)
+// ft_strfree(char **a)
+// ft_memcpy(void *dst, const void *src, size_t n)
+// ft_putstr_fd(char *s, int fd)
+// ft_strlen(const char *s)
+// <stdlib.h>
+// |-->	exit(int)
 #include <unistd.h>
 // STDERR_FILENO
 #include <stdio.h>
-
+// perror(const char *)
 
 static char	*empty_line(int width)
 {

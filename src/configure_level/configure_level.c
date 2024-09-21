@@ -3,28 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   configure_level.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:57:35 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:17:47 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 // typedef t_file
 // typedef t_cub3d
+// ERR_CUB3D "cub3D"
 // extension_is_cub(char *file_name);
 // read_file(char *file_name);
+// set_game_map(t_cub3d *game, t_file *file)
+// set_game_player(t_cub3d *game)
 // seperate_content(char *content);
+// my_system_time(void)
+// set_game_sprites(t_cub3d *game, t_file *file)
 #include "../includes/libft/libft.h"
 // ft_strfree(char *str);
 #include <fcntl.h>
 // O_RDONLY
 // open(const char *pathname, int flags);
 #include <unistd.h>
-// STDERR_FILENO
+// close(int)
 #include <stdlib.h>
+// exit(int)
 #include <stdio.h>
+// perror(const char *)
 
 void	free_file(t_file *file)
 {

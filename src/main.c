@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 15:57:41 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 17:13:05 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 void	end_program(t_cub3d *game, int e)
 {
 	if (game->map.map)
-		free(game->map.map);
+		ft_strfree(game->map.map);
 	if (game->images.background.image)
 		mlx_destroy_image(game->mlx, game->images.background.image);
 	if (game->images.door.image)

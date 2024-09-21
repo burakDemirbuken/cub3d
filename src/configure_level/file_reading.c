@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reading.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:58 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 21:13:59 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 // ft_putstr_fd(char *str, int fd);
 // ft_strdup(char *str);
 // ft_strjoin(char *str1, char *str2);
-// get_next_line(int fd, char **line);
 #include "../../includes/cub3d.h"
 // <stdbool.h>
+// |-->	bool _Bool
 #include <fcntl.h>
 // O_RDONLY
 // open(const char *pathname, int flags);
 #include <unistd.h>
 // STDERR_FILENO
-// read(int fd, void *buf, size_t count);
 #include <stdio.h>
+// perror(const char *)
 
-
-// Checks the file extension. Returns 1 if it is .cub.
-// Otherwise, prints an error message and returns 0.
 bool	extension_is_cub(char *file_name)
 {
 	int	len;
@@ -40,8 +37,17 @@ bool	extension_is_cub(char *file_name)
 	return (true);
 }
 
-// Reads the file into a single line.
-// Prints an arror message and returns NULL if an error occurs.
+bool	the_path_is_valid(char *path)
+{
+	int		fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (perror(ERR_CUB3D), false);
+	close(fd);
+	return (true);
+}
+
 char	*read_file(int fd)
 {
 	int		bytes;
