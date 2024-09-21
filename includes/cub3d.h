@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 10:19:48 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 12:23:15 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@
 # define WEST		'W'
 # define EAST		'E'
 # define DOOR		'2'
+# define WALL		'1'
+# define EMPTY		'0'
 
 /* -------------------------------- OTHER ----------------------------------- */
 # define WINDOWS_WIDTH	1920
@@ -104,6 +106,12 @@
 # include <stdio.h>//////////////!!!!!!!!!!!!!!!!!!!!!!!!
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= STRUCTS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+typedef struct s_int_vec2
+{
+	int	x;
+	int	y;
+}	t_int_vec2;
 
 typedef struct s_vec2
 {
