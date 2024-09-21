@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_status.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/17 17:54:30 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 20:50:16 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,45 @@
  *	double fabs(double)
  */
 
+static inline t_vec2	collision(t_cub3d *game, t_vec2 pos)
+{
+	double	offset;
+	int		x;
+	int		y;
+
+	x = (int)(pos.x / REC_WIDTH);
+	y = (int)(pos.y / REC_HEIGHT);
+	if (game->player.pos.x < pos.x && game->map.map[y][x + 1] != '0')
+	{
+		offset = get_offset(pos, 0.0, 'v');
+		if (offset < 20)
+			pos.x -= 20 - offset;
+	}
+	else if (game->player.pos.x >= pos.x && game->map.map[y][x - 1] != '0')
+	{
+		offset = get_offset(pos, M_PI, 'v');
+		if (offset < 20)
+			pos.x += 20 - offset;
+	}
+	if (game->player.pos.y < pos.y && game->map.map[y + 1][x] != '0')
+	{
+		offset = get_offset(pos, M_PI_2, 'h');
+		if (offset < 20)
+			pos.y -= 20 - offset;
+	}
+	else if (game->player.pos.y >= pos.y && game->map.map[y - 1][x] != '0')
+	{
+		offset = get_offset(pos, MATH_3PI_2, 'h');
+		if (offset < 20)
+			pos.y += 20 - offset;
+	}
+	return (pos);
+}
+
 static void	player_move(t_cub3d *game, bool key, double rad)
 {
 	t_vec2	new_pos;
 	t_ray	ray;
-	double	difference;
 
 	if (key)
 	{
@@ -53,28 +87,17 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 			rad -= MATH_2PI;
 		if (fmod(rad, M_PI_2) == 0)
 			rad += 0.0000042;
-		new_pos.x += cos(rad) * MOVE_SPEED;
-		new_pos.y += sin(rad) * MOVE_SPEED;
 		ray.relat_angle = rad;
 		ray_caster(game, &ray);
 		if (ray.dis <= MOVE_SPEED)
-		{
-			difference = 10;
-			if (ray.dis < 10 && ray.v_h == 'v')
-				difference = fabs(game->player.pos.x - ray.pos.x);
-			else if (ray.dis < 10)
-				difference = fabs(game->player.pos.y - ray.pos.y);
-			if (ray.v_h == 'v' && game->player.pos.x < ray.pos.x)
-				ray.pos.x -= difference;
-			else if (ray.v_h == 'v')
-				ray.pos.x += difference;
-			if (ray.v_h != 'v' && game->player.pos.y < ray.pos.y)
-				ray.pos.y -= difference;
-			else if (ray.v_h != 'v')
-				ray.pos.y += difference;
-			game->player.pos = ray.pos;
-		}
+			new_pos = ray.pos;
 		else
+		{
+			new_pos.x += cos(rad) * MOVE_SPEED;
+			new_pos.y += sin(rad) * MOVE_SPEED;
+		}
+		new_pos = collision(game, new_pos);
+		if (game->map.map[(int)(new_pos.y / REC_HEIGHT)][(int)(new_pos.x / REC_HEIGHT)] == '0')
 			game->player.pos = new_pos;
 	}
 }

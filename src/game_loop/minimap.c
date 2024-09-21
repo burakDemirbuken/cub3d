@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 20:31:51 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:25:47 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void	mini_map(t_cub3d *game)
 	draw_circle(game, 125, 125, 125);
 	draw_rectangle(game->images.minimap, (game->images.minimap.width / 2) - 1,
 		(game->images.minimap.height / 2) - 1, 3, 3, false, 0x00FF0000);
-	draw_rectangle(game->images.background, WINDOWS_WIDTH / 2 - 2, WINDOWS_HEIGHT / 2 - 2, 5, 5, false, 0x00ffffff);
+	draw_rectangle(game->images.background, WINDOWS_WIDTH / 2 - 2,
+		WINDOWS_HEIGHT / 2 - 2, 5, 5, false, 0x00ffffff);
 }

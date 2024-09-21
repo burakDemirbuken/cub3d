@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 17:17:27 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/08/20 18:25:59 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/20 15:42:47 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_color	hex_to_color(unsigned int hex)
 	return (color);
 }
 
-t_color inline	blackout(t_color color, double ratio)
+t_color	blackout(t_color color, double ratio)
 {
 	double	intensity;
 

@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/19 11:15:21 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:37:06 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ double	get_offset(t_vec2 p_pos, double rad, char v_h)
 {
 	if (v_h == 'h')
 	{
-		if (0.0 < rad && rad < M_PI)
+		if (0.0 < rad && rad <= M_PI)
 			return (REC_HEIGHT - fmod(p_pos.y, REC_HEIGHT));
 		else
 			return (fmod(p_pos.y, REC_HEIGHT));
 	}
 	else if (v_h == 'v')
 	{
-		if (rad > M_PI_2 && rad < MATH_3PI_2)
+		if (M_PI_2 < rad && rad <= MATH_3PI_2)
 			return (fmod(p_pos.x, REC_WIDTH));
 		else
 			return (REC_WIDTH - fmod(p_pos.x, REC_WIDTH));
@@ -75,28 +75,26 @@ void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
 //! değişken isimlendirmeleri karmaşık
 char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 {
-	int		xy[2];
-	int		xy_adjust[2];
+	int	y;
+	int	x;
 
-	xy[0] = (int)point.x / REC_WIDTH;
-	xy[1] = (int)point.y / REC_HEIGHT;
-	xy_adjust[0] = 0;
-	xy_adjust[1] = 0;
+	x = (int)point.x / REC_WIDTH;
+	y = (int)point.y / REC_HEIGHT;
 	if (v_h == 'v' && M_PI_2 < rad && rad <= MATH_3PI_2)
-		xy_adjust[0] = -1;
-	if (v_h == 'h' && !(rad > 0 && rad <= M_PI))
-		xy_adjust[1] = -1;
-	if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] == '2')
+		x -= 1;
+	else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
+		y -= 1;
+	if (game->map.map[y][x] == '2')
 		return ('2');
-	else if (game->map.map[xy[1] + xy_adjust[1]][xy[0] + xy_adjust[0]] != '0')
+	else if (game->map.map[y][x] == '1')
 	{
-		if (v_h == 'v' && xy_adjust[0])
+		if (v_h == 'v' && M_PI_2 < rad && rad <= MATH_3PI_2)
 			return ('W');
-		else if (v_h == 'v' && !xy_adjust[0])
+		else if (v_h == 'v' && !(M_PI_2 < rad && rad <= MATH_3PI_2))
 			return ('E');
-		else if (v_h == 'h' && xy_adjust[1])
+		else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
 			return ('N');
-		else if (v_h == 'h' && !xy_adjust[1])
+		else if (v_h == 'h' && (0 < rad && rad <= M_PI))
 			return ('S');
 	}
 	return ('0');
