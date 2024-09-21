@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:22:17 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:51:58 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 // typedef t_file
 #include "../../includes/libft/libft.h"
 #include <stdlib.h>
-#ifdef __linux__
-# include "../../includes/minilibx_linux/mlx.h"
-#elif __APPLE__ || __MACH__
-# include "../../includes/minilibx/mlx.h"
-#endif
+#include "../../includes/minilibx/mlx.h"
+#include <stdio.h>
+
 
 static t_image	import_image(void *mlx, char *path)
 {
@@ -55,7 +53,12 @@ static bool	create_frame(t_frame **frame, void *mlx, char *path)
 		return (perror(ERR_CUB3D), false);
 	(*frame)->texture = import_image(mlx, path);
 	if (!(*frame)->texture.image)
-		return (perror(ERR_CUB3D), false);
+	{
+		free(*frame);
+		*frame = NULL;
+		perror(ERR_CUB3D);
+		return (false);
+	}
 	return (true);
 }
 

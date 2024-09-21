@@ -6,17 +6,13 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 14:22:27 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:22:22 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 #include "../includes/libft/libft.h"
-#ifdef __linux__
-# include "../includes/minilibx_linux/mlx.h"
-#elif __APPLE__ || __MACH__
-# include "../includes/minilibx/mlx.h"
-#endif
+#include "../includes/minilibx/mlx.h"
 #include <stdlib.h>
 #include <unistd.h>
 // STDERR_FILENO

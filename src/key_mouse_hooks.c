@@ -6,18 +6,15 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:22:29 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:32:31 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#ifdef __linux__
-# include "../includes/minilibx_linux/mlx.h"
-#elif __APPLE__ || __MACH__
-# include "../includes/minilibx/mlx.h"
-#endif
+#include "../includes/minilibx/mlx.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 int	key_down(int keycode, t_cub3d *game)
 {

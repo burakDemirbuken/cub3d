@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:31:56 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:33:18 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 // ft_strtrim(char *s, char *set);
 #include <unistd.h>
 // STDERR_FILENO
+#include <stdio.h>
+
 
 // Checks if there is an error in the elements.
 int	elements_valid(t_file *file, bool no_map, int count, int *flag)

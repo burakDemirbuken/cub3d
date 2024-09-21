@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reading.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:26:16 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:33:05 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <unistd.h>
 // STDERR_FILENO
 // read(int fd, void *buf, size_t count);
+#include <stdio.h>
+
 
 // Checks the file extension. Returns 1 if it is .cub.
 // Otherwise, prints an error message and returns 0.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:24:38 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:33:24 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 #include <unistd.h>
 // STDERR_FILENO
+#include <stdio.h>
+
 
 static char	*empty_line(int width)
 {
