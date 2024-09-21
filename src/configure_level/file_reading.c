@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:00:31 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:26:16 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:56:51 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*read_file(int fd)
 		tmp = ft_strjoin(line, buffer);
 		free(line);
 		if (tmp == NULL)
-			return (NULL);
+			return (perror(ERR_CUB3D), NULL);
 		line = tmp;
 	}
 	return (line);

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:31:56 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:11:10 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@
 // STDERR_FILENO
 
 // Checks if there is an error in the elements.
-int	elements_valid(t_file *file, bool no_map, int count, int *flag)
+bool	elements_valid(t_file *file, bool no_map, int count, int *flag)
 {
 	if (count != 6)
-		return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
+		return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), false);
 	if (no_map)
-		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), 0);
+		return (ft_putstr_fd(ERR_NOMAP, STDERR_FILENO), false);
 	while (count--)
 		if (flag[count] != 1)
-			return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), 0);
+			return (ft_putstr_fd(ERR_ELMNUM, STDERR_FILENO), false);
 	if (!file->no || !file->no[0] || !file->so || !file->so[0]
 		|| !file->we || !file->we[0] || !file->ea || !file->ea[0])
-		return (ft_putstr_fd(ERR_ELMISS, STDERR_FILENO), 0);
-	return (1);
+		return (ft_putstr_fd(ERR_ELMISS, STDERR_FILENO), false);
+	return (true);
 }
 
 // Sets file->f and file->c colors.
@@ -44,8 +44,6 @@ static bool	set_color(char *content, t_color *color)
 	char	**rgb;
 	int		colors[3];
 
-	if (!content)
-		return (perror(ERR_CUB3D), true);
 	rgb = ft_split(content, ',');
 	if (!rgb)
 		return (perror(ERR_CUB3D), true);
@@ -60,7 +58,6 @@ static bool	set_color(char *content, t_color *color)
 			&& (colors[2] >= 0 && colors[2] < 256)))
 		return (ft_putstr_fd(ERR_COLINV, STDERR_FILENO), true);
 	*color = rgb_to_color(colors[0], colors[1], colors[2]);
-	free(content);
 	return (false);
 }
 
@@ -76,7 +73,7 @@ static bool	set_texture_paths(char *content, char ***texture)
 
 // Sets an element that isn't the map.
 // Returns 1 if there is an error.
-int	set_elements(char *content, t_file *file, int *flag)
+bool	set_elements(char *content, t_file *file, int *flag)
 {
 	if (!ft_strncmp(content, "NO", 2))
 		return (flag[0]++, set_texture_paths(content + 2, &(file->no)));
@@ -87,8 +84,8 @@ int	set_elements(char *content, t_file *file, int *flag)
 	else if (!ft_strncmp(content, "EA", 2))
 		return (flag[3]++, set_texture_paths(content + 2, &(file->ea)));
 	else if (content[0] == 'F')
-		return (flag[4]++, set_color(ft_strtrim(content + 1, " "), &(file->f)));
+		return (flag[4]++, set_color(content + 1, &(file->f)));
 	else if (content[0] == 'C')
-		return (flag[5]++, set_color(ft_strtrim(content + 1, " "), &(file->c)));
-	return (0);
+		return (flag[5]++, set_color(content + 1, &(file->c)));
+	return (true);
 }

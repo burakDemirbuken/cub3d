@@ -1,7 +1,7 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3 -I includes/
+CFLAGS = -g -Wall -Wextra -Werror -O3 -I includes/
 # 03 flag
 UNAME_S = $(shell uname -s)
 

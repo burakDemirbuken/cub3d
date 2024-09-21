@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 11:06:13 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:26:27 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	end_program(t_cub3d *game, int e)
 		free(game->map.map);
 	if (game->images.background.image)
 		mlx_destroy_image(game->mlx, game->images.background.image);
+	if (game->images.door.image)
+		mlx_destroy_image(game->mlx, game->images.door.image);
+	if (game->images.minimap.image)
+		mlx_destroy_image(game->mlx, game->images.minimap.image);
 	if (game->images.n)
 		destroy_anim(game->mlx, game->images.n);
 	if (game->images.e)
@@ -39,9 +43,13 @@ void	end_program(t_cub3d *game, int e)
 		destroy_anim(game->mlx, game->images.w);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-		free(game->mlx);
-	exit (e);
+	exit(e);
+}
+
+int	exit_game(void *var)
+{
+	end_program((t_cub3d *)var, 0);
+	return (0);
 }
 
 //! çarpıya basıldığında düzgün bir şekilde kapatılması.
@@ -57,6 +65,7 @@ int	main(int ac, char **av)
 		mlx_hook(game.win, 3, 1L << 0, key_up, &game);
 		mlx_hook(game.win, 2, 1L << 1, key_down, &game);
 		mlx_hook(game.win, 4, 1L << 2, mouse_hook, &game);
+		mlx_hook(game.win, 17, 0, exit_game, &game);
 		mlx_loop_hook(game.mlx, game_loop, &game);
 		mlx_loop(game.mlx);
 		return (0);

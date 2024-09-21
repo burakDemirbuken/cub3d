@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/20 17:24:38 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:57:54 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static char	**copy_game_map(t_file *file)
 	if (!map)
 		return (perror(ERR_CUB3D), free_file(file), exit(1), NULL);
 	map[0] = empty_line(file->map_width + 2);
-	map[file->map_height + 1] = empty_line(file->map_width + 2);
-	map[file->map_height + 2] = NULL;
+	if (map[0] == NULL)
+		return (free(map), free_file(file), exit(1), NULL);
 	i = -1;
 	while (file->map[++i])
 	{
@@ -49,6 +49,10 @@ static char	**copy_game_map(t_file *file)
 			return (ft_strfree(map), free_file(file), exit(1), NULL);
 		ft_memcpy(map[i + 1] + 1, file->map[i], ft_strlen(file->map[i]));
 	}
+	map[file->map_height + 1] = empty_line(file->map_width + 2);
+	if (map[file->map_height + 1] == NULL)
+		return (ft_strfree(map), free_file(file), exit(1), NULL);
+	map[file->map_height + 2] = NULL;
 	return (map);
 }
 

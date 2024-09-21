@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:49:25 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/08/20 18:16:57 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:51:52 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_strfree(char **a)
 	int	i;
 
 	i = 0;
+	if (!a)
+		return ;
 	while (a[i])
 	{
 		free(a[i]);

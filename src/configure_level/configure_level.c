@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:42:49 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:28:42 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ static void	process_data(t_cub3d *game, t_file *file)
 {
 	set_game_map(game, file);
 	set_game_player(game);
-	initialize_mlx(game);
+	if (!initialize_mlx(game))
+	{
+		ft_strfree(game->map.map);
+		free_file(file);
+		exit(1);
+	}
 	game->floor = file->f;
 	game->ceiling = file->c;
 	set_game_sprites(game, file);

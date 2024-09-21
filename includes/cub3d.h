@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 10:19:48 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:10:35 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,8 @@ bool			initialize_mlx(t_cub3d *game);
 t_file			separate_content(char *f_line);
 
 // set_elements.c
-int				set_elements(char *content, t_file *file, int *flag);
-int				elements_valid(t_file *file, bool no_map, int count, int *flag);
+bool			set_elements(char *content, t_file *file, int *flag);
+bool			elements_valid(t_file *file, bool no_map, int count, int *flag);
 
 // set_game_map.c
 void			set_game_map(t_cub3d *game, t_file *file);

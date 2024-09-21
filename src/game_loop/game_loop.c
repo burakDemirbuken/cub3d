@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 22:45:06 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 09:57:55 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 11:51:07 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	game_loop(t_cub3d	*game)
 	mlx_put_image_to_window(game->mlx, game->win, game->images.background.image,
 		0, 0);
 	mlx_put_image_to_window(game->mlx, game->win, game->images.minimap.image,
-		25, 25); // minimap olarak değiştirilecek
+		25, 25);
 	mlx_string_put(game->mlx, game->win, 10, 10, 0xFFFFFF, a);
 	return (0);
 }

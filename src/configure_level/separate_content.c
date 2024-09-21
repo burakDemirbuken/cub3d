@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 08:17:25 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:32:39 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,16 @@ static bool	set_map_half(t_file *file, char **content, int map_start)
 
 	count = inspect_map(file, content + map_start);
 	if (count == -1)
-		return (ft_strfree(content), free_file(file), exit(1), 1);
+		return (ft_strfree(content), free_file(file), exit(1), true);
 	if (count != 1)
 		return (ft_putstr_fd(ERR_PUNDEF, STDERR_FILENO),
-			ft_strfree(content), free_file(file), exit(1), 1);
+			ft_strfree(content), free_file(file), exit(1), true);
 	if (file->map_height < 3 || file->map_width < 3)
 		return (ft_putstr_fd(ERR_MSMALL, STDERR_FILENO),
-			ft_strfree(content), free_file(file), exit(1), 1);
+			ft_strfree(content), free_file(file), exit(1), true);
 	if (!copy_content_map(file, content + map_start))
-		return (ft_strfree(content), free_file(file), exit(1), 1);
-	return (0);
+		return (ft_strfree(content), free_file(file), exit(1), true);
+	return (false);
 }
 
 // Seperates the file content.
