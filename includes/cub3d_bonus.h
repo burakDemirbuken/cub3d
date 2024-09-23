@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:14:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:21:49 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct s_images
 	t_frame	*w;
 	t_image	door;
 	t_image	background;
+	t_image	minimap;
 }	t_images;
 
 typedef struct s_ray
@@ -182,6 +183,11 @@ typedef struct s_cub3d
 	void		*mlx;
 	void		*win;
 	bool		shadow;
+	bool		mouse_control;
+	int			track_door[2];
+	long double	door_time;
+	long double	second;
+	long double	frame_second;
 }	t_cub3d;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SOURCE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
@@ -230,11 +236,15 @@ void			destroy_anim(void *mlx, t_frame *anim);
 
 // game_loop.c
 int				game_loop(t_cub3d	*game);
+long double		my_system_time(void);
 
 // color_utils.c
 t_color			rgb_to_color(int r, int g, int b);
 t_color			hex_to_color(unsigned int hex);
 t_color			blackout(t_color color, double ratio);
+
+// minimap.c
+void			mini_map(t_cub3d *game);
 
 // paint_floor_ceiling.c
 void			paint_floor_ceiling(t_cub3d *game);
