@@ -6,13 +6,31 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:22:17 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 14:35:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:27:19 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+/*
+ *	typedef struct s_cub3d t_cub3d
+ *	typedef struct s_image t_image
+ *	typedef struct s_int_vec2 t_int_vec2
+ *	#define	WINDOWS_WIDTH	1920
+ *	#define	WINDOWS_HEIGHT	1080
+ *	#define	REC_WIDTH	100
+ *	#define	REC_HEIGHT	100
+ *	#define WALL	'1'
+ *	#define DOOR	'2'
+ *	void	put_pixel_to_image(t_image img, int x, int y, unsigned int color)
+ */
 #include "../../includes/libft/libft.h"
+/*
+ *	char *ft_strchr(const char *s, int c)
+ */
 #include <math.h>
+/*
+ *	double fmod(double, double)
+ */
 
 void	draw_rectangle(t_image img, t_int_vec2 pos, t_int_vec2 dimensions,
 						int color)
@@ -72,12 +90,12 @@ void	place_rectangle(t_cub3d *game, t_int_vec2 pos, t_vec2 offset,
 		&& pos.y < game->map.height
 		&& ft_strchr("0123", game->map.map[pos.y][pos.x]) != NULL)
 	{
-		if (game->map.map[pos.y][pos.x] == '1')
+		if (game->map.map[pos.y][pos.x] == WALL)
 			color = 0x10743224;
-		else if (game->map.map[pos.y][pos.x] == '2')
+		else if (game->map.map[pos.y][pos.x] == DOOR)
 			color = 0x10435231;
 		else if (game->map.map[pos.y][pos.x] == '3')
-			color = 0x10204693;
+			color = 0x1056545;
 		else
 			color = 0x10236412;
 		draw_rectangle(game->images.minimap, (t_int_vec2)

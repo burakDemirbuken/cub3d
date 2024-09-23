@@ -6,19 +6,44 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 17:13:05 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:12:19 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+/*
+ *	#define ERR_NOMAP	"cub3D: Invalid input\n"
+ *	void	destroy_anim(void *mlx, t_frame *anim)
+ *	void	configure_level(t_cub3d *game, char *file_name)
+ *	void	initialize_rays(t_cub3d *game)
+ *	int		key_up(int keycode, t_cub3d *game)
+ *	int		key_down(int keycode, t_cub3d *game)
+ *	int		mouse_hook(int keycode, int x, int y, t_cub3d *game)
+ *	int		game_loop(t_cub3d *game)
+ */
 #include "../includes/libft/libft.h"
+/*
+ *	void	ft_strfree(char **a)
+ *	void	ft_putstr_fd(char *s, int fd)
+ */
 #include "../includes/minilibx/mlx.h"
+/*
+ *	int		mlx_destroy_image(void *mlx_ptr, void *img_ptr)
+ *	void	*ft_memset(void *b, int c, size_t len)
+ *	int		mlx_hook(void *win_ptr, int x_event, int x_mask,
+ 							int (*funct)(), void *param)
+ *	int		mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param)
+ *	int		mlx_loop(void *mlx_ptr)
+ */
 #include <stdlib.h>
+/*
+ *	void	exit(int)
+ */
 #include <unistd.h>
-// STDERR_FILENO
+/*
+ *	#define STDERR_FILENO	2
+ */
 
-// Assumes all error messages were printed before calling this function.
-// Frees all allocated memory and exits the program.
 void	end_program(t_cub3d *game, int e)
 {
 	if (game->map.map)
@@ -48,7 +73,6 @@ int	exit_game(void *var)
 	return (0);
 }
 
-//! çarpıya basıldığında düzgün bir şekilde kapatılması.
 int	main(int ac, char **av)
 {
 	t_cub3d	game;

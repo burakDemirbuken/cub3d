@@ -6,16 +6,43 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 15:22:13 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:08:22 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minilibx/mlx.h"
+/*
+ *	int mlx_mouse_get_pos(void *win_ptr, int *x, int *y)
+ *	int mlx_mouse_move(void *win_ptr, int x, int y)
+ */
 #include "../../includes/libft/libft.h"
+/*
+ *	char *ft_strchr(const char *s, int c)
+ */
 #include "../../includes/cub3d.h"
+/*
+ *	#include <stdbool.h>
+ 	-	#define true 1
+ *	typedef struct s_cub3d t_cub3d
+ *	typedef struct s_vec2 t_vec2
+ *	typedef struct s_ray t_ray
+ *	#define MATH_2PI	6.28318530717958647692528676655900576
+ *	#define MATH_3PI_2	4.71238898038468985769396507491925432
+ *	#define RAD_ANG		0.017453292519943295474371680597869271
+ *	#define WINDOWS_HEIGHT	1080
+ *	#define WINDOWS_WIDTH	1920
+ *	#define MOVE_SPEED	6
+ *	#define REC_WIDTH	100
+ *	#define REC_HEIGHT	100
+ *	double	get_offset(t_vec2 p_pos, double rad, char v_h)
+ */
 #include <math.h>
+/*
+ *	#define M_PI 3.14159265358979323846264338327950288
+ *	#define M_PI_2 1.57079632679489661923132169163975144
+ */
 
-static inline t_vec2	collision(t_cub3d *game, t_vec2 pos)
+static t_vec2	collision(t_cub3d *game, t_vec2 pos)
 {
 	int		x;
 	int		y;
