@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/21 11:48:24 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:25:31 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,28 @@
  *	typedef struct s_image t_image
  *	typedef struct s_color t_color
  *	t_color rgb_to_color(int r, int g, int b)
- *	void put_pixel_to_image(t_image img, int x, int y, unsigned int color)
- *	WINDOWS_WIDTH	1920
- *	WINDOWS_HEIGHT	1080
- *	RAY_COUNT		1920
- *	WALL_SIZE		150
+ *	#define MATH_2PI	6.28318530717958647692528676655900576
+ *	#define RAD_AN		0.017453292519943295474371680597869271
+ *	#define RAY_COUNT		1920
+ *	#define WINDOWS_WIDTH	1920
+ *	#define WINDOWS_HEIGHT	1080
+ *	#define WALL_SIZE		150
+ *	#define REC_HEIGHT	100
+ *	#define REC_WIDTH	100
+ *	#define NORTH	'N'
+ *	#define EAST	'E'
+ *	t_color			hex_to_color(unsigned int hex)
+ *	t_color			blackout(t_color color, double ratio)
+ *	unsigned int	get_pixel_color(t_image img, int x, int y)
+ *	void ray_caster(t_cub3d *game, t_ray *ray)
+ *	void			put_pixel_to_image(t_image img, int x, int y,
+ 										unsigned int color)
 */
 #include <math.h>
 /*
- *	double fmod(double, double)
+ *	double	fmod(double, double)
+ *	double	fmin(double, double)
+ *	# define M_PI_2	1.57079632679489661923132169163975144
  */
 
 static unsigned int	darken_pix_color(t_image image, double x, double y,
@@ -69,26 +82,28 @@ static t_image	which_image(t_cub3d *game, double *pix_x, t_ray ray)
 {
 	t_image	image;
 
-	if (ray.v_h == 'v')
-	{
-		if (ray.hit == DOOR)
-			image = game->images.door;
-		else if (ray.hit == EAST)
-			image = game->images.e->texture;
-		else
-			image = game->images.w->texture;
+	if (ray.hit == DOOR)
+		image = game->images.door;
+	else if (ray.hit == NORTH)
+		image = game->images.n->texture;
+	else if (ray.hit == SOUTH)
+		image = game->images.s->texture;
+	else if (ray.hit == EAST)
+		image = game->images.e->texture;
+	else if (ray.hit == WEST)
+		image = game->images.w->texture;
+	if (ray.v_h == 'v'
+		&& M_PI_2 < ray.relat_angle && ray.relat_angle <= MATH_3PI_2)
+		*pix_x = (REC_WIDTH - fmod(ray.pos.y, REC_HEIGHT))
+			* image.width / REC_HEIGHT;
+	else if (ray.v_h == 'v'
+		&& !(M_PI_2 < ray.relat_angle && ray.relat_angle <= MATH_3PI_2))
 		*pix_x = fmod(ray.pos.y, REC_HEIGHT) * image.width / REC_HEIGHT;
-	}
+	else if (ray.v_h == 'h' && (0 < ray.relat_angle && ray.relat_angle <= M_PI))
+		*pix_x = (REC_WIDTH - fmod(ray.pos.x, REC_WIDTH))
+			* image.width / REC_WIDTH;
 	else
-	{
-		if (ray.hit == DOOR)
-			image = game->images.door;
-		else if (ray.hit == NORTH)
-			image = game->images.n->texture;
-		else
-			image = game->images.s->texture;
 		*pix_x = fmod(ray.pos.x, REC_WIDTH) * image.width / REC_WIDTH;
-	}
 	return (image);
 }
 

@@ -3,18 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   key_mouse_hooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 15:57:47 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:06:43 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+/*
+ *	#include <stdbool.h>
+	-	#define false 0
+ *	typedef struct s_cub3d t_cub3d
+ *	#define KEY_W		13
+ *	#define KEY_A		0
+ *	#define KEY_S		1
+ *	#define KEY_D		2
+ *	#define KEY_ESC		53
+ *	#define KEY_LEFT	123
+ *	#define KEY_RIGHT	124
+ *	#define KEY_G		5
+ *	#define KEY_H		4
+ *	#define RAY_COUNT	1920
+ *	#define REC_WIDTH	100
+ *	#define REC_HEIGHT	100
+ *	#define M_PI_2		1.57079632679489661923132169163975144
+ *	#define MATH_3PI_2	4.71238898038468985769396507491925432
+ *	#define DOOR	'2'
+ *	#define EMPTY	'0'
+ *	#define WALL	'1'
+ *	void		end_program(t_cub3d *game, int e)
+ *	long double	my_system_time(void)
+ */
 #include "../includes/minilibx/mlx.h"
-#include <stdlib.h>
+/*
+ *	int mlx_mouse_hide()
+ *	int mlx_mouse_show()
+ */
 #include <math.h>
+/*
+ *	#define M_PI	3.14159265358979323846264338327950288
+ */
 #include <stdio.h>
+/*
+ *	int printf(const char *__restrict__, ...)
+ */
 
 int	key_down(int keycode, t_cub3d *game)
 {
@@ -66,7 +99,7 @@ static void	mouse_left(int x, int y, t_cub3d *game)
 	t_ray	ray;
 
 	ray = game->rays[(int)(RAY_COUNT / 2)];
-	y = (ray.pos.y / REC_WIDTH);
+	y = (ray.pos.y / REC_HEIGHT);
 	x = (ray.pos.x / REC_WIDTH);
 	if (ray.v_h == 'v' && M_PI_2 < game->player.angle
 		&& game->player.angle <= MATH_3PI_2)
@@ -81,10 +114,10 @@ static void	mouse_left(int x, int y, t_cub3d *game)
 		game->track_door[1] = x;
 		game->door_time = my_system_time();
 	}
-	else if (game->map.map[y][x] == '1' && game->map.map[y + 1][x] != 'M'
+	else if (game->map.map[y][x] == WALL && game->map.map[y + 1][x] != 'M'
 		&& game->map.map[y - 1][x] != 'M' && game->map.map[y][x + 1] != 'M'
 		&& game->map.map[y][x - 1] != 'M')
-		game->map.map[y][x] = '0';
+		game->map.map[y][x] = EMPTY;
 }
 
 static void	mouse_right(int x, int y, t_cub3d *game)
@@ -92,7 +125,7 @@ static void	mouse_right(int x, int y, t_cub3d *game)
 	t_ray	ray;
 
 	ray = game->rays[(int)(RAY_COUNT / 2)];
-	y = (ray.pos.y / REC_WIDTH);
+	y = (ray.pos.y / REC_HEIGHT);
 	x = (ray.pos.x / REC_WIDTH);
 	if (ray.v_h == 'v' && !(M_PI_2 < game->player.angle
 			&& game->player.angle <= MATH_3PI_2))
@@ -100,8 +133,8 @@ static void	mouse_right(int x, int y, t_cub3d *game)
 	else if (ray.v_h == 'h'
 		&& (game->player.angle > 0 && game->player.angle <= M_PI))
 		y -= 1;
-	if (ray.dis > REC_HEIGHT && game->map.map[y][x] == '0')
-		game->map.map[y][x] = '1';
+	if (ray.dis > REC_HEIGHT && game->map.map[y][x] == EMPTY)
+		game->map.map[y][x] = WALL;
 }
 
 int	mouse_hook(int keycode, int x, int y, t_cub3d *game)

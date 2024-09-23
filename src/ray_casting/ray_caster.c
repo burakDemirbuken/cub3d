@@ -11,7 +11,27 @@
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+/*
+ *	#include <stdbool.h>
+	-	#define false 0
+ *	typedef struct s_vec2	t_vec2
+ *	typedef struct s_cub3d	t_cub3d
+ *	#define REC_WIDTH	100
+ *	#define	M_PI_2 1.57079632679489661923132169163975144
+ *	#define	MATH_3PI_2 4.71238898038468985769396507491925432
+ *	double	get_offset(t_vec2 p_pos, double rad, char v_h)
+ *	void	ret_add(t_vec2 *ret, t_vec2 add, double rad)
+ *	bool	inside_map(t_cub3d *game, t_vec2 ret)
+ *	char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
+ *	double	distance(t_vec2 point1, t_vec2 point2)
+ */
 #include <math.h>
+/*
+ *	double	tan(double)
+ *	double	cos(double)
+ *	#define M_PI 3.14159265358979323846264338327950288
+ *	#define __FLT_MAX__ 3.40282347e+38F
+ */
 
 static t_vec2	get_vertical_hit(t_cub3d *game, double rad,
 					char *hit, double tan_a)

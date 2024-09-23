@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   paint_floor_ceiling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 17:49:08 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/17 17:58:44 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:44:38 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-#include <math.h>
-// double cos(double)
+/*
+ *	typedef struct s_cub3d t_cub3d
+ *	typedef struct s_image t_image
+ *	typedef struct s_color t_color
+ *	#define WINDOWS_WIDTH 1920
+ *	#define WINDOWS_WIDTH 1920
+ *	t_color	blackout(t_color color, double ratio)
+ *	void	put_pixel_to_image(t_image img, int x, int y, unsigned int color)
+ */
 
 static void	print_gradian_vertical(t_cub3d *game, t_image img,
 				int y, t_color color)

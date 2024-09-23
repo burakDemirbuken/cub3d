@@ -6,7 +6,7 @@
 /*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/21 17:26:36 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:21:49 by bdemirbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@
 #  define KEY_ESC	53
 #  define KEY_LEFT	123
 #  define KEY_RIGHT	124
-#  define KEY_C		8
 #  define KEY_G		5
 #  define KEY_H		4
-#  define KEY_M		46
-#  define KEY_N		45
-#  define KEY_Q		12
 
 /* ----------------------------- MATH DEFINES ------------------------------  */
 
@@ -72,10 +68,6 @@
 # define REC_WIDTH	100
 
 # define MOVE_SPEED	6
-
-// haritanın uzunluğu ve genişliği
-# define MAP_HEIGHT	20
-# define MAP_WIDTH	20
 
 # define WALL_SIZE	150
 

@@ -1,17 +1,10 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -O3 -I includes/
-# 03 flag
-UNAME_S = $(shell uname -s)
+CFLAGS = -Wall -Wextra -Werror -O3 -I includes/
 
-ifeq ($(UNAME_S), Linux)
-	MLX_PATH = ./includes/minilibx_linux/
-	MLX = -L$(MLX_PATH) -lmlx -lX11 -lXext -lm -lz
-else ifeq ($(UNAME_S), Darwin)
-	MLX_PATH = ./includes/minilibx/
-	MLX = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
-endif
+MLX_PATH = ./includes/minilibx/
+MLX = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
 
 LIBFT = includes/libft/libft.a
 
