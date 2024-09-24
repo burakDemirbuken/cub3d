@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:17:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:43 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:15:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static bool	flood_fill(char **map, int y, int x)
 		return (false);
 	else if (map[y][x] == ' ')
 		map[y][x] = 'M';
-	else if (map[y][x] == '0' || map[y][x] == DOOR)
+	else if (map[y][x] == '0')
 		return (ft_putstr_fd(ERR_NOWALL, STDERR_FILENO), true);
 	else
 		return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), true);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_content.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:08:21 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:43 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:18:51 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 // SOUTH	'S'
 // WEST		'W'
 // EAST		'E'
-// DOOR		'2'
 // WALL		'1'
 // EMPTY	'0'
 #include "libft/libft.h"
@@ -91,8 +90,7 @@ static int	inspect_map(t_file *file, char **content)
 				|| content[i][j] == WEST || content[i][j] == EAST)
 				count++;
 			else if (!(content[i][j] == EMPTY || content[i][j] == WALL
-				|| content[i][j] == DOOR || content[i][j] == ' '
-				|| content[i][j] == '\0'))
+				|| content[i][j] == ' ' || content[i][j] == '\0'))
 				return (ft_putstr_fd(ERR_MUNDEF, STDERR_FILENO), -1);
 		}
 		if (file->map_width < j)

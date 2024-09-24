@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:47:34 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:43 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:18:58 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
  *	# define SOUTH	'S'
  *	# define WEST	'W'
  *	# define EAST	'E'
- *	# define DOOR	'2'
  */
 #include "libft/libft.h"
 /*
@@ -109,9 +108,7 @@ char	hits_wall(t_cub3d *game, t_vec2 point, double rad, char v_h)
 		x -= 1;
 	else if (v_h == 'h' && !(0 < rad && rad <= M_PI))
 		y -= 1;
-	if (game->map.map[y][x] == DOOR)
-		return (DOOR);
-	else if (ft_strchr("1M", game->map.map[y][x]) != 0)
+	if (ft_strchr("1M", game->map.map[y][x]) != 0)
 	{
 		if (v_h == 'v' && M_PI_2 < rad && rad <= MATH_3PI_2)
 			return (WEST);

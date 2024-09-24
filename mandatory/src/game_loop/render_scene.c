@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/24 09:08:02 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/24 15:15:23 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ static t_image	which_image(t_cub3d *game, double *pix_x, t_ray ray)
 {
 	t_image	image;
 
-	if (ray.hit == DOOR)
-		image = game->images.door;
-	else if (ray.hit == NORTH)
+	if (ray.hit == NORTH)
 		image = game->images.n;
 	else if (ray.hit == SOUTH)
 		image = game->images.s;

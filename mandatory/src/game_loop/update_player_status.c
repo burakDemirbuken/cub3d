@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/24 10:29:11 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/24 15:19:49 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,23 @@
 
 static t_vec2	collision(t_cub3d *game, t_vec2 pos)
 {
-	// collison bozuk
 	int		x;
 	int		y;
 
 	x = (int)(pos.x / REC_WIDTH);
 	y = (int)(pos.y / REC_HEIGHT);
 	if (game->player.pos.x < pos.x && get_offset(pos, 0.0, 'v') < 20
-		&& ft_strchr("0", game->map.map[y][x + 1]) == 0)
+		&& game->map.map[y][x + 1] == 'M')
 		pos.x -= 20 - get_offset(pos, 0.0, 'v');
 	else if (game->player.pos.x >= pos.x && get_offset(pos, M_PI, 'v') < 20
-		&& ft_strchr("0", game->map.map[y][x - 1]) == 0)
+		&& game->map.map[y][x - 1] == 'M')
 		pos.x += 20 - get_offset(pos, M_PI, 'v');
 	if (game->player.pos.y < pos.y && get_offset(pos, M_PI_2, 'h') < 20
-		&& ft_strchr("0", game->map.map[y + 1][x]) == 0)
+		&& game->map.map[y + 1][x] == 'M')
 		pos.y -= 20 - get_offset(pos, M_PI_2, 'h');
 	else if (game->player.pos.y >= pos.y
 		&& get_offset(pos, MATH_3PI_2, 'h') < 20
-		&& ft_strchr("0", game->map.map[y - 1][x]) == 0)
+		&& game->map.map[y - 1][x] == 'M')
 		pos.y += 20 - get_offset(pos, MATH_3PI_2, 'h');
 	return (pos);
 }
@@ -75,7 +74,9 @@ static void	player_move(t_cub3d *game, bool key, double rad)
 	new_pos.x += cos(rad) * MOVE_SPEED;
 	new_pos.y += sin(rad) * MOVE_SPEED;
 	new_pos = collision(game, new_pos);
-	game->player.pos = new_pos;
+	if (game->map.map[(int)(new_pos.y / REC_HEIGHT)]
+		[(int)(new_pos.x / REC_WIDTH)] != 'M')
+		game->player.pos = new_pos;
 }
 
 void	limit_player_in2map(t_cub3d *game)

@@ -6,7 +6,7 @@
 /*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/24 09:27:49 by bkorkut          ###   ########.fr       */
+/*   Updated: 2024/09/24 15:10:14 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 # define SOUTH		'S'
 # define WEST		'W'
 # define EAST		'E'
-# define DOOR		'2'
 # define WALL		'1'
 # define EMPTY		'0'
 
