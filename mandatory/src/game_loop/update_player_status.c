@@ -3,18 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_status.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 11:07:26 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/23 18:26:22 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:29:11 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx/mlx.h"
-/*
- *	int mlx_mouse_get_pos(void *win_ptr, int *x, int *y)
- *	int mlx_mouse_move(void *win_ptr, int x, int y)
- */
 #include "libft/libft.h"
 /*
  *	char *ft_strchr(const char *s, int c)
@@ -44,6 +39,7 @@
 
 static t_vec2	collision(t_cub3d *game, t_vec2 pos)
 {
+	// collison bozuk
 	int		x;
 	int		y;
 

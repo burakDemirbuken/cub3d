@@ -1,12 +1,12 @@
-NO ./textures/AnyConv.com__1.xpm ./textures/AnyConv.com__2.xpm ./textures/AnyConv.com__3.xpm ./textures/AnyConv.com__4.xpm ./textures/AnyConv.com__5.xpm ./textures/AnyConv.com__6.xpm ./textures/AnyConv.com__7.xpm ./textures/AnyConv.com__8.xpm ./textures/AnyConv.com__9.xpm ./textures/AnyConv.com__10.xpm ./textures/AnyConv.com__11.xpm ./textures/AnyConv.com__12.xpm ./textures/AnyConv.com__13.xpm ./textures/AnyConv.com__14.xpm ./textures/AnyConv.com__15.xpm ./textures/AnyConv.com__16.xpm ./textures/AnyConv.com__17.xpm ./textures/AnyConv.com__18.xpm ./textures/AnyConv.com__19.xpm ./textures/AnyConv.com__20.xpm
+NO     ./textures/AnyConv.com__1.xpm
 
 
 
 
-SO ./textures/AnyConv.com__1.xpm ./textures/AnyConv.com__2.xpm ./textures/AnyConv.com__3.xpm ./textures/AnyConv.com__4.xpm ./textures/AnyConv.com__5.xpm ./textures/AnyConv.com__6.xpm ./textures/AnyConv.com__7.xpm ./textures/AnyConv.com__8.xpm ./textures/AnyConv.com__9.xpm ./textures/AnyConv.com__10.xpm ./textures/AnyConv.com__11.xpm ./textures/AnyConv.com__12.xpm ./textures/AnyConv.com__13.xpm ./textures/AnyConv.com__14.xpm ./textures/AnyConv.com__15.xpm ./textures/AnyConv.com__16.xpm ./textures/AnyConv.com__17.xpm ./textures/AnyConv.com__18.xpm ./textures/AnyConv.com__19.xpm ./textures/AnyConv.com__20.xpm
+SO ./textures/AnyConv.com__7.xpm
 
-WE ./textures/AnyConv.com__1.xpm ./textures/AnyConv.com__2.xpm ./textures/AnyConv.com__3.xpm ./textures/AnyConv.com__4.xpm ./textures/AnyConv.com__5.xpm ./textures/AnyConv.com__6.xpm ./textures/AnyConv.com__7.xpm ./textures/AnyConv.com__8.xpm ./textures/AnyConv.com__9.xpm ./textures/AnyConv.com__10.xpm ./textures/AnyConv.com__11.xpm ./textures/AnyConv.com__12.xpm ./textures/AnyConv.com__13.xpm ./textures/AnyConv.com__14.xpm ./textures/AnyConv.com__15.xpm ./textures/AnyConv.com__16.xpm ./textures/AnyConv.com__17.xpm ./textures/AnyConv.com__18.xpm ./textures/AnyConv.com__19.xpm ./textures/AnyConv.com__20.xpm
-EA ./textures/AnyConv.com__1.xpm ./textures/AnyConv.com__2.xpm ./textures/AnyConv.com__3.xpm ./textures/AnyConv.com__4.xpm ./textures/AnyConv.com__5.xpm ./textures/AnyConv.com__6.xpm ./textures/AnyConv.com__7.xpm ./textures/AnyConv.com__8.xpm ./textures/AnyConv.com__9.xpm ./textures/AnyConv.com__10.xpm ./textures/AnyConv.com__11.xpm ./textures/AnyConv.com__12.xpm ./textures/AnyConv.com__13.xpm ./textures/AnyConv.com__14.xpm ./textures/AnyConv.com__15.xpm ./textures/AnyConv.com__16.xpm ./textures/AnyConv.com__17.xpm ./textures/AnyConv.com__18.xpm ./textures/AnyConv.com__19.xpm ./textures/AnyConv.com__20.xpm
+WE ./textures/AnyConv.com__13.xpm
+EA ./textures/AnyConv.com__16.xpm
 
 F 255,0,0
 

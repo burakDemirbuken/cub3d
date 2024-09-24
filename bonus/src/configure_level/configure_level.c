@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   configure_level.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:03:23 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:18:33 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 // ERR_CUB3D "cub3D"
 // extension_is_cub(char *file_name);
 // read_file(char *file_name);
+// seperate_content(char *content);
 // set_game_map(t_cub3d *game, t_file *file)
 // set_game_player(t_cub3d *game)
-// seperate_content(char *content);
+// initialize_mlx(t_cub3d *game)
 // my_system_time(void)
 // set_game_sprites(t_cub3d *game, t_file *file)
+// free_file(t_file *file)
 #include "libft/libft.h"
 // ft_strfree(char *str);
 #include <fcntl.h>
@@ -92,5 +94,4 @@ void	configure_level(t_cub3d *game, char *file_name)
 	file = parse_file(file_name);
 	process_data(game, &file);
 	free_file(&file);
-	printf("r:%db:%d g:%d\n", game->ceiling.r, game->ceiling.b, game->ceiling.g);
 }

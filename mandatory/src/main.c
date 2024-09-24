@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:48 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/23 18:13:09 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:30:43 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 /*
  *	void	ft_strfree(char **a)
  *	void	ft_putstr_fd(char *s, int fd)
+ *	#include <stdlib.h>
+ *	-	void	exit(int)
  */
 #include "minilibx/mlx.h"
 /*
@@ -34,10 +36,6 @@
  							int (*funct)(), void *param)
  *	int		mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param)
  *	int		mlx_loop(void *mlx_ptr)
- */
-#include <stdlib.h>
-/*
- *	void	exit(int)
  */
 #include <unistd.h>
 /*
@@ -52,14 +50,14 @@ void	end_program(t_cub3d *game, int e)
 		mlx_destroy_image(game->mlx, game->images.background.image);
 	if (game->images.door.image)
 		mlx_destroy_image(game->mlx, game->images.door.image);
-	if (game->images.n)
-		destroy_anim(game->mlx, game->images.n);
-	if (game->images.e)
-		destroy_anim(game->mlx, game->images.e);
-	if (game->images.s)
-		destroy_anim(game->mlx, game->images.s);
-	if (game->images.w)
-		destroy_anim(game->mlx, game->images.w);
+	if (game->images.n.image)
+		mlx_destroy_image(game->mlx, game->images.n.image);
+	if (game->images.e.image)
+		mlx_destroy_image(game->mlx, game->images.e.image);
+	if (game->images.s.image)
+		mlx_destroy_image(game->mlx, game->images.s.image);
+	if (game->images.w.image)
+		mlx_destroy_image(game->mlx, game->images.w.image);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	exit(e);

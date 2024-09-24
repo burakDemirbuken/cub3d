@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_sprites.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:38:57 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:03:23 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:24:18 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@
  	-	#define bool _Bool
  	-	#define true 1
  	-	#define false 0
-
  */
 #include "libft/libft.h"
 /*
  *	#include <stdlib.h>
 	-	void	free(void *)
 	-	void	*malloc(size_t __size)
-
  */
 #include <stdlib.h>
 /*
@@ -44,6 +42,13 @@
  *	int mlx_destroy_image(void *mlx_ptr, void *img_ptr)
  */
 #include <stdio.h>
+/*
+ *	void perror(const char *)
+ */
+#include <unistd.h>
+/*
+ *	STDERR_FILENO 2
+ */
 
 static t_image	import_image(void *mlx, char *path)
 {
@@ -113,16 +118,20 @@ static bool	set_anim(t_frame **anim, void *mlx, char **paths)
 
 void	set_game_sprites(t_cub3d *game, t_file *file)
 {
-	// Needs check for error messages
 	if (!set_anim(&game->images.n, game->mlx, file->no))
-		return (free_file(file), end_program(game, 1));
+		return (ft_putstr_fd(ERR_CRIMG, STDERR_FILENO),
+			free_file(file), end_program(game, 1));
 	else if (!set_anim(&game->images.s, game->mlx, file->so))
-		return (free_file(file), end_program(game, 1));
+		return (ft_putstr_fd(ERR_CRIMG, STDERR_FILENO),
+			free_file(file), end_program(game, 1));
 	else if (!set_anim(&game->images.w, game->mlx, file->we))
-		return (free_file(file), end_program(game, 1));
+		return (ft_putstr_fd(ERR_CRIMG, STDERR_FILENO),
+			free_file(file), end_program(game, 1));
 	else if (!set_anim(&game->images.e, game->mlx, file->ea))
-		return (free_file(file), end_program(game, 1));
+		return (ft_putstr_fd(ERR_CRIMG, STDERR_FILENO),
+			free_file(file), end_program(game, 1));
 	game->images.door = import_image(game->mlx, "./textures/door.xpm");
 	if (!game->images.door.image)
-		return (free_file(file), end_program(game, 1));
+		return (ft_putstr_fd(ERR_CRIMG, STDERR_FILENO),
+			free_file(file), end_program(game, 1));
 }

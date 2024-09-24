@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   configure_level.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:01:44 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:13:53 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:19:26 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	free_file(t_file *file)
 	if (file->map)
 		ft_strfree(file->map);
 	if (file->no)
-		ft_strfree(file->no);
+		free(file->no);
 	if (file->so)
-		ft_strfree(file->so);
+		free(file->so);
 	if (file->we)
-		ft_strfree(file->we);
+		free(file->we);
 	if (file->ea)
-		ft_strfree(file->ea);
+		free(file->ea);
 }
 
 static t_file	parse_file(char *file_name)
@@ -91,5 +91,4 @@ void	configure_level(t_cub3d *game, char *file_name)
 	file = parse_file(file_name);
 	process_data(game, &file);
 	free_file(&file);
-	printf("r:%db:%d g:%d\n", game->ceiling.r, game->ceiling.b, game->ceiling.g);
 }

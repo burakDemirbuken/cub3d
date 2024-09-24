@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 14:29:49 by bdemirbu          #+#    #+#             */
-/*   Updated: 2024/09/23 17:53:50 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:08:02 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ static t_image	which_image(t_cub3d *game, double *pix_x, t_ray ray)
 	if (ray.hit == DOOR)
 		image = game->images.door;
 	else if (ray.hit == NORTH)
-		image = game->images.n->texture;
+		image = game->images.n;
 	else if (ray.hit == SOUTH)
-		image = game->images.s->texture;
+		image = game->images.s;
 	else if (ray.hit == EAST)
-		image = game->images.e->texture;
+		image = game->images.e;
 	else if (ray.hit == WEST)
-		image = game->images.w->texture;
+		image = game->images.w;
 	if (ray.v_h == 'v'
 		&& M_PI_2 < ray.relat_angle && ray.relat_angle <= MATH_3PI_2)
 		*pix_x = (REC_WIDTH - fmod(ray.pos.y, REC_HEIGHT))

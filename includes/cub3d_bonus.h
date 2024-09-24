@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 17:21:49 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:24:54 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= HEADERS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 // ☃
 
 /* ------------------------------ KEYCODES ---------------------------------- */
 
-#  define KEY_W		13
-#  define KEY_A		0
-#  define KEY_S		1
-#  define KEY_D		2
-#  define KEY_ESC	53
-#  define KEY_LEFT	123
-#  define KEY_RIGHT	124
-#  define KEY_G		5
-#  define KEY_H		4
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_ESC	53
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+# define KEY_G		5
+# define KEY_H		4
 
 /* ----------------------------- MATH DEFINES ------------------------------  */
 
@@ -48,6 +48,7 @@
 # define ERR_PUNDEF	"cub3D: Player starting position is undefined\n"
 # define ERR_FEXT	"cub3D: File extension must be .cub\n"
 # define ERR_FEMT	"cub3D: File is empty\n"
+# define ERR_CRIMG "cub3D: Failed to create image\n"
 
 /* ------------------------------ WALL HITS --------------------------------- */
 
@@ -210,7 +211,6 @@ void			free_file(t_file *file);
 bool			extension_is_cub(char *file_name);
 char			*read_file(int fd);
 bool			the_path_is_valid(char *path);
-
 
 // initialize_mlx.c
 bool			initialize_mlx(t_cub3d *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:54:59 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:01:43 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:02:51 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 // typedef t_file
 // typedef t_color
 #include "libft/libft.h"
-// ft_strarrlen(char **arr);
-// ft_strfree(char **str);
-// ft_putstr_fd(const char *s, int fd);
-// ft_atoi(const char *str);
-// ft_strtrim(char *s, char *set);
-// ft_split(const char *s, char c)
+// ft_strarrlen(char **arr)
+// ft_strfree(char **str)
+// ft_putstr_fd(const char *s, int fd)
+// ft_atoi(const char *str)
+// ft_strtrim(char *s, char *set)
+// ft_strtrim(const char *s1, const char *set)
 // ft_strncmp(const char *s1, const char *s2, size_t n)
 #include <unistd.h>
 // STDERR_FILENO
@@ -72,9 +72,9 @@ static bool	set_color(char *content, t_color *color)
 
 // Seperates the texture paths via ft_split.
 // Returns 1 if there is an error.
-static bool	set_texture_paths(char *content, char ***texture)
+static bool	set_texture_paths(char *content, char **texture)
 {
-	(*texture) = ft_split(content, ' ');
+	(*texture) = ft_strtrim(content, " ");
 	if (!(*texture))
 		return (perror(ERR_CUB3D), true);
 	return (false);

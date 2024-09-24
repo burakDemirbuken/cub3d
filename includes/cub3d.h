@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:45:26 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:14:06 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:27:49 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 
 /* ------------------------------ KEYCODES ---------------------------------- */
 
-#  define KEY_W		13
-#  define KEY_A		0
-#  define KEY_S		1
-#  define KEY_D		2
-#  define KEY_ESC	53
-#  define KEY_LEFT	123
-#  define KEY_RIGHT	124
-#  define KEY_G		5
-#  define KEY_H		4
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_ESC	53
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
+# define KEY_G		5
+# define KEY_H		4
 
 /* ----------------------------- MATH DEFINES ------------------------------  */
 
@@ -48,6 +48,7 @@
 # define ERR_PUNDEF	"cub3D: Player starting position is undefined\n"
 # define ERR_FEXT	"cub3D: File extension must be .cub\n"
 # define ERR_FEMT	"cub3D: File is empty\n"
+# define ERR_CRIMG	"cub3D: Failed to create image\n"
 
 /* ------------------------------ WALL HITS --------------------------------- */
 
@@ -112,10 +113,10 @@ typedef struct s_color
 
 typedef struct s_file
 {
-	char	**no;
-	char	**so;
-	char	**we;
-	char	**ea;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
 	char	**map;
 	t_color	f;
 	t_color	c;
@@ -151,10 +152,10 @@ typedef struct s_frame
 
 typedef struct s_images
 {
-	t_frame	*n;
-	t_frame	*e;
-	t_frame	*s;
-	t_frame	*w;
+	t_image	n;
+	t_image	e;
+	t_image	s;
+	t_image	w;
 	t_image	door;
 	t_image	background;
 }	t_images;
@@ -204,7 +205,6 @@ void			free_file(t_file *file);
 bool			extension_is_cub(char *file_name);
 char			*read_file(int fd);
 bool			the_path_is_valid(char *path);
-
 
 // initialize_mlx.c
 bool			initialize_mlx(t_cub3d *game);

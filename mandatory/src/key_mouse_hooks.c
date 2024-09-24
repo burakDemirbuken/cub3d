@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_mouse_hooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bdemirbu <bdemirbu@student.42kocaeli.com>  +#+  +:+       +#+        */
+/*   By: bkorkut <bkorkut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:01:40 by bkorkut           #+#    #+#             */
-/*   Updated: 2024/09/23 18:12:24 by bdemirbu         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:20:16 by bkorkut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ int	key_up(int keycode, t_cub3d *game)
 		game->player.is_press_d = 0;
 	return (0);
 }
-
